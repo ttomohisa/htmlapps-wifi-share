@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.1.0] - 2026-09-10
+
+### Added
+- Added an A4 print layout for Wi-Fi signs, centered on the QR code and SSID with optional password printing disabled by default.
+- Added Experimental Web NFC tag writing using an Android-compatible `application/vnd.wfa.wsc` NDEF record on supported secure-context browsers.
+- Added NFC compatibility guidance and explicit tag-overwrite / credential-exposure warnings.
+
+### Changed
+- Changed the header copy from “Four ways to share Wi-Fi” to “Share Wi-Fi by QR code and more” / `Wi-Fi情報をQRコード等で共有`.
+- Expanded the sharing guide to include print and NFC without changing QR as the primary action.
+
 ## [1.0.0] - 2026-09-09
 
 ### Release

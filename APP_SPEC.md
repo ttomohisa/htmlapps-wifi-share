@@ -18,7 +18,7 @@ The app is intentionally Wi-Fi-specific. It is not a general-purpose QR generato
 1. Enter the network name (SSID).
 2. Enter the password and choose WPA/WPA2/WPA3, WEP, or no password.
 3. Optionally mark the SSID as hidden.
-4. Use one of four methods: QR code, system share, copy, or large display.
+4. Share primarily by QR code, with system share, copy, large display, print layout, and supported NFC tags as alternatives.
 5. Close the page when finished. Wi-Fi credentials are not persisted automatically.
 
 ## 4. Functional requirements
@@ -34,6 +34,9 @@ The app is intentionally Wi-Fi-specific. It is not a general-purpose QR generato
 - Use Web Share API when available. Share text, and include a generated PNG QR file when the browser supports file sharing.
 - Provide a large-display mode showing SSID and password for manual entry on another device.
 - Save the QR as PNG on explicit user action.
+- Provide an A4 print layout containing the SSID and QR code, with password printing opt-in and off by default.
+- On supported Web NFC environments, write an Android-compatible Wi-Fi WSC NDEF MIME record (`application/vnd.wfa.wsc`) to an NFC tag after explicit confirmation.
+- Treat NFC tag writing as Experimental, require HTTPS/Web NFC support, and reject WEP or hidden SSID configurations that are not safely representable in the implemented WSC path.
 - Switch Japanese and English without reload.
 - Persist language preference automatically. Persist Wi-Fi profiles only after explicit user action.
 
@@ -49,7 +52,8 @@ The app is intentionally Wi-Fi-specific. It is not a general-purpose QR generato
 
 - Reading the currently connected SSID or Wi-Fi password from the OS.
 - Directly changing Wi-Fi settings from the web page.
-- Bluetooth or NFC peer-to-peer credential transfer.
+- Bluetooth or NFC peer-to-peer phone-to-phone credential transfer.
+- NFC tag writing on unsupported browsers, WEP, hidden SSIDs, Enterprise/EAP, or guaranteed WPA3-only connectivity.
 - Enterprise/EAP Wi-Fi provisioning.
 - Generic URL, contact, payment, or arbitrary QR generation.
 - Cloud sync or account management.
@@ -94,3 +98,4 @@ Current stable Chrome/Edge desktop and Android, Safari on iPhone/macOS, and Fire
 - v0.8.0: UI / UX polish, stale-QR prevention, compact mobile guidance, unsupported-share fallback
 - v0.9.0: release-candidate regression, compatibility review, and documentation alignment
 - v1.0.0: final release regression and release metadata
+- v1.1.0: QR-focused copy refresh, A4 print layout, and Experimental Web NFC tag writing
