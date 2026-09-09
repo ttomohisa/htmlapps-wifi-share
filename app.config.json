@@ -1,0 +1,26 @@
+{
+  "$schema": "./schemas/app-config.schema.json",
+  "name": "Wi-Fi Share",
+  "nameJa": "Wi-Fi共有",
+  "slug": "wifi-share",
+  "version": "1.0.0",
+  "description": "Share Wi-Fi credentials by QR code, system share, copy, or large display without sending them to a server.",
+  "descriptionJa": "Wi-Fi情報をサーバーへ送信せず、QRコード・共有・コピー・大きく表示の4方式で共有します。",
+  "defaultLanguage": "auto",
+  "repository": {
+    "owner": "ttomohisa",
+    "name": "htmlapps-wifi-share"
+  },
+  "build": {
+    "output": "dist/index.html",
+    "blockRuntimeNetwork": true,
+    "selfExtract": {
+      "enabled": true,
+      "output": "dist/index.self-extract.html"
+    },
+    "sizeBudget": {
+      "readableWarningMb": 25,
+      "selfExtractWarningMb": 12
+    }
+  }
+}

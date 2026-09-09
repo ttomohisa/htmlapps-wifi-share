@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Wi-Fi Share">
+  <rect width="128" height="128" rx="28" fill="#16624F"/>
+  <path d="M27 52c21-19 53-19 74 0" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
+  <path d="M40 68c14-12 34-12 48 0" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
+  <path d="M54 84c6-5 14-5 20 0" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="64" cy="99" r="6" fill="#fff"/>
+</svg>
