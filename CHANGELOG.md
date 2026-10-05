@@ -3,10 +3,13 @@
 ## [Unreleased]
 
 ### Added
+- Added localized Clear current Wi-Fi to reset current inputs and generated views without changing saved profiles, language, or edited PNG filenames.
 - Added an editable Japanese/English PNG filename next to QR export actions, with a shared safe-name resolver for downloads and image sharing.
 - Added executable export, validation, and release-parity regressions to repository/CI checks.
 
 ### Fixed
+- Credential edits and profile loads now clear stale printable SSID, password, and QR data and reset password-print consent. Native printing requires a current prepared layout.
+- Regression checks now execute current-state behavior across source, readable, decoded self-extract, and root-download artifacts using the bundled QR encoder.
 - Active SSID/password validation now follows language changes without resetting input or focus.
 - Default builds now refresh the root offline download from the readable release.
 

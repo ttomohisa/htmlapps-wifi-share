@@ -23,7 +23,8 @@ GitHub Pages delivers the initial HTML. After it loads, Wi-Fi QR generation, PNG
 - **Use the phone's share sheet when available** — Send the Wi-Fi details or a generated QR PNG through the browser's Web Share API.
 - **Copy only what you need** — Copy the SSID and password separately for manual setup.
 - **Show details at a distance** — Display the SSID and password in a large, phone-friendly view when QR scanning is not practical.
-- **Print layout** — Create an A4 Wi-Fi sign centered on the QR code and SSID, with password printing off by default.
+- **Print layout** — Create an A4 Wi-Fi sign centered on the QR code and SSID, with password printing off by default. Prepare it again after changing or clearing network details.
+- **Clear current Wi-Fi** — Reset the current form and generated views while keeping saved networks, language, and edited PNG filenames.
 - **NFC tag writing (Experimental)** — On supported Android Web NFC browsers, write Wi-Fi connection details to an NDEF-compatible NFC tag.
 - **Keep frequently used networks on this device** — Save a Wi-Fi profile only when you explicitly choose to; saved passwords are not shown in the profile list.
 - **Designed for phone-to-phone use** — Full-screen QR display, responsive layouts from narrow phones upward, and Screen Wake Lock when the browser supports it.
@@ -56,6 +57,10 @@ The generated app does not need a local web server for the core QR, copy fallbac
 8. For a network you use repeatedly, choose **Save this Wi-Fi** and optionally give it a display name.
 
 Before saving or sharing a QR image, edit **PNG filename** in the QR view. The default follows the SSID until you edit it. Your edited name stays for this page session, including after reopening the QR view or changing the SSID. Leave it blank to use the current SSID. Unsafe filename characters are replaced and duplicate `.png` endings are removed.
+
+Use **Clear current Wi-Fi** when switching networks or finishing a session. It clears the current inputs and QR, large-display, and print output, restores WPA with hidden SSID off, and masks the password. Saved Wi-Fi, language, and manually edited PNG filenames are kept. It does not securely erase browser memory or recall content already copied, shared, saved, or printed.
+
+Open **Print layout** before printing. After any network edit, profile load, or reset, native browser printing shows an instruction until you prepare the layout again. Closing an unchanged prepared layout keeps that card printable.
 
 ### Saved Wi-Fi profiles
 

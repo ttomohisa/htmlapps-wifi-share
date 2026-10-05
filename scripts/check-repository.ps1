@@ -233,14 +233,14 @@ $buildArguments = @{}
 if ($ForceDownload) { $buildArguments.ForceDownload = $true }
 & (Join-Path $Root "build-standalone.ps1") @buildArguments
 
-# Execute the actual filename and validation behavior, not a comment marker.
+# Execute the application behavior, including the decoded self-extract artifact.
 if (-not (Get-Command node -ErrorAction SilentlyContinue)) { throw "Node.js 22 or later is required for application regression checks." }
 $previousAppHtml = $env:APP_HTML
 try {
-  foreach ($artifact in @("src/index.template.html", "dist/index.html", "wifi-share.html")) {
+  foreach ($artifact in @("src/index.template.html", "dist/index.html", "dist/index.self-extract.html", "wifi-share.html")) {
     $env:APP_HTML = Join-Path $Root $artifact
-    & node --test (Join-Path $Root "tests/qr-export.test.mjs")
-    if ($LASTEXITCODE -ne 0) { throw "Wi-Fi export regression failed for $artifact." }
+    & node --test (Join-Path $Root "tests/qr-export.test.mjs") (Join-Path $Root "tests/current-state.test.mjs")
+    if ($LASTEXITCODE -ne 0) { throw "Wi-Fi application regression failed for $artifact." }
   }
   & node --test (Join-Path $Root "tests/release-contract.test.mjs")
   if ($LASTEXITCODE -ne 0) { throw "Wi-Fi release contract regression failed." }

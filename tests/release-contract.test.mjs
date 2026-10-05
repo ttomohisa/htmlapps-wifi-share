@@ -20,3 +20,9 @@ test('aggregate checks execute behavior tests on source, readable, and root down
 test('root download is byte-identical to the fresh readable build', () => {
   assert.deepEqual(fs.readFileSync(new URL('wifi-share.html',root)),fs.readFileSync(new URL('dist/index.html',root)));
 });
+
+test('aggregate checks cover current-state behavior and the decoded self-extract artifact', () => {
+  const check=read('scripts/check-repository.ps1');
+  assert.ok(check.includes('"dist/index.self-extract.html"'));
+  assert.ok(check.includes('"tests/current-state.test.mjs"'));
+});
