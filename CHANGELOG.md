@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+- Added an editable Japanese/English PNG filename next to QR export actions, with a shared safe-name resolver for downloads and image sharing.
+- Added executable export, validation, and release-parity regressions to repository/CI checks.
+
+### Fixed
+- Active SSID/password validation now follows language changes without resetting input or focus.
+- Default builds now refresh the root offline download from the readable release.
+
 ## [1.1.0] - 2026-09-10
 
 ### Added

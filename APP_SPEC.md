@@ -33,7 +33,10 @@ The app is intentionally Wi-Fi-specific. It is not a general-purpose QR generato
 - Copy SSID or password individually with Clipboard API plus a compatibility fallback.
 - Use Web Share API when available. Share text, and include a generated PNG QR file when the browser supports file sharing.
 - Provide a large-display mode showing SSID and password for manual entry on another device.
-- Save the QR as PNG on explicit user action.
+- Save the QR as PNG on explicit user action. The QR dialog provides a labeled Japanese/English PNG filename field shared by Save and QR image Share.
+- Default to `wifi-<sanitized SSID>.png`; follow SSID changes until the user edits the name. Preserve deliberate edits across QR regeneration, dialog reopen, and SSID changes for the current page session only.
+- Normalize exported filenames to one `.png` extension, replace invalid filename/control characters, handle reserved device names, limit the stem length, and fall back to the current SSID-derived name for blank/dot-only input. Filename edits do not alter QR data or invalidate the preview.
+- Keep active SSID/password validation in the selected UI language when switching languages, without changing validation rules or moving focus.
 - Provide an A4 print layout containing the SSID and QR code, with password printing opt-in and off by default.
 - On supported Web NFC environments, write an Android-compatible Wi-Fi WSC NDEF MIME record (`application/vnd.wfa.wsc`) to an NFC tag after explicit confirmation.
 - Treat NFC tag writing as Experimental, require HTTPS/Web NFC support, and reject WEP or hidden SSID configurations that are not safely representable in the implemented WSC path.
@@ -76,13 +79,13 @@ Current stable Chrome/Edge desktop and Android, Safari on iPhone/macOS, and Fire
 
 ## 9. Acceptance criteria
 
-- `build-standalone.ps1` produces readable and self-extract variants.
+- `build-standalone.ps1` produces readable and self-extract variants. A default build also refreshes `wifi-share.html` byte-for-byte from the readable variant; custom `-OutputPath` builds leave the root download untouched.
 - No unresolved build placeholder remains.
 - No external script, stylesheet, frame, module import, font, or image URL is required at runtime.
 - Runtime CSP contains `connect-src 'none'`.
 - Wi-Fi credentials never leave the page except through explicit OS share/copy/save actions.
 - WPA, WEP, open, hidden SSID, Japanese text, and reserved-character payload tests pass.
-- QR images decode back to the exact generated `WIFI:` payload.
+- QR images decode back to the exact generated `WIFI:` payload. Edited names, blank fallback, repeated extensions, Japanese/unsafe names, dialog reopen, input invalidation, and validation language switching pass automated regression checks for source and generated downloads.
 - Japanese and English UI fit at 360px without horizontal scroll.
 - `assets/favicon.svg` and the upper-left app icon are the same design.
 

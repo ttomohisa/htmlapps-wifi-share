@@ -119,7 +119,7 @@ if ($sourceText.Contains("__EMBEDDED_ASSET_BUNDLE_BASE64__")) { throw "Legacy do
 $iconPlaceholderCount = ([regex]::Matches($sourceText, [regex]::Escape("__APP_ICON_DATA_URI__"))).Count
 if ($iconPlaceholderCount -ne 2) { throw "src\index.template.html must use __APP_ICON_DATA_URI__ exactly twice: favicon and header icon." }
 if (-not $sourceText.Contains('id="appBrandIcon"')) { throw "src\index.template.html is missing the canonical header brand icon marker." }
-foreach ($token in @("bytesAsync", "blobUrlAsync", "outputFilename", "window.AppToast")) {
+foreach ($token in @("bytesAsync", "blobUrlAsync", "window.AppToast")) {
   if (-not $sourceText.Contains($token)) { throw "src\index.template.html is missing required template behavior marker: $token" }
 }
 
@@ -232,6 +232,21 @@ if ([string]::IsNullOrWhiteSpace([string]$app.version)) { throw "app.config.json
 $buildArguments = @{}
 if ($ForceDownload) { $buildArguments.ForceDownload = $true }
 & (Join-Path $Root "build-standalone.ps1") @buildArguments
+
+# Execute the actual filename and validation behavior, not a comment marker.
+if (-not (Get-Command node -ErrorAction SilentlyContinue)) { throw "Node.js 22 or later is required for application regression checks." }
+$previousAppHtml = $env:APP_HTML
+try {
+  foreach ($artifact in @("src/index.template.html", "dist/index.html", "wifi-share.html")) {
+    $env:APP_HTML = Join-Path $Root $artifact
+    & node --test (Join-Path $Root "tests/qr-export.test.mjs")
+    if ($LASTEXITCODE -ne 0) { throw "Wi-Fi export regression failed for $artifact." }
+  }
+  & node --test (Join-Path $Root "tests/release-contract.test.mjs")
+  if ($LASTEXITCODE -ne 0) { throw "Wi-Fi release contract regression failed." }
+} finally {
+  $env:APP_HTML = $previousAppHtml
+}
 
 Write-Host "[OK] Repository check passed." -ForegroundColor Green
 

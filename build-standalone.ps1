@@ -451,6 +451,11 @@ if ($appConfig.build.PSObject.Properties.Name -contains "sizeBudget" -and $appCo
   }
 }
 
+# Keep the downloadable root HTML in sync only for the normal release build.
+if (-not $OutputPathWasSpecified) {
+  Copy-Item -LiteralPath $OutputPath -Destination (Join-Path $Root "wifi-share.html") -Force
+}
+
 $outputHash = Get-Sha256FileHex $OutputPath
 $outputSizeMb = [Math]::Round($readableBytes / 1MB, 2)
 Write-Host ""

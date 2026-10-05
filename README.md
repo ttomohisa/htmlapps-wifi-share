@@ -18,6 +18,7 @@ GitHub Pages delivers the initial HTML. After it loads, Wi-Fi QR generation, PNG
 
 ## Features
 
+- **Choose the PNG filename** — Edit the name before saving or sharing the QR image; the app supplies an SSID-based default and adds `.png` safely.
 - **Connect by QR code** — Generate Wi-Fi QR codes for WPA/WPA2/WPA3 Personal, WEP, open networks, and hidden SSIDs.
 - **Use the phone's share sheet when available** — Send the Wi-Fi details or a generated QR PNG through the browser's Web Share API.
 - **Copy only what you need** — Copy the SSID and password separately for manual setup.
@@ -54,6 +55,8 @@ The generated app does not need a local web server for the core QR, copy fallbac
 7. On supported Android browsers, use **Write NFC tag** to write the network to an NDEF-compatible tag (Experimental).
 8. For a network you use repeatedly, choose **Save this Wi-Fi** and optionally give it a display name.
 
+Before saving or sharing a QR image, edit **PNG filename** in the QR view. The default follows the SSID until you edit it. Your edited name stays for this page session, including after reopening the QR view or changing the SSID. Leave it blank to use the current SSID. Unsafe filename characters are replaced and duplicate `.png` endings are removed.
+
 ### Saved Wi-Fi profiles
 
 Saved profiles are optional. The app stores them in this browser's local storage only after you explicitly save them. The list shows the display name, SSID, and security type, but does not reveal the stored password. You can load, delete, or clear saved profiles from the same device.
@@ -89,6 +92,8 @@ The workflow validates the repository, builds the readable and self-extracting H
 ```
 
 ### Build
+
+Repository regression checks require Node.js 22 or later. A normal build also refreshes the root `wifi-share.html` download from `dist/index.html`; custom `-OutputPath` builds leave it untouched.
 
 On Windows PowerShell 7:
 
