@@ -47,6 +47,8 @@ The generated app does not need a local web server for the core QR, copy fallbac
 
 ## Usage
 
+Use **EN / JA** in the header to switch languages. Language, Help, and Close tooltips and accessible labels follow the selected language.
+
 1. Enter the network name (SSID).
 2. Enter the password and choose `WPA / WPA2 / WPA3`, `WEP`, or `No password`.
 3. Enable the hidden-network option only when the SSID is hidden.

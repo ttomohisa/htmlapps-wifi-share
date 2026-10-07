@@ -13,6 +13,12 @@
 - Active SSID/password validation now follows language changes without resetting input or focus.
 - Default builds now refresh the root offline download from the readable release.
 
+## [1.1.1] - 2026-10-07
+
+### Fixed
+- Standardized the header language control to EN / JA with a localized target-language label and tooltip.
+- Added repeated language-switch and Help regressions across source, readable, self-extract, and root-download artifacts.
+
 ## [1.1.0] - 2026-09-10
 
 ### Added

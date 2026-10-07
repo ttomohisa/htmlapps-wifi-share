@@ -636,7 +636,7 @@
         </div>
       </div>
       <div class="header-actions">
-        <button class="language-button" id="languageButton" type="button" aria-label="Switch language">EN</button>
+        <button class="language-button" id="languageButton" type="button" aria-label="英語に切り替え" title="英語に切り替え" data-i18n-aria-label="switchLanguage" data-i18n-title="switchLanguage">EN</button>
         <button class="icon-button header-icon-button" id="helpButton" type="button" data-i18n-title="helpTitle" data-i18n-aria-label="helpTitle" title="使い方と注意事項" aria-label="使い方と注意事項">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.8 9a2.35 2.35 0 1 1 3.72 1.9c-.92.67-1.52 1.12-1.52 2.1"/><path d="M12 17h.01"/></svg>
         </button>
@@ -2369,7 +2369,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
 
       const translations = {
         ja: {
-          brandMeta: 'Wi-Fi情報をQRコード等で共有', helpTitle: '使い方と注意事項', close: '閉じる',
+          brandMeta: 'Wi-Fi情報をQRコード等で共有', switchLanguage: '英語に切り替え', helpTitle: '使い方と注意事項', close: '閉じる',
           introTitle: 'Wi-Fiをかんたんに共有', lead: 'ネットワーク名とパスワードを入力して、QRコードを中心に共有・コピー・印刷などへ使えます。', localBadge: '完全ローカル処理',
           workspaceTitle: 'Wi-Fi情報', workspaceBody: '一度入力すれば、SSIDとパスワードをセットで共有できます。保存するかどうかは自分で選べます。',
           ssidLabel: 'ネットワーク名（SSID）', ssidPlaceholder: 'MyHomeWiFi', passwordLabel: 'パスワード', passwordPlaceholder: 'Wi-Fiパスワード',
@@ -2398,7 +2398,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
           savedLoaded: '保存済みWi-Fiを呼び出しました。', savedCreated: 'Wi-Fiをこの端末に保存しました。', savedUpdated: '保存済みWi-Fiを更新しました。', savedDeleted: '保存済みWi-Fiを削除しました。', savedCleared: '保存済みWi-Fiをすべて削除しました。', saveFailed: 'Wi-Fiを保存できませんでした。このブラウザの保存設定を確認してください。', deleteConfirmTitle: '保存済みWi-Fiを削除', deleteConfirmMessage: '「{name}」をこの端末から削除しますか？', clearConfirmTitle: '保存済みWi-Fiをすべて削除', clearConfirmMessage: '保存しているWi-Fi情報をすべてこの端末から削除しますか？', confirmDelete: '削除する', needSsid: 'ネットワーク名（SSID）を入力してください。', needPassword: 'Wi-Fiパスワードを入力してください。', qrFailed: 'QRコードを作成できませんでした。入力内容を確認してください。', copiedSsid: 'SSIDをコピーしました。', copiedPassword: 'パスワードをコピーしました。', copyFailed: 'コピーできませんでした。長押しして選択してください。', shareUnsupported: 'このブラウザでは共有機能を利用できません。', shareAvailable: '端末の共有機能を利用できます。', shareCancelled: '共有をキャンセルしました。', shareFailed: '共有できませんでした。QRコードまたはコピーを利用してください。', savedQr: 'QR画像を保存しました。', openNetwork: 'パスワードなし', wakeUnavailable: '画面を消さない機能はこの環境では利用できません。'
         },
         en: {
-          brandMeta: 'Share Wi-Fi by QR code and more', helpTitle: 'How to use & notes', close: 'Close',
+          brandMeta: 'Share Wi-Fi by QR code and more', switchLanguage: 'Switch to Japanese', helpTitle: 'How to use & notes', close: 'Close',
           introTitle: 'Share Wi-Fi easily', lead: 'Enter a network name and password, then use QR code, share, copy, print, and more.', localBadge: 'Fully local processing',
           workspaceTitle: 'Wi-Fi details', workspaceBody: 'Enter it once and share the SSID and password together. You choose whether to save it on this device.',
           ssidLabel: 'Network name (SSID)', ssidPlaceholder: 'MyHomeWiFi', passwordLabel: 'Password', passwordPlaceholder: 'Wi-Fi password',
@@ -2493,8 +2493,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
         document.querySelectorAll('[data-i18n-title]').forEach(el => { el.title = t(el.dataset.i18nTitle); });
         document.querySelectorAll('[data-i18n-aria-label]').forEach(el => { el.setAttribute('aria-label', t(el.dataset.i18nAriaLabel)); });
         document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); });
-        $('#languageButton').textContent = language === 'ja' ? 'EN' : '日本語';
-        $('#languageButton').setAttribute('aria-label', language === 'ja' ? '英語に切り替え' : 'Switch to Japanese');
+        $('#languageButton').textContent = language === 'ja' ? 'EN' : 'JA';
         document.title = language === 'ja' ? APP_CONFIG.nameJa : APP_CONFIG.name;
         $('#brandName').textContent = language === 'ja' ? APP_CONFIG.nameJa : APP_CONFIG.name;
         $('#footerName').textContent = language === 'ja' ? APP_CONFIG.nameJa : APP_CONFIG.name;

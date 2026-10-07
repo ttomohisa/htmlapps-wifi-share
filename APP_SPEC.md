@@ -43,7 +43,7 @@ The app is intentionally Wi-Fi-specific. It is not a general-purpose QR generato
 - Clearing current Wi-Fi does not provide secure memory erasure or recall content already copied, shared, downloaded, or printed.
 - On supported Web NFC environments, write an Android-compatible Wi-Fi WSC NDEF MIME record (`application/vnd.wfa.wsc`) to an NFC tag after explicit confirmation.
 - Treat NFC tag writing as Experimental, require HTTPS/Web NFC support, and reject WEP or hidden SSID configurations that are not safely representable in the implemented WSC path.
-- Switch Japanese and English without reload.
+- Switch Japanese and English without reload. The header language control displays EN / JA with a localized target-language label and tooltip. Help and its Close control keep localized labels and tooltips.
 - Persist language preference automatically. Persist Wi-Fi profiles only after explicit user action.
 
 ## 5. Data and privacy
