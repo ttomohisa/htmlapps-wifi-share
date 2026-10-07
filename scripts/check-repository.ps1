@@ -239,7 +239,7 @@ $previousAppHtml = $env:APP_HTML
 try {
   foreach ($artifact in @("src/index.template.html", "dist/index.html", "dist/index.self-extract.html", "wifi-share.html")) {
     $env:APP_HTML = Join-Path $Root $artifact
-    & node --test (Join-Path $Root "tests/qr-export.test.mjs") (Join-Path $Root "tests/current-state.test.mjs")
+    & node --test (Join-Path $Root "tests/qr-export.test.mjs") (Join-Path $Root "tests/current-state.test.mjs") (Join-Path $Root "tests/header-language.test.mjs")
     if ($LASTEXITCODE -ne 0) { throw "Wi-Fi application regression failed for $artifact." }
   }
   & node --test (Join-Path $Root "tests/release-contract.test.mjs")

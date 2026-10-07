@@ -13,7 +13,7 @@ assert.ok(start > 0 && end > start, 'Application runtime must exist');
 // Execute the actual application and event handlers. Only browser boundaries are
 // substituted; native dialogs, layout, PNG decoding and downloads get browser QA.
 export function harness(language = 'en', initialProfiles = null) {
-  const nodes = new Map(), downloads = [], shares = [], pendingBlobs = [], storage = new Map();
+  const elements = [], nodes = new Map(), downloads = [], shares = [], pendingBlobs = [], storage = new Map();
   if (initialProfiles) storage.set('wifi-share-profiles-v1', JSON.stringify(initialProfiles));
   const storageWrites = [], windowListeners = {}, printCalls = [];
   let document, deferBlobs = false;
@@ -48,10 +48,11 @@ export function harness(language = 'en', initialProfiles = null) {
   for (const match of source.slice(0, source.indexOf('<script>')).matchAll(/<([\w-]+)\b([^>]*)>/g)) {
     const attrs = {};
     for (const attr of match[2].matchAll(/([\w-]+)(?:="([^"]*)")?/g)) attrs[attr[1]] = attr[2] || '';
-    if (attrs.id) nodes.set('#'+attrs.id, new Element(match[1], attrs));
+    const element = new Element(match[1], attrs); elements.push(element);
+    if (attrs.id) nodes.set('#'+attrs.id, element);
   }
   const node = selector => nodes.get(selector) || null;
-  document = {documentElement:{},activeElement:null,querySelector:node,querySelectorAll:selector=>[...nodes.values()].filter(n=>selector.slice(1,-1) in n.attrs),createElement:tag=>new Element(tag),addEventListener(){}};
+  document = {documentElement:{},activeElement:null,querySelector:node,querySelectorAll:selector=>elements.filter(n=>selector.slice(1,-1) in n.attrs),createElement:tag=>new Element(tag),addEventListener(){}};
   node('#securitySelect').value = 'WPA';
   const context = {document,console,TextEncoder,Blob,File,setTimeout:()=>0,clearTimeout(){},APP_CONFIG:{defaultLanguage:language,version:'test',name:'Wi-Fi Share',nameJa:'Wi-Fi共有'},BUILD_MANIFEST:{},localStorage:{getItem:k=>storage.get(k) ?? null,setItem:(k,v)=>{storageWrites.push([k,v]);storage.set(k,v);}},navigator:{share:async data=>shares.push(data),canShare:()=>true},URL:{createObjectURL:()=> 'blob:test',revokeObjectURL(){}},window:{QRCode:class {addData(){} make(){} getModuleCount(){return 21;} isDark(){return false;}},QRErrorCorrectLevel:{M:0},scrollTo(){},addEventListener:(type,fn)=>(windowListeners[type] ||= []).push(fn),print(){printCalls.push(true);for(const fn of windowListeners.beforeprint || []) fn();}}};
   vm.createContext(context);
