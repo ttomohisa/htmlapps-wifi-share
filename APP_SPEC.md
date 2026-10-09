@@ -1,5 +1,10 @@
 # APP_SPEC.md
 
+## v1.1.2 — Icon normalization
+
+- Canonical background and matching artwork green: `#16624f`; background x/y radii exactly 25% of their respective dimensions.
+- Preserve artwork, padding, app behavior, and synchronized header/favicon/download/loader representations.
+
 ## 1. Product identity
 
 - **Working name:** Wi-Fi Share / Wi-Fi共有
