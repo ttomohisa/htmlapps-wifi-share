@@ -3,7 +3,7 @@
   "name": "Wi-Fi Share",
   "nameJa": "Wi-Fi共有",
   "slug": "wifi-share",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Share Wi-Fi details by QR code, system share, copy, print layout, and experimental NFC tag writing without sending them to a server.",
   "descriptionJa": "Wi-Fi情報をサーバーへ送信せず、QRコード等で共有します。印刷用レイアウトとExperimentalのNFCタグ書き込みにも対応します。",
   "defaultLanguage": "auto",
