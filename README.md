@@ -64,8 +64,6 @@ Use **Clear current Wi-Fi** when switching networks or finishing a session. It c
 
 Open **Print layout** before printing. After any network edit, profile load, or reset, native browser printing shows an instruction until you prepare the layout again. Closing an unchanged prepared layout keeps that card printable.
 
-With a dialog open, the background page stays still. On short screens, scroll the content of Save Wi-Fi, Print layout, or deletion confirmation to reach the final action buttons; Close remains at the top.
-
 ### Saved Wi-Fi profiles
 
 Saved profiles are optional. The app stores them in this browser's local storage only after you explicitly save them. The list shows the display name, SSID, and security type, but does not reveal the stored password. You can load, delete, or clear saved profiles from the same device.

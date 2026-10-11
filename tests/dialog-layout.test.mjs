@@ -145,12 +145,10 @@ for (const language of ['ja','en']) {
       assert.equal(h.storage.get('wifi-share-profiles-v1'), stored); assert.equal(h.storageWrites.length, 0);
     }
   });
-  test(`${language}: localized Help describes bounded dialog scrolling`, () => {
+  test(`${language}: Help omits layout implementation commentary`, () => {
     const h = harness(language);
     const note = h.document.querySelectorAll('[data-i18n]').find(node => node.dataset.i18n === 'helpDialogLayout');
-    assert.ok(note);
-    assert.match(note.textContent, language === 'ja' ? /本文.*スクロール/ : /scroll.*content/i);
-    assert.match(note.textContent, language === 'ja' ? /背景/ : /background/i);
+    assert.equal(note, undefined);
   });
 }
 
