@@ -1016,7 +1016,7 @@
       <p data-i18n="helpPrivacyBody">入力したSSIDとパスワードはブラウザ内だけで処理され、このアプリからサーバーへ送信されません。保存を選んだWi-Fiだけ、この端末のブラウザ内に保存します。</p>
       <h3 data-i18n="helpNotesTitle">注意事項</h3>
       <ul>
-        <li data-i18n="helpDialogLayout">ダイアログを開いている間は背景がスクロールしません。高さが足りないときは、Wi-Fi保存・印刷・削除確認の本文をスクロールして最後の操作ボタンまで進めます。閉じるボタンは上部に残ります。</li>
+
         <li data-i18n="helpNoteConnect">QRコードを読み取った後のWi-Fi接続操作は、相手のOSやカメラアプリの対応状況に依存します。</li>
         <li data-i18n="helpNoteShare">「共有する」はWeb Share API対応ブラウザで利用できます。共有先や表示内容はOSにより異なります。</li>
         <li data-i18n="helpNoteQr">QRコードの中には接続に必要なWi-Fi情報が含まれます。QR画像を渡した相手はその情報を利用できます。</li>
@@ -2301,7 +2301,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
       'use strict';
 
       const APP_CONFIG = {"$schema":"./schemas/app-config.schema.json","name":"Wi-Fi Share","nameJa":"Wi-Fi共有","slug":"wifi-share","version":"1.1.3","description":"Share Wi-Fi details by QR code, system share, copy, print layout, and experimental NFC tag writing without sending them to a server.","descriptionJa":"Wi-Fi情報をサーバーへ送信せず、QRコード等で共有します。印刷用レイアウトとExperimentalのNFCタグ書き込みにも対応します。","defaultLanguage":"auto","repository":{"owner":"ttomohisa","name":"htmlapps-wifi-share"},"build":{"output":"dist/index.html","blockRuntimeNetwork":true,"selfExtract":{"enabled":true,"output":"dist/index.self-extract.html"},"sizeBudget":{"readableWarningMb":25,"selfExtractWarningMb":12}}};
-      const BUILD_MANIFEST = {"schemaVersion":2,"builder":"single-html-app-template/1.3","generatedAtUtc":"2026-10-11T07:42:00.0000000Z","app":{"name":"Wi-Fi Share","slug":"wifi-share","version":"1.1.3"},"dependencies":[]};
+      const BUILD_MANIFEST = {"schemaVersion":2,"builder":"single-html-app-template/1.3","generatedAtUtc":"2026-10-11T22:25:30.8739278Z","app":{"name":"Wi-Fi Share","slug":"wifi-share","version":"1.1.3"},"dependencies":[]};
       // Asset payloads are Base64 exactly once. The JSON bundle itself is embedded directly.
       const assetBundle = {"schemaVersion":2,"dependencies":{}};
       const blobUrls = new Set();
@@ -2427,7 +2427,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
           helpClearCurrent: '「入力中のWi-Fiをクリア」で入力とQR・大きく表示・印刷の内容をリセットできます。保存済みWi-Fi、言語、変更したPNGファイル名は残ります。コピー・共有・保存・印刷済みの内容は取り消せません。',
           helpBasicsTitle: '基本操作', helpStep1: 'ネットワーク名（SSID）とパスワードを入力します。', helpStep2: '通常は「WPA / WPA2 / WPA3」のまま使います。パスワードなしのWi-Fiではセキュリティを切り替えてください。', helpStep3: '「QRコードを表示」を押し、相手のスマホのカメラで読み取ります。共有・コピー・大きく表示・印刷も利用できます。', helpStep4: 'よく使うWi-Fiは「このWi-Fiを保存」を選ぶと、この端末のブラウザ内から呼び出せます。',
           helpPrivacyTitle: 'プライバシー', helpPrivacyBody: '入力したSSIDとパスワードはブラウザ内だけで処理され、このアプリからサーバーへ送信されません。保存を選んだWi-Fiだけ、この端末のブラウザ内に保存します。', helpNotesTitle: '注意事項',
-          helpDialogLayout: 'ダイアログを開いている間は背景がスクロールしません。高さが足りないときは、Wi-Fi保存・印刷・削除確認の本文をスクロールして最後の操作ボタンまで進めます。閉じるボタンは上部に残ります。',
+
           helpNoteConnect: 'QRコードを読み取った後のWi-Fi接続操作は、相手のOSやカメラアプリの対応状況に依存します。', helpNoteShare: '「共有する」はWeb Share API対応ブラウザで利用できます。共有先や表示内容はOSにより異なります。', helpNoteQr: 'QRコードの中には接続に必要なWi-Fi情報が含まれます。QR画像を渡した相手はその情報を利用できます。', helpNoteSaved: '保存済みWi-Fiのパスワードはブラウザの保存領域に保持されます。共有端末では保存しないでください。', helpNoteOpen: 'Enterprise/EAP Wi-Fiや証明書を使う接続設定には対応していません。', helpNotePrint: '印刷前に「印刷用レイアウト」を開いてください。Wi-Fi情報の変更やクリア後は再度開く必要があります。A4向けで、パスワード印刷は初期状態ではオフです。', helpNoteNfc: 'NFCタグ書き込みはExperimentalです。対応するWeb NFC環境でのみ利用でき、端末やWi-Fi方式によって接続動作が異なります。', helpOffline: 'QR生成・コピー・画像保存・印刷レイアウト生成は完全ローカル処理です。共有・Wake Lock・NFCタグ書き込みは、ブラウザや開き方によって利用できない場合があります。',
           outputFilenameLabel: 'PNGファイル名', outputFilenameHint: '保存・画像共有に使う名前です。.pngは自動で付きます。空欄ならSSIDから付けます。', helpExportName: 'QR画面のPNGファイル名は保存・画像共有の前に変更できます。変更した名前はこのページを閉じるまで保持し、空欄ならSSIDから付けます。',
           qrDialogTitle: 'Wi-Fi QRコード', qrScanHint: '相手のスマホのカメラで読み取ってください。', saveQr: 'QR画像を保存', shareQr: 'QR画像を共有', largeDisplayTitle: 'Wi-Fi情報',
@@ -2457,7 +2457,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
           helpClearCurrent: 'Clear current Wi-Fi resets the form, QR, large display, and print layout. Saved Wi-Fi, language, and edited PNG filenames are kept. Previously copied, shared, saved, or printed content cannot be recalled.',
           helpBasicsTitle: 'Basics', helpStep1: 'Enter the network name (SSID) and password.', helpStep2: 'For most networks, keep WPA / WPA2 / WPA3 selected. Switch security for open networks.', helpStep3: 'Tap Show QR code and scan it with the other phone camera. Share, Copy, Large display, and Print are also available.', helpStep4: 'For frequently used networks, choose Save this Wi-Fi to load the details later from this browser.',
           helpPrivacyTitle: 'Privacy', helpPrivacyBody: 'SSID and password are processed only in the browser and are not sent to a server by this app. Only Wi-Fi details you explicitly save are stored in this browser.', helpNotesTitle: 'Notes',
-          helpDialogLayout: 'The background stays still while a dialog is open. In short windows, scroll the content of Save Wi-Fi, Print, or deletion confirmation to reach the final action buttons. Close stays at the top.',
+
           helpNoteConnect: 'What happens after scanning depends on the recipient OS and camera app support.', helpNoteShare: 'Share uses the Web Share API. Available destinations and presentation vary by OS.', helpNoteQr: 'The QR code contains the Wi-Fi connection details. Anyone who receives the QR can use those details.', helpNoteSaved: 'Saved Wi-Fi passwords are kept in browser storage. Do not save them on a shared device.', helpNoteOpen: 'Enterprise/EAP Wi-Fi and certificate provisioning are not supported.', helpNotePrint: 'Open Print layout before printing, and reopen it after changing or clearing Wi-Fi details. The layout is designed for A4. Printing the password is off by default.', helpNoteNfc: 'NFC tag writing is Experimental. It works only in supported Web NFC environments, and connection behavior varies by device and Wi-Fi mode.', helpOffline: 'QR generation, copy, image saving, and print layout generation are fully local. Share, Wake Lock, and NFC tag writing may be unavailable depending on the browser and how the page is opened.',
           outputFilenameLabel: 'PNG filename', outputFilenameHint: 'Used for saving and image sharing. .png is added automatically. Leave blank to use the SSID.', helpExportName: 'Before saving or sharing the QR image, edit its PNG filename in the QR view. Your edited name stays until you close this page; leave it blank to use the SSID.',
           qrDialogTitle: 'Wi-Fi QR code', qrScanHint: 'Scan this with the other phone camera.', saveQr: 'Save QR image', shareQr: 'Share QR image', largeDisplayTitle: 'Wi-Fi details',
