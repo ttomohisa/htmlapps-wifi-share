@@ -1,5 +1,12 @@
 # APP_SPEC.md
 
+## v1.1.3 — Short-viewport dialog reachability
+
+- Keep root and body scroll locked on screen while any native modal is open; native print styling and lifecycle remain unchanged.
+- Save Wi-Fi, Print layout, and saved-profile deletion confirmation use open-only bounded flex columns. Headers stay visible; their bodies scroll through the existing final actions with safe-area padding. Closed dialogs retain native hidden behavior.
+- Preserve Help, QR, large-display, and NFC shell layouts, dismissal/focus behavior, Wi-Fi storage, QR generation/export, and the existing shield privacy icons.
+- Run responsive structural/CSS guards and existing behavior tests on source, readable, decoded self-extract, and root download variants. Native browser QA must verify short/narrow JA/EN scroll reachability, background lock, dismissal, reopening, and keyboard focus separately.
+
 ## v1.1.2 — Icon normalization
 
 - Canonical background and matching artwork green: `#16624f`; background x/y radii exactly 25% of their respective dimensions.

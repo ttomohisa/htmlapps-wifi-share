@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.3 - 2026-10-11
+
+- Keep the background page still while native modals are open, without changing native print styles or lifecycle.
+- Keep Save Wi-Fi, Print layout, and deletion-confirmation headers visible while scrolling their content and final actions on short screens.
+- Preserve the existing local-processing shield icons and QR, Help, large-display, and NFC behavior; add source/readable/self-extract/root-download dialog-layout regressions and bilingual guidance.
+- ダイアログ表示中の背景スクロールと、高さの低い画面でWi-Fi保存・印刷・削除確認の最後の操作ボタンへ進めない問題を修正。本文だけをスクロールし、閉じるボタンを上部に保持します。
+
 ## 1.1.2 - 2026-10-09
 
 - Normalize icon brand color and exact 25% background corner radii without changing artwork.
