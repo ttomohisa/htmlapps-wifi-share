@@ -396,6 +396,7 @@
       .build-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 520px) {
+      footer { display: none; }
       :root { --header-height: 58px; }
       .header-inner { padding-block: 8px; }
       .brand-mark { width: 34px; height: 34px; border-radius: 10px; }
@@ -836,17 +837,6 @@
         </div>
       </details>
     </section>
-
-    <section class="shell section">
-      <details>
-        <summary data-i18n="buildInfo">Build information</summary>
-        <div class="build-grid">
-          <div class="build-item"><span data-i18n="appVersion">App version</span><strong id="buildVersion">—</strong></div>
-          <div class="build-item"><span data-i18n="builtAt">Built at</span><strong id="builtAt">—</strong></div>
-          <div class="build-item"><span data-i18n="dependencies">Embedded dependencies</span><strong id="dependencyCount">0</strong></div>
-        </div>
-      </details>
-    </section>
   </main>
 
   <footer><span id="footerName">Wi-Fi共有</span> · MIT License · <span data-i18n="footer">Wi-Fi情報をブラウザで共有</span></footer>
@@ -1026,6 +1016,16 @@
         <li data-i18n="helpNoteNfc">NFCタグ書き込みはExperimentalです。対応するWeb NFC環境でのみ利用でき、端末やWi-Fi方式によって接続動作が異なります。</li>
       </ul>
       <p class="dialog-note" data-i18n="helpOffline">QR生成・コピー・画像保存は完全ローカル処理です。Secure Contextが必要な共有やWake Lockは、ブラウザや開き方によって利用できない場合があります。</p>
+      <section class="shell section">
+        <details>
+          <summary data-i18n="buildInfo">Build information</summary>
+          <div class="build-grid">
+            <div class="build-item"><span data-i18n="appVersion">App version</span><strong id="buildVersion">—</strong></div>
+            <div class="build-item"><span data-i18n="builtAt">Built at</span><strong id="builtAt">—</strong></div>
+            <div class="build-item"><span data-i18n="dependencies">Embedded dependencies</span><strong id="dependencyCount">0</strong></div>
+          </div>
+        </details>
+      </section>
       <!-- APP:HELP:END -->
     </div>
   </dialog>
@@ -2301,7 +2301,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
       'use strict';
 
       const APP_CONFIG = {"$schema":"./schemas/app-config.schema.json","name":"Wi-Fi Share","nameJa":"Wi-Fi共有","slug":"wifi-share","version":"1.1.3","description":"Share Wi-Fi details by QR code, system share, copy, print layout, and experimental NFC tag writing without sending them to a server.","descriptionJa":"Wi-Fi情報をサーバーへ送信せず、QRコード等で共有します。印刷用レイアウトとExperimentalのNFCタグ書き込みにも対応します。","defaultLanguage":"auto","repository":{"owner":"ttomohisa","name":"htmlapps-wifi-share"},"build":{"output":"dist/index.html","blockRuntimeNetwork":true,"selfExtract":{"enabled":true,"output":"dist/index.self-extract.html"},"sizeBudget":{"readableWarningMb":25,"selfExtractWarningMb":12}}};
-      const BUILD_MANIFEST = {"schemaVersion":2,"builder":"single-html-app-template/1.3","generatedAtUtc":"2026-10-11T22:25:30.8739278Z","app":{"name":"Wi-Fi Share","slug":"wifi-share","version":"1.1.3"},"dependencies":[]};
+      const BUILD_MANIFEST = {"schemaVersion":2,"builder":"single-html-app-template/1.3","generatedAtUtc":"2026-10-23T09:07:05.5711852Z","app":{"name":"Wi-Fi Share","slug":"wifi-share","version":"1.1.3"},"dependencies":[]};
       // Asset payloads are Base64 exactly once. The JSON bundle itself is embedded directly.
       const assetBundle = {"schemaVersion":2,"dependencies":{}};
       const blobUrls = new Set();
@@ -2826,7 +2826,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
       $('#outputFilename').addEventListener('input',()=>{outputFilenameEdited=true;});
       $('#saveQrButton').addEventListener('click',downloadQr); $('#shareQrButton').addEventListener('click',()=>shareWifi(true));
       [$('#qrDialog'),$('#largeDisplayDialog')].forEach(dialog=>{dialog.addEventListener('close',()=>{if(!$('#qrDialog').open&&!$('#largeDisplayDialog').open)releaseWakeLock();});});
-      [helpDialog,$('#saveProfileDialog'),$('#qrDialog'),$('#largeDisplayDialog'),$('#printDialog'),$('#nfcDialog')].forEach(dialog=>dialog.addEventListener('click',event=>{const rect=dialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)closeDialog(dialog);}));
+      [helpDialog,$('#saveProfileDialog'),$('#qrDialog'),$('#largeDisplayDialog'),$('#printDialog'),$('#nfcDialog')].forEach(dialog=>dialog.addEventListener('click',event=>{if(dialog===helpDialog&&event.target!==dialog)return;const rect=dialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)closeDialog(dialog);}));
 
       $('#versionBadge').textContent=`v${APP_CONFIG.version}`; $('#buildVersion').textContent=APP_CONFIG.version; $('#builtAt').textContent=BUILD_MANIFEST.generatedAtUtc||'—'; $('#dependencyCount').textContent=String(BUILD_MANIFEST.dependencies?.length||0);
       updatePasswordState(); applyLanguage();
