@@ -157,3 +157,33 @@ test('canonical checker includes the responsive contract for all four decoded ar
   assert.ok(check.includes('"tests/dialog-layout.test.mjs"'));
   for (const path of ['src/index.template.html','dist/index.html','dist/index.self-extract.html','wifi-share.html']) assert.ok(check.includes('"'+path+'"'));
 });
+
+test('informational footer is hidden only at the existing 520px smartphone breakpoint', () => {
+  assert.equal(declarations('footer', ['@media (max-width: 520px)']).display, 'none');
+  assert.notEqual(declarations('footer').display, 'none');
+});
+
+test('build information is the final Help body item and no longer in main', () => {
+  const main = source.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1] || '';
+  assert.doesNotMatch(main, /data-i18n="buildInfo"/);
+  const {nodes} = dialogTree('helpDialog');
+  const summary = nodes.find(node => node.attrs['data-i18n'] === 'buildInfo');
+  assert.equal(summary?.tag, 'summary');
+  assert.equal(summary.parent.tag, 'details');
+  const build = summary.parent.parent;
+  assert.equal(build.tag, 'section');
+  assert.ok(hasClass(build.parent, 'dialog-body'));
+  assert.equal(nodes.filter(node => node.parent === build.parent).at(-1), build);
+  for (const id of ['buildVersion','builtAt','dependencyCount']) assert.equal(source.split(`id="${id}"`).length, 2, id);
+});
+
+test('Help descendant keyboard clicks do not trigger backdrop dismissal', async () => {
+  const h = harness('en');
+  const dialog = h.node('#helpDialog');
+  dialog.getBoundingClientRect = () => ({left:100,top:100,right:740,bottom:700});
+  await h.node('#helpButton').click();
+  for (const click of dialog.listeners.click) click({target:{},clientX:0,clientY:0});
+  assert.equal(dialog.open, true);
+  for (const click of dialog.listeners.click) click({target:dialog,clientX:0,clientY:0});
+  assert.equal(dialog.open, false);
+});
