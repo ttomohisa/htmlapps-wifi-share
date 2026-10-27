@@ -23,7 +23,7 @@ for (const initial of ['ja', 'en']) {
       const badge = h.document.querySelectorAll('[data-i18n]').find(el => el.dataset.i18n === 'localBadge');
       assert.equal(badge.textContent, ja ? '完全ローカル処理' : 'Fully local processing');
       await button.click(); language = ja ? 'en' : 'ja';
-      assert.equal(h.storage.get('wifi-share-language'), language);
+      assert.equal(h.storage.get('browser-kitty:ui-language:v1'), language);
     }
   });
   test(`${initial}: Help can repeatedly open and close without changing Wi-Fi inputs`, async () => {

@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import {gunzipSync} from 'node:zlib';
 import vm from 'node:vm';
+import {webcrypto} from 'node:crypto';
 import assert from 'node:assert/strict';
 
 const artifact = fs.readFileSync(process.env.APP_HTML || new URL('../../src/index.template.html', import.meta.url), 'utf8');
@@ -12,14 +13,14 @@ assert.ok(start > 0 && end > start, 'Application runtime must exist');
 
 // Execute the actual application and event handlers. Only browser boundaries are
 // substituted; native dialogs, layout, PNG decoding and downloads get browser QA.
-export function harness(language = 'en', initialProfiles = null) {
+export function harness(language = 'en', initialProfiles = null, platform = {}) {
   const elements = [], nodes = new Map(), downloads = [], shares = [], pendingBlobs = [], storage = new Map();
   if (initialProfiles) storage.set('wifi-share-profiles-v1', JSON.stringify(initialProfiles));
-  const storageWrites = [], windowListeners = {}, printCalls = [];
+  for(const [key,value]of platform.initialStorage||[])storage.set(key,value);if(Object.hasOwn(platform,'rawProfiles'))storage.set('wifi-share-profiles-v1',platform.rawProfiles);const revoked=[],copies=[],fallbackCopies=[],nfcWrites=[],timers=[],storageWrites = [], windowListeners = {}, printCalls = [];
   let document, deferBlobs = false;
   class Element {
     constructor(tag = 'div', attrs = {}) {
-      this.tagName = tag; this.attrs = attrs; this.value = attrs.value || ''; this.type = attrs.type || '';
+      this.isConnected=true;this.tagName = tag; this.attrs = attrs; this.value = attrs.value || ''; this.type = attrs.type || '';
       this.dataset = Object.fromEntries(Object.entries(attrs).filter(([k]) => k.startsWith('data-')).map(([k,v]) => [k.slice(5).replace(/-([a-z])/g, (_,c) => c.toUpperCase()), v]));
       this.hidden = 'hidden' in attrs; this.disabled = 'disabled' in attrs; this.checked = false;
       this.width = Number(attrs.width) || 300; this.height = Number(attrs.height) || 150; this.draws = [];
@@ -27,23 +28,25 @@ export function harness(language = 'en', initialProfiles = null) {
       this.classList = {add(){},remove(){},toggle(){}};
     }
     addEventListener(type, fn) { (this.listeners[type] ||= []).push(fn); }
-    removeEventListener() {}
-    emit(type) { return Promise.all((this.listeners[type] || []).map(fn => fn({target:this,preventDefault(){}}))); }
-    click() { if (this.tagName === 'a') downloads.push(this.download); else if (!this.disabled) return this.emit('click'); }
-    setAttribute(k,v) { this.attrs[k] = String(v); }
+    removeEventListener(type,fn){this.listeners[type]=(this.listeners[type]||[]).filter(x=>x!==fn)}
+    emit(type,extra={}) { const e={target:this,preventDefault(){},stopPropagation(){},...extra};const calls=(this.listeners[type]||[]).map(fn=>fn(e));if(type==='click'&&this.onclick)calls.push(this.onclick(e));return Promise.all(calls); }
+    click() { if (this.tagName === 'a'){if(platform.failAnchor)throw Error('anchor denied');downloads.push(this.download);} else if (!this.disabled) return this.emit('click'); }
+    setAttribute(k,v) { this.attrs[k] = String(v);if(k.startsWith('data-'))this.dataset[k.slice(5).replace(/-([a-z])/g,(_,c)=>c.toUpperCase())]=String(v); }
     getAttribute(k) { return this.attrs[k] ?? null; }
     removeAttribute(k) { delete this.attrs[k]; }
     focus() { document.activeElement = this; }
     select() { this.focus(); }
     showModal() { this.previousFocus = document.activeElement; this.open = true; }
     close() { this.open = false; this.previousFocus?.focus(); this.emit('close'); }
-    replaceChildren(...children) { this.children = children; }
-    append(...children) { this.children.push(...children); }
+    replaceChildren(...children) {for(const c of this.children)c.isConnected=false;this.children = children; }
+    append(...children) { for(const c of children)c.parent=this;this.children.push(...children); }
+    remove(){this.isConnected=false;if(this.parent)this.parent.children=this.parent.children.filter(c=>c!==this)}
+    getBoundingClientRect(){return{left:0,right:600,top:0,bottom:600}}
     querySelector() { return this.child ||= new Element('span'); }
     get width() { return this._width; }
     set width(value) { this._width = value; this.draws = []; }
     getContext() { const canvas = this; return {fillRect(...args){canvas.draws.push(args);},clearRect(){canvas.draws = [];}}; }
-    toBlob(fn) { const done = () => fn(new Blob(['synthetic PNG boundary'], {type:'image/png'})); if (deferBlobs) pendingBlobs.push(done); else done(); }
+    toBlob(fn) { const done = () => fn(platform.nullBlob?null:new Blob(['synthetic PNG boundary'], {type:'image/png'})); if (deferBlobs) pendingBlobs.push(done); else done(); }
   }
   for (const match of source.slice(0, source.indexOf('<script>')).matchAll(/<([\w-]+)\b([^>]*)>/g)) {
     const attrs = {};
@@ -52,13 +55,13 @@ export function harness(language = 'en', initialProfiles = null) {
     if (attrs.id) nodes.set('#'+attrs.id, element);
   }
   const node = selector => nodes.get(selector) || null;
-  document = {documentElement:{},activeElement:null,querySelector:node,querySelectorAll:selector=>elements.filter(n=>selector.slice(1,-1) in n.attrs),createElement:tag=>new Element(tag),addEventListener(){}};
+  document = {body:new Element('body'),execCommand(){if(platform.throwCopy)throw Error('copy denied');fallbackCopies.push(document.body.children.at(-1)?.value);return !platform.failCopy;},documentElement:{},activeElement:null,querySelector:node,querySelectorAll:selector=>elements.filter(n=>selector.slice(1,-1) in n.attrs),createElement:tag=>new Element(tag),addEventListener(){}};
   node('#securitySelect').value = 'WPA';
-  const context = {document,console,TextEncoder,Blob,File,setTimeout:()=>0,clearTimeout(){},APP_CONFIG:{defaultLanguage:language,version:'test',name:'Wi-Fi Share',nameJa:'Wi-Fi共有'},BUILD_MANIFEST:{},localStorage:{getItem:k=>storage.get(k) ?? null,setItem:(k,v)=>{storageWrites.push([k,v]);storage.set(k,v);}},navigator:{share:async data=>shares.push(data),canShare:()=>true},URL:{createObjectURL:()=> 'blob:test',revokeObjectURL(){}},window:{QRCode:class {addData(){} make(){} getModuleCount(){return 21;} isDark(){return false;}},QRErrorCorrectLevel:{M:0},scrollTo(){},addEventListener:(type,fn)=>(windowListeners[type] ||= []).push(fn),print(){printCalls.push(true);for(const fn of windowListeners.beforeprint || []) fn();}}};
-  vm.createContext(context);
+  const context = {document,console,TextEncoder,Blob,File,crypto:webcrypto,requestAnimationFrame:fn=>fn(),setTimeout:fn=>{timers.push(fn);return timers.length;},clearTimeout(){},APP_CONFIG:{defaultLanguage:language,version:'test',name:'Wi-Fi Share',nameJa:'Wi-Fi共有'},BUILD_MANIFEST:{},localStorage:{getItem:k=>{if(platform.failRead)throw Error('read denied');return storage.get(k)??null},setItem:(k,v)=>{storageWrites.push([k,v]);if(platform.failWrite)throw Error('quota');storage.set(k,v);}},location:{href:platform.url||'https://example.test/?lang='+language},history:{replaceState(a,b,url){context.location.href=url}},navigator:{languages:platform.languages||[language],language,clipboard:{writeText:async text=>{copies.push(text);if(platform.clipboardGate)await platform.clipboardGate;if(platform.failClipboard)throw Error('clipboard denied')}},share:async data=>{shares.push(data);if(platform.shareGate)await platform.shareGate;if(platform.failShare)throw Error('share denied')},canShare:()=>true},URL:class TestURL extends URL{static createObjectURL(){return 'blob:test'}static revokeObjectURL(url){revoked.push(url)}},window:{QRCode:class {addData(){} make(){} getModuleCount(){return 21;} isDark(){return false;}},QRErrorCorrectLevel:{M:0},scrollTo(){},addEventListener:(type,fn)=>(windowListeners[type] ||= []).push(fn),print(){printCalls.push(true);for(const fn of windowListeners.beforeprint || []) fn();}}};
+  context.window.isSecureContext=Boolean(platform.nfc);if(platform.nfc)context.window.NDEFReader=class{async write(data,options){nfcWrites.push({data,options});if(platform.nfcGate)await platform.nfcGate;if(platform.failNfc)throw Object.assign(Error('denied'),{name:'NotAllowedError'})}};vm.createContext(context);vm.runInContext(fs.readFileSync(new URL('../../components/ui-conventions.js',import.meta.url),'utf8'),context);
   const qrStart=source.indexOf("(function(global){'use strict';");
   vm.runInContext(source.slice(qrStart,source.indexOf('</script>',qrStart)),context);
-  vm.runInContext(`(() => {${source.slice(start,end)}\nglobalThis.app={validate,validateNfcDetails,buildWifiPayload,generateQr,downloadQr,canvasFile,getDetails,loadProfile,get lastPayload(){return lastPayload;}};})();`,context);
-  return {app:context.app,node,document,downloads,shares,storage,storageWrites,printCalls,emitWindow(type){for(const fn of windowListeners[type] || []) fn();},input(id,value){const el=node('#'+id);assert.ok(el,id+' exists');el.focus();el.value=value;el.emit('input');return el;},network(ssid='Sample Guest',password='dummy-test-password'){this.input('ssidInput',ssid);this.input('passwordInput',password);},defer(){deferBlobs=true;},flush(){pendingBlobs.splice(0).forEach(done=>done());}};
+  vm.runInContext(`(() => {${source.slice(start,end)}\nglobalThis.app={validate,validateNfcDetails,buildWifiPayload,generateQr,downloadQr,canvasFile,getDetails,loadProfile,confirmSaveProfile,deleteProfile,clearProfiles,retryProfiles,openNfcDialog,writeNfcTag,requestClearCurrent,t,get savedProfiles(){return savedProfiles},get busy(){return busy},get lastPayload(){return lastPayload;}};})();`,context);
+  return {platform,context,revoked,copies,fallbackCopies,nfcWrites,timers,app:context.app,node,document,downloads,shares,storage,storageWrites,printCalls,emitWindow(type){for(const fn of windowListeners[type] || []) fn();},input(id,value){const el=node('#'+id);assert.ok(el,id+' exists');el.focus();el.value=value;el.emit('input');return el;},network(ssid='Sample Guest',password='dummy-test-password'){this.input('ssidInput',ssid);this.input('passwordInput',password);},defer(){deferBlobs=true;},flush(){pendingBlobs.splice(0).forEach(done=>done());},flushTimers(){timers.splice(0).forEach(fn=>fn())}};
 }
 

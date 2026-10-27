@@ -659,6 +659,8 @@
     }
 
   </style>
+  <style>__BK_UI_CSS__</style>
+  <script data-bk-ui-version="1.0.0">__BK_UI_JS__</script>
 </head>
 <body>
   <header class="app-header">
@@ -673,8 +675,8 @@
         </div>
       </div>
       <div class="header-actions">
-        <button class="language-button" id="languageButton" type="button" aria-label="英語に切り替え" title="英語に切り替え" data-i18n-aria-label="switchLanguage" data-i18n-title="switchLanguage">EN</button>
-        <button class="icon-button header-icon-button" id="helpButton" type="button" data-i18n-title="helpTitle" data-i18n-aria-label="helpTitle" title="使い方と注意事項" aria-label="使い方と注意事項">
+        <button class="language-button" data-bk-header-action id="languageButton" type="button" aria-label="英語に切り替え" title="英語に切り替え" data-i18n-aria-label="switchLanguage" data-i18n-title="switchLanguage">EN</button>
+        <button class="icon-button header-icon-button" data-bk-header-action id="helpButton" type="button" data-i18n-title="helpTitle" data-i18n-aria-label="helpTitle" title="使い方と注意事項" aria-label="使い方と注意事項">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.8 9a2.35 2.35 0 1 1 3.72 1.9c-.92.67-1.52 1.12-1.52 2.1"/><path d="M12 17h.01"/></svg>
         </button>
       </div>
@@ -702,7 +704,7 @@
         </div>
       </div>
       <div class="wifi-layout">
-        <form class="wifi-form" id="wifiForm" novalidate>
+        <p id="workRetention" data-bk-save-status></p><p id="languageStatus" role="status" aria-live="polite"></p><p id="copyHint" role="status" aria-live="polite"></p><p id="copyStatus" role="status" aria-live="polite"></p><p id="shareStatus" role="status" aria-live="polite"></p><p id="nfcOperationStatus" role="status" aria-live="polite"></p><form class="wifi-form" id="wifiForm" novalidate>
           <label class="field" for="ssidInput">
             <span class="field-label" data-i18n="ssidLabel">ネットワーク名（SSID）</span>
             <input class="text-input" id="ssidInput" type="text" maxlength="128" aria-describedby="validationMessage" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" inputmode="text" data-i18n-placeholder="ssidPlaceholder" placeholder="MyHomeWiFi">
@@ -734,38 +736,38 @@
 
           <p class="validation-message" id="validationMessage" role="alert" aria-live="polite"></p>
 
-          <button class="button primary with-icon primary-action" id="showQrButton" type="submit">
+          <button class="button primary with-icon primary-action" data-bk-button data-bk-variant="primary" id="showQrButton" type="submit">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4z"/><path d="M15 14h2v2h-2zM19 14h1v3h-3v3h-3v-2M19 19h1v1h-1z"/></svg>
             <span data-i18n="showQr">QRコードを表示</span>
           </button>
 
-          <button class="button" id="clearCurrentButton" type="button" data-i18n="clearCurrent">入力中のWi-Fiをクリア</button>
+          <button class="button" data-bk-button data-bk-variant="secondary" id="clearCurrentButton" type="button" data-i18n="clearCurrent">入力中のWi-Fiをクリア</button>
 
           <div class="alt-share">
             <h3 data-i18n="otherWays">Wi-Fi情報をほかの方法で共有</h3>
             <p data-i18n="otherWaysBody">QRコードが使えないときは、共有・個別コピー・大きく表示を利用できます。</p>
             <div class="action-grid action-grid-main" id="mainShareActions">
-              <button class="button with-icon" id="shareButton" type="button">
+              <button class="button with-icon" data-bk-button data-bk-variant="secondary" id="shareButton" type="button">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.5M8.2 13.2l7.6 4.5"/></svg><span data-i18n="share">Wi-Fi情報を共有</span>
               </button>
-              <button class="button with-icon" id="largeDisplayButton" type="button">
+              <button class="button with-icon" data-bk-button data-bk-variant="secondary" id="largeDisplayButton" type="button">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 22h8M12 18v4"/></svg><span data-i18n="largeDisplay">大きく表示</span>
               </button>
             </div>
             <div class="copy-action-grid">
-              <button class="button with-icon copy-action" id="copySsidButton" type="button">
+              <button class="button with-icon copy-action" data-bk-button data-bk-variant="secondary" id="copySsidButton" type="button">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg><span data-i18n="copySsid">SSIDをコピー</span>
               </button>
-              <button class="button with-icon copy-action" id="copyPasswordButton" type="button">
+              <button class="button with-icon copy-action" data-bk-button data-bk-variant="secondary" id="copyPasswordButton" type="button">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg><span data-i18n="copyPassword">パスワードをコピー</span>
               </button>
             </div>
             <div class="utility-action-grid">
-              <button class="button with-icon" id="printLayoutButton" type="button">
+              <button class="button with-icon" data-bk-button data-bk-variant="secondary" id="printLayoutButton" type="button">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8V3h10v5"/><rect x="5" y="14" width="14" height="7" rx="1"/><path d="M5 17H3V9h18v8h-2"/><path d="M17 12h.01"/></svg>
                 <span data-i18n="printLayout">印刷用レイアウト</span>
               </button>
-              <button class="button with-icon experimental-button" id="nfcButton" type="button">
+              <button class="button with-icon experimental-button" data-bk-button data-bk-variant="secondary" id="nfcButton" type="button">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 7.5a6 6 0 0 1 0 9"/><path d="M5.5 4.5a10 10 0 0 1 0 15"/><path d="M12 9.5a2.5 2.5 0 0 1 0 5"/><path d="M15 8v8l4-4-4-4Z"/></svg>
                 <span data-i18n="nfcWrite">NFCタグに書き込む</span>
                 <span class="experimental-badge">Experimental</span>
@@ -783,15 +785,15 @@
                 <span class="saved-count" id="savedCount" aria-label="0">0</span>
               </div>
               <div class="saved-tools">
-                <button class="saved-clear" id="clearSavedButton" type="button" data-i18n="clearSaved" hidden>すべて削除</button>
+                <button class="saved-clear" data-bk-button data-bk-variant="secondary" id="clearSavedButton" type="button" data-i18n="clearSaved" hidden>すべて削除</button>
               </div>
             </div>
-            <button class="button with-icon save-profile-button" id="saveProfileButton" type="button">
+            <button class="button with-icon save-profile-button" data-bk-button data-bk-variant="secondary" id="saveProfileButton" type="button">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M4 12h16"/><circle cx="12" cy="12" r="9" opacity=".28"/></svg>
               <span data-i18n="saveProfile">このWi-Fiを保存</span>
             </button>
             <div class="saved-empty" id="savedEmpty" data-i18n="savedEmpty">よく使うWi-Fiをこの端末に保存できます。自動では保存されません。</div>
-            <div class="saved-list" id="savedList" hidden></div>
+            <p id="profileSaveStatus" data-bk-save-status role="status" aria-live="polite"></p><button id="retryProfiles" type="button" data-bk-button data-bk-variant="secondary" data-i18n="retryProfiles" hidden></button><div class="saved-list" id="savedList" hidden></div>
           </div>
 
           <div class="privacy-note">
@@ -856,8 +858,8 @@
     <div class="app-confirm-body">
       <p class="app-confirm-message" id="appConfirmMessage"></p>
       <div class="app-confirm-actions">
-        <button class="app-confirm-button" id="appConfirmCancel" type="button">キャンセル</button>
-        <button class="app-confirm-button primary" id="appConfirmOk" type="button">実行する</button>
+        <button class="app-confirm-button" data-bk-button data-bk-variant="secondary" id="appConfirmCancel" type="button">キャンセル</button>
+        <button class="app-confirm-button primary" data-bk-button data-bk-variant="primary" id="appConfirmOk" type="button">実行する</button>
       </div>
     </div>
   </dialog>
@@ -878,8 +880,8 @@
         <span data-i18n="saveProfileNote">SSIDとパスワードをこの端末のブラウザ内に保存します。OSのパスワード管理機能とは異なります。</span>
       </div>
       <div class="save-dialog-actions">
-        <button class="button" id="cancelSaveProfile" type="button" data-i18n="cancel">キャンセル</button>
-        <button class="button primary" id="confirmSaveProfile" type="button" data-i18n="save">保存する</button>
+        <button class="button" data-bk-button data-bk-variant="secondary" id="cancelSaveProfile" type="button" data-i18n="cancel">キャンセル</button>
+        <button class="button primary" data-bk-button data-bk-variant="primary" id="confirmSaveProfile" type="button" data-i18n="save">保存する</button>
       </div>
     </div>
   </dialog>
@@ -899,9 +901,10 @@
           <input class="text-input" id="outputFilename" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="outputFilenameHint">
           <p class="qr-export-hint" id="outputFilenameHint" data-i18n="outputFilenameHint">保存・画像共有に使う名前です。.pngは自動で付きます。空欄ならSSIDから付けます。</p>
         </div>
+        <p id="downloadStatus" role="status" aria-live="polite"></p><p data-i18n="qrScope"></p>
         <div class="dialog-action-row">
-          <button class="button with-icon" id="saveQrButton" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m8 11 4 4 4-4"/><path d="M5 19h14"/></svg><span data-i18n="saveQr">QR画像を保存</span></button>
-          <button class="button with-icon" id="shareQrButton" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.5M8.2 13.2l7.6 4.5"/></svg><span data-i18n="shareQr">QR画像を共有</span></button>
+          <button class="button with-icon" data-bk-button data-bk-variant="secondary" id="saveQrButton" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m8 11 4 4 4-4"/><path d="M5 19h14"/></svg><span data-i18n="saveQr">QR画像を保存</span></button>
+          <button class="button with-icon" data-bk-button data-bk-variant="secondary" id="shareQrButton" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.5M8.2 13.2l7.6 4.5"/></svg><span data-i18n="shareQr">QR画像を共有</span></button>
         </div>
       </div>
     </div>
@@ -943,8 +946,8 @@
         <span class="check-copy"><strong data-i18n="printPassword">パスワードも印刷する</strong><span data-i18n="printPasswordHint">初期状態ではQRコードとSSIDだけを印刷します。</span></span>
       </label>
       <div class="save-dialog-actions">
-        <button class="button" id="cancelPrint" type="button" data-i18n="cancel">キャンセル</button>
-        <button class="button primary with-icon" id="confirmPrint" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8V3h10v5"/><rect x="5" y="14" width="14" height="7" rx="1"/><path d="M5 17H3V9h18v8h-2"/></svg><span data-i18n="printNow">印刷する</span></button>
+        <button class="button" data-bk-button data-bk-variant="secondary" id="cancelPrint" type="button" data-i18n="cancel">キャンセル</button>
+        <button class="button primary with-icon" data-bk-button data-bk-variant="primary" id="confirmPrint" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8V3h10v5"/><rect x="5" y="14" width="14" height="7" rx="1"/><path d="M5 17H3V9h18v8h-2"/></svg><span data-i18n="printNow">印刷する</span></button>
       </div>
     </div>
   </dialog>
@@ -967,8 +970,8 @@
       <p class="dialog-note" data-i18n="nfcCompatibility">Web NFC対応ブラウザのHTTPS版で利用できます。WEP・非公開SSID・WPA3専用ネットワークでは利用できない、または接続できない場合があります。</p>
       <div class="nfc-state" id="nfcState" role="status" aria-live="polite"></div>
       <div class="save-dialog-actions">
-        <button class="button" id="cancelNfc" type="button" data-i18n="cancel">キャンセル</button>
-        <button class="button primary with-icon" id="confirmNfcWrite" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 7.5a6 6 0 0 1 0 9"/><path d="M5.5 4.5a10 10 0 0 1 0 15"/><path d="M12 9.5a2.5 2.5 0 0 1 0 5"/></svg><span data-i18n="startNfcWrite">書き込みを開始</span></button>
+        <button class="button" data-bk-button data-bk-variant="secondary" id="cancelNfc" type="button" data-i18n="cancel">キャンセル</button>
+        <button class="button primary with-icon" data-bk-button data-bk-variant="primary" id="confirmNfcWrite" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 7.5a6 6 0 0 1 0 9"/><path d="M5.5 4.5a10 10 0 0 1 0 15"/><path d="M12 9.5a2.5 2.5 0 0 1 0 5"/></svg><span data-i18n="startNfcWrite">書き込みを開始</span></button>
       </div>
     </div>
   </dialog>
@@ -1016,6 +1019,7 @@
         <li data-i18n="helpNoteNfc">NFCタグ書き込みはExperimentalです。対応するWeb NFC環境でのみ利用でき、端末やWi-Fi方式によって接続動作が異なります。</li>
       </ul>
       <p class="dialog-note" data-i18n="helpOffline">QR生成・コピー・画像保存は完全ローカル処理です。Secure Contextが必要な共有やWake Lockは、ブラウザや開き方によって利用できない場合があります。</p>
+      <p data-i18n="profilesManual"></p>
       <section class="shell section">
         <details>
           <summary data-i18n="buildInfo">Build information</summary>
@@ -2406,6 +2410,24 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
 
       const translations = {
         ja: {
+profileLimit:'保存できるWi-Fiは50件までです。不要な保存済みWi-Fiを削除してから再試行してください。',profilesManual:"SSID・パスワードは自動保存しません。「このWi-Fiを保存」を押したときだけ保存します。",
+profilesSaved:"保存済みWi-Fi一覧をこのブラウザーに保存済み・",
+profilesReadFailed:"保存済みWi-Fiを読み込めませんでした。保存済みデータは上書きしていません。読込を再試行するか、確認して保存済みデータを削除してください。",
+profilesWriteFailed:"保存済みWi-Fiの変更を保存できませんでした。前の一覧と現在の入力を保持しています。再試行してください。",
+profileChanged:"対象が変わったため再試行を適用しません。現在のWi-Fiをもう一度保存するか、削除対象を選び直してください。",
+retryProfiles:"前のプロフィール操作を再試行",
+deleteUnknownProfiles:"保存済みWi-Fiデータを削除",
+deleteProfileCount:"保存済みWi-Fi {count}件を削除",
+deleteScope:"保存済みWi-Fi「{name}」だけをこのブラウザーから削除します。元に戻せません。現在の入力と言語設定は残ります。",
+deleteAllScope:"保存済みWi-Fi {count}件だけをこのブラウザーから削除します。元に戻せません。現在の入力と言語設定は残ります。",
+deleteUnknownScope:"読み込めなかった保存済みWi-Fiデータだけをこのブラウザーから削除します。元に戻せません。現在の入力と言語設定は残ります。",
+clearCurrentScope:"入力中のSSID・パスワードとQR・大きく表示・印刷準備だけを破棄します。元に戻せません。保存済みWi-Fi・言語・編集したPNG名は残ります。",
+copyScope:"SSIDまたはパスワードだけをコピーします。",
+qrScope:"現在の1ネットワークの接続情報を含むQR PNG画像1枚を保存／共有します。",
+pngFailed:"PNGの保存を開始できませんでした。現在のWi-FiとQRは保持しています。PNGを保存から再試行してください。",
+preparingPng:"PNGを準備しています…",
+sharingNow:"共有を準備しています…",
+nfcPrevious:"NFC書き込みは変更前のWi-Fiを対象として開始されました。既に開始した書き込みは入力変更では取り消せません。タグを確認してください。",
           brandMeta: 'Wi-Fi情報をQRコード等で共有', switchLanguage: '英語に切り替え', helpTitle: '使い方と注意事項', close: '閉じる',
           introTitle: 'Wi-Fiをかんたんに共有', lead: 'ネットワーク名とパスワードを入力して、QRコードを中心に共有・コピー・印刷などへ使えます。', localBadge: '完全ローカル処理',
           workspaceTitle: 'Wi-Fi情報', workspaceBody: '一度入力すれば、SSIDとパスワードをセットで共有できます。保存するかどうかは自分で選べます。',
@@ -2436,6 +2458,25 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
           savedLoaded: '保存済みWi-Fiを呼び出しました。', savedCreated: 'Wi-Fiをこの端末に保存しました。', savedUpdated: '保存済みWi-Fiを更新しました。', savedDeleted: '保存済みWi-Fiを削除しました。', savedCleared: '保存済みWi-Fiをすべて削除しました。', saveFailed: 'Wi-Fiを保存できませんでした。このブラウザの保存設定を確認してください。', deleteConfirmTitle: '保存済みWi-Fiを削除', deleteConfirmMessage: '「{name}」をこの端末から削除しますか？', clearConfirmTitle: '保存済みWi-Fiをすべて削除', clearConfirmMessage: '保存しているWi-Fi情報をすべてこの端末から削除しますか？', confirmDelete: '削除する', needSsid: 'ネットワーク名（SSID）を入力してください。', needPassword: 'Wi-Fiパスワードを入力してください。', qrFailed: 'QRコードを作成できませんでした。入力内容を確認してください。', copiedSsid: 'SSIDをコピーしました。', copiedPassword: 'パスワードをコピーしました。', copyFailed: 'コピーできませんでした。長押しして選択してください。', shareUnsupported: 'このブラウザでは共有機能を利用できません。', shareAvailable: '端末の共有機能を利用できます。', shareCancelled: '共有をキャンセルしました。', shareFailed: '共有できませんでした。QRコードまたはコピーを利用してください。', savedQr: 'QR画像を保存しました。', openNetwork: 'パスワードなし', wakeUnavailable: '画面を消さない機能はこの環境では利用できません。'
         },
         en: {
+profileLimit:"Up to 50 Wi-Fi profiles can be saved. Delete an unneeded saved profile before retrying.",
+profilesManual:"SSID and password never autosave. They persist only when you choose Save this Wi-Fi.",
+profilesSaved:"Saved Wi-Fi list saved in this browser ·",
+profilesReadFailed:"Could not read saved Wi-Fi. Stored data has not been overwritten. Retry reading, or confirm deleting saved data.",
+profilesWriteFailed:"Could not save the profile change. The previous list and current draft are retained. Retry the operation.",
+profileChanged:"The target changed, so the old retry was not applied. Save the current Wi-Fi again or choose the deletion target again.",
+retryProfiles:"Retry previous profile operation",
+deleteUnknownProfiles:"Delete saved Wi-Fi data",
+deleteProfileCount:"Delete {count} saved Wi-Fi profiles",
+deleteScope:"Delete saved Wi-Fi “{name}” only from this browser? This cannot be undone. Current inputs and language remain.",
+deleteAllScope:"Delete {count} saved Wi-Fi profiles only from this browser? This cannot be undone. Current inputs and language remain.",
+deleteUnknownScope:"Delete only the unreadable saved Wi-Fi data from this browser? This cannot be undone. Current inputs and language remain.",
+clearCurrentScope:"Discard current SSID/password, QR, large display and print preparation only? This cannot be undone. Saved Wi-Fi, language and edited PNG name remain.",
+copyScope:"Copy only SSID or password.",
+qrScope:"Save or share one QR PNG containing the current single network’s connection details.",
+pngFailed:"Could not start the PNG download. Current Wi-Fi and QR are retained. Retry Save QR image.",
+preparingPng:"Preparing PNG…",
+sharingNow:"Preparing share…",
+nfcPrevious:"The NFC write started for the previous Wi-Fi. Editing inputs cannot cancel an already started write. Check the tag.",
           brandMeta: 'Share Wi-Fi by QR code and more', switchLanguage: 'Switch to Japanese', helpTitle: 'How to use & notes', close: 'Close',
           introTitle: 'Share Wi-Fi easily', lead: 'Enter a network name and password, then use QR code, share, copy, print, and more.', localBadge: 'Fully local processing',
           workspaceTitle: 'Wi-Fi details', workspaceBody: 'Enter it once and share the SSID and password together. You choose whether to save it on this device.',
@@ -2470,7 +2511,9 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
       const $ = selector => document.querySelector(selector);
       const storageKey = 'wifi-share-language';
       const profilesStorageKey = 'wifi-share-profiles-v1';
-      let language = readStorage(storageKey) || detectLanguage();
+      let language=BrowserKittyUI.resolveLanguage({legacyKeys:[storageKey]});
+      let profileNameGeneration=0,nfcPreparedPayload='',networkGeneration=0,profilesGeneration=0,mutationLock=false,saveDialogGeneration=0,profileReadBlocked=false,profileFailure='',pendingProfileWrite=null,profileSavedTime='',languageFailure=false,currentConfirm=null;
+      const busy={download:false,share:false,ssid:false,password:false,nfc:false},messages={download:'',share:'',ssid:'',password:'',nfc:''};
       let lastPayload = '';
       let preparedPrintPayload = '';
       let validationKey = '';
@@ -2481,14 +2524,11 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
 
       function readStorage(key) { try { return localStorage.getItem(key); } catch { return null; } }
       function writeStorage(key, value) { try { localStorage.setItem(key, value); return true; } catch { return false; } }
-      function readProfiles() {
-        try {
-          const raw=localStorage.getItem(profilesStorageKey); if(!raw) return []; const parsed=JSON.parse(raw);
-          if(!Array.isArray(parsed)) return [];
-          return parsed.filter(item=>item && typeof item.id==='string' && typeof item.ssid==='string' && ['WPA','WEP','nopass'].includes(item.security) && (item.password == null || typeof item.password==='string')).slice(0,50);
-        } catch { return []; }
-      }
-      function persistProfiles() { return writeStorage(profilesStorageKey, JSON.stringify(savedProfiles)); }
+      function readProfiles(){try{const raw=localStorage.getItem(profilesStorageKey);if(raw===null){profileReadBlocked=false;return [];}const parsed=JSON.parse(raw);if(!Array.isArray(parsed)||parsed.length>50||parsed.some(item=>!item||typeof item.id!=='string'||typeof item.ssid!=='string'||!['WPA','WEP','nopass'].includes(item.security)||(item.password!=null&&typeof item.password!=='string')))throw Error('invalid');profileReadBlocked=false;return parsed;}catch{profileReadBlocked=true;profileFailure='profilesReadFailed';return [];}}
+      function persistProfiles(next=savedProfiles){if(profileReadBlocked){profileFailure='profilesReadFailed';renderUiStatus();return false;}const ok=writeStorage(profilesStorageKey,JSON.stringify(next));if(!ok)profileFailure='profilesWriteFailed';else{profileFailure='';profileSavedTime=new Date().toLocaleTimeString(language,{hour:'2-digit',minute:'2-digit'});}renderUiStatus();return ok;}
+      function renderUiStatus(){BrowserKittyUI.setSaveStatus($('#workRetention'),{mode:'session',language});$('#languageStatus').textContent=languageFailure?BrowserKittyUI.text('languageSessionOnly',language):'';$('#profileSaveStatus').textContent=profileFailure?t(profileFailure):profileSavedTime?t('profilesSaved')+' '+profileSavedTime:t('profilesManual');$('#profileSaveStatus').setAttribute('data-bk-save-status',profileFailure?'error':'saved');$('#retryProfiles').hidden=!profileFailure||profileFailure==='profileChanged'||profileFailure==='profileLimit';$('#clearSavedButton').hidden=!savedProfiles.length&&!profileReadBlocked;$('#clearSavedButton').textContent=profileReadBlocked?t('deleteUnknownProfiles'):t('deleteProfileCount').replace('{count}',savedProfiles.length);$('#copyStatus').textContent=[messages.ssid?t('ssidLabel')+': '+t(messages.ssid):'',messages.password?t('passwordLabel')+': '+t(messages.password):''].filter(Boolean).join(' ');$('#shareStatus').textContent=messages.share?t(messages.share):busy.share?t('sharingNow'):'';$('#downloadStatus').textContent=messages.download?t(messages.download):busy.download?t('preparingPng'):'';$('#nfcState').textContent=messages.nfc?t(messages.nfc):busy.nfc?t('nfcReady'):'';$('#nfcOperationStatus').textContent=messages.nfc?t(messages.nfc):'';$('#nfcButton').disabled=busy.nfc||Boolean(getNfcSupportError());$('#cancelNfc').textContent=t(busy.nfc?'close':'cancel');const details=getDetails(),error=validate(details);$('#copyHint').textContent=error?t(error):t('copyScope');for(const [id,working,ready]of [['copySsidButton',busy.ssid,Boolean(details.ssid)],['copyPasswordButton',busy.password,details.security!=='nopass'&&Boolean(details.password)],['saveQrButton',busy.download,Boolean(lastPayload)],['shareButton',busy.share,!error],['shareQrButton',busy.share,!error],['confirmNfcWrite',busy.nfc,nfcPreparedPayload===buildWifiPayload(details)&&!nfcValidationKey(details)]])BrowserKittyUI.setButtonState($('#'+id),working?'busy':ready?'ready':'unavailable');$('#saveProfileButton').disabled=mutationLock||profileReadBlocked||Boolean(error);$('#confirmSaveProfile').disabled=mutationLock||profileReadBlocked;}
+      function retryProfiles(){if(mutationLock)return;if(profileReadBlocked&&pendingProfileWrite?.allowUnreadable){const pending=pendingProfileWrite;if(pending.generation!==profilesGeneration){profileFailure='profileChanged';renderUiStatus();return;}profileReadBlocked=false;if(persistProfiles(pending.next)){savedProfiles=pending.next;profilesGeneration++;pendingProfileWrite=null;renderSavedProfiles();$('#ssidInput').focus();}else profileReadBlocked=true;renderUiStatus();return;}if(profileReadBlocked){const prior=savedProfiles;savedProfiles=readProfiles();if(profileReadBlocked)savedProfiles=prior;else{profileFailure='';pendingProfileWrite=null;profilesGeneration++;}renderSavedProfiles();renderUiStatus();return;}const pending=pendingProfileWrite;if(!pending)return;if(pending.generation!==profilesGeneration||(pending.source!==null&&(pending.source!==networkGeneration||pending.nameGeneration!==profileNameGeneration))){profileFailure='profileChanged';renderUiStatus();return;}if(persistProfiles(pending.next)){savedProfiles=pending.next;profilesGeneration++;pendingProfileWrite=null;renderSavedProfiles();closeDialog($('#saveProfileDialog'));$('#ssidInput').focus();}renderUiStatus();}
+      function commitProfiles(next,successKey,source=null){pendingProfileWrite={next,generation:profilesGeneration,source,nameGeneration:source!==null?profileNameGeneration:null};if(!persistProfiles(next))return false;savedProfiles=next;profilesGeneration++;pendingProfileWrite=null;renderSavedProfiles();renderUiStatus();AppToast.show(t(successKey),'success');return true;}
       function detectLanguage() { if (APP_CONFIG.defaultLanguage === 'ja' || APP_CONFIG.defaultLanguage === 'en') return APP_CONFIG.defaultLanguage; return (navigator.language || '').toLowerCase().startsWith('ja') ? 'ja' : 'en'; }
       function t(key) { return translations[language]?.[key] ?? translations.en[key] ?? key; }
       function setValidation(key='') {
@@ -2501,14 +2541,14 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
         return null;
       }
       function invalidateNetworkOutputs() {
-        lastPayload=''; preparedPrintPayload='';
+        networkGeneration++;lastPayload=''; preparedPrintPayload='';messages.download=messages.share=messages.ssid=messages.password='';if(busy.nfc)messages.nfc='nfcPrevious';else messages.nfc='';
         $('#qrPreviewWrap').hidden=true; $('#qrEmpty').hidden=false;
         $('#printSheet').dataset.ready='false'; $('#printPasswordCheckbox').checked=false;
         ['printPreviewPasswordRow','printSheetPasswordRow'].forEach(id=>$('#'+id).hidden=true);
         ['qrPreviewSsid','qrDialogSsid','largeSsid','largePassword','printPreviewSsid','printSheetSsid','printPreviewPassword','printSheetPassword'].forEach(id=>$('#'+id).textContent='');
         // Reset the bitmap as well as the surrounding text and visibility.
         ['qrPreviewCanvas','qrDialogCanvas','printPreviewQr','printSheetQr'].forEach(id=>{const canvas=$('#'+id);canvas.width=canvas.width;});
-        ['qrDialog','largeDisplayDialog','printDialog'].forEach(id=>closeDialog($('#'+id)));
+        ['qrDialog','largeDisplayDialog','printDialog'].forEach(id=>closeDialog($('#'+id)));renderUiStatus();
       }
       function clearCurrentWifi() {
         $('#ssidInput').value=''; $('#passwordInput').value='';
@@ -2518,6 +2558,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
         $('#ssidInput').focus();
       }
 
+      async function requestClearCurrent(){if(mutationLock)return;const generation=networkGeneration;mutationLock=true;try{const yes=await confirmAction({copy:()=>({title:t('clearCurrent'),message:t('clearCurrentScope'),okText:t('clearCurrent')})});if(yes&&generation===networkGeneration)clearCurrentWifi();}finally{mutationLock=false;renderUiStatus();}}
       const AppToast = (() => {
         const root = $('#appToast'); const message = $('#appToastMessage'); const action = $('#appToastAction'); let timer = 0;
         function dismiss(){ clearTimeout(timer); root.classList.remove('show'); action.hidden = true; }
@@ -2540,7 +2581,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
         updatePasswordToggleLabel();
         updateShareSupport();
         updateNfcSupport();
-        renderSavedProfiles();
+        if(!$('#appConfirmDialog').open)renderSavedProfiles();else refreshSavedLabels();refreshConfirm();renderUiStatus();
         if ($('#printDialog')?.open) updatePrintLayout();
       }
 
@@ -2584,7 +2625,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
           renderQr($('#qrPreviewCanvas'),qr,640); renderQr($('#qrDialogCanvas'),qr,1024);
           $('#qrPreviewSsid').textContent=details.ssid; $('#qrDialogSsid').textContent=details.ssid; $('#qrEmpty').hidden=true; $('#qrPreviewWrap').hidden=false;
           if (openDialog) { $('#qrDialog').showModal(); acquireWakeLock(); }
-          return true;
+          renderUiStatus();return true;
         } catch (error) { console.error(error); setValidation('qrFailed'); return false; }
       }
 
@@ -2609,52 +2650,31 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
           if(profile.hidden){ const hidden=document.createElement('span'); hidden.className='saved-chip'; hidden.textContent=t('hiddenSaved'); meta.append(hidden); }
           main.append(name,ssid,meta);
           const actions=document.createElement('div'); actions.className='saved-actions';
-          const load=document.createElement('button'); load.type='button'; load.className='button saved-load'; load.dataset.action='load'; load.dataset.id=profile.id; load.textContent=t('loadSaved');
+          const load=document.createElement('button'); load.type='button'; load.className='button saved-load'; load.dataset.action='load'; load.dataset.id=profile.id; load.textContent=t('loadSaved');load.setAttribute('data-i18n','loadSaved');load.setAttribute('data-bk-button','');load.setAttribute('data-bk-variant','secondary');
           const del=document.createElement('button'); del.type='button'; del.className='icon-button saved-delete'; del.dataset.action='delete'; del.dataset.id=profile.id; del.title=t('deleteSaved'); del.setAttribute('aria-label',`${t('deleteSaved')}: ${profileName(profile)}`); del.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13M10 11v5M14 11v5"/></svg>';
           actions.append(load,del); card.append(main,actions); list.append(card);
         });
       }
+      function refreshSavedLabels(){for(const card of $('#savedList').children){const profile=savedProfiles.find(p=>p.id===card.dataset.id);if(!profile)continue;const [load,del]=card.children[1].children;load.textContent=t('loadSaved');del.title=t('deleteSaved');del.setAttribute('aria-label',t('deleteSaved')+': '+profileName(profile));const chips=card.children[0].children[2].children;chips[0].textContent=securityLabel(profile);if(chips[1])chips[1].textContent=t('hiddenSaved');}}
       function loadProfile(id) {
-        const profile=savedProfiles.find(item=>item.id===id); if(!profile) return;
+        if(mutationLock)return;const profile=savedProfiles.find(item=>item.id===id); if(!profile) return;
         $('#ssidInput').value=profile.ssid; $('#securitySelect').value=profile.security; $('#hiddenCheckbox').checked=Boolean(profile.hidden); updatePasswordState();
         if(profile.security!=='nopass') $('#passwordInput').value=profile.password || '';
         setValidation(''); invalidateNetworkOutputs(); generateQr(); AppToast.show(t('savedLoaded'),'success'); window.scrollTo({top:0,behavior:'smooth'});
       }
       function openSaveProfileDialog() {
+        if(mutationLock)return;if(profileReadBlocked){profileFailure='profilesReadFailed';renderUiStatus();return;}saveDialogGeneration=networkGeneration;
         const details=getDetails(); const error=validate(details); const invalidField=setValidation(error);
         if(error){invalidField?.focus();return;}
         const existing=savedProfiles.find(item=>item.ssid===details.ssid); saveEditingId=existing?.id || null;
         $('#profileNameInput').value=existing?.name || details.ssid; $('#confirmSaveProfile').textContent=t(existing?'update':'save');
         $('#saveProfileDialog').showModal(); setTimeout(()=>$('#profileNameInput').select(),0);
       }
-      function confirmSaveProfile() {
-        const details=getDetails(); const error=validate(details); if(error){closeDialog($('#saveProfileDialog'));setValidation(error);return;}
-        const name=$('#profileNameInput').value.trim() || details.ssid; const now=new Date().toISOString(); const existingIndex=savedProfiles.findIndex(item=>item.id===saveEditingId || item.ssid===details.ssid);
-        const profile={id: existingIndex>=0?savedProfiles[existingIndex].id:(crypto.randomUUID?.() || `wifi-${Date.now()}-${Math.random().toString(16).slice(2)}`), name, ssid:details.ssid, password:details.security==='nopass'?'':details.password, security:details.security, hidden:details.hidden, updatedAt:now};
-        const previous=savedProfiles.slice(); if(existingIndex>=0) savedProfiles.splice(existingIndex,1,profile); else savedProfiles.unshift(profile);
-        if(!persistProfiles()){savedProfiles=previous;AppToast.show(t('saveFailed'),'warning');return;}
-        closeDialog($('#saveProfileDialog')); renderSavedProfiles(); AppToast.show(t(existingIndex>=0?'savedUpdated':'savedCreated'),'success'); saveEditingId=null;
-      }
-      function confirmAction({title,message,okText}) {
-        return new Promise(resolve=>{
-          const dialog=$('#appConfirmDialog'), ok=$('#appConfirmOk'), cancel=$('#appConfirmCancel'), close=$('#appConfirmClose');
-          $('#appConfirmTitle').textContent=title; $('#appConfirmMessage').textContent=message; cancel.textContent=t('cancel'); ok.textContent=okText;
-          const done=value=>{dialog.removeEventListener('cancel',onCancel);ok.onclick=cancel.onclick=close.onclick=null;if(dialog.open)dialog.close();resolve(value);};
-          const onCancel=event=>{event.preventDefault();done(false);}; dialog.addEventListener('cancel',onCancel); ok.onclick=()=>done(true); cancel.onclick=close.onclick=()=>done(false); dialog.showModal();
-        });
-      }
-      async function deleteProfile(id) {
-        const profile=savedProfiles.find(item=>item.id===id); if(!profile) return;
-        const yes=await confirmAction({title:t('deleteConfirmTitle'),message:t('deleteConfirmMessage').replace('{name}',profileName(profile)),okText:t('confirmDelete')}); if(!yes)return;
-        const previous=savedProfiles.slice(); savedProfiles=savedProfiles.filter(item=>item.id!==id); if(!persistProfiles()){savedProfiles=previous;AppToast.show(t('saveFailed'),'warning');return;}
-        renderSavedProfiles();AppToast.show(t('savedDeleted'),'success');
-      }
-      async function clearProfiles() {
-        if(!savedProfiles.length)return; const yes=await confirmAction({title:t('clearConfirmTitle'),message:t('clearConfirmMessage'),okText:t('confirmDelete')}); if(!yes)return;
-        const previous=savedProfiles.slice(); savedProfiles=[]; if(!persistProfiles()){savedProfiles=previous;AppToast.show(t('saveFailed'),'warning');return;}
-        renderSavedProfiles();AppToast.show(t('savedCleared'),'success');
-      }
-
+      function confirmSaveProfile(){if(mutationLock||profileReadBlocked)return;if(saveDialogGeneration!==networkGeneration){profileFailure='profileChanged';renderUiStatus();return;}const details=getDetails(),error=validate(details);if(error){setValidation(error);return;}const name=$('#profileNameInput').value.trim()||details.ssid,now=new Date().toISOString(),index=savedProfiles.findIndex(item=>item.id===saveEditingId||item.ssid===details.ssid),profile={id:index>=0?savedProfiles[index].id:(crypto.randomUUID?.()||'wifi-'+Date.now()+'-'+Math.random().toString(16).slice(2)),name,ssid:details.ssid,password:details.security==='nopass'?'':details.password,security:details.security,hidden:details.hidden,updatedAt:now},next=savedProfiles.slice();if(index<0&&next.length>=50){profileFailure='profileLimit';renderUiStatus();return;}if(index>=0)next.splice(index,1,profile);else next.unshift(profile);if(commitProfiles(next,index>=0?'savedUpdated':'savedCreated',networkGeneration)){closeDialog($('#saveProfileDialog'));saveEditingId=null;}}
+      function refreshConfirm(){if(!currentConfirm)return;const c=currentConfirm.copy();$('#appConfirmTitle').textContent=c.title;$('#appConfirmMessage').textContent=c.message;$('#appConfirmCancel').textContent=t('cancel');$('#appConfirmOk').textContent=c.okText;}
+      function confirmAction({title,message,okText,copy=()=>({title,message,okText})}){return new Promise(resolve=>{const dialog=$('#appConfirmDialog'),ok=$('#appConfirmOk'),cancel=$('#appConfirmCancel'),close=$('#appConfirmClose'),opener=document.activeElement;const done=value=>{dialog.removeEventListener('cancel',onCancel);dialog.removeEventListener('click',onBackdrop);ok.onclick=cancel.onclick=close.onclick=null;currentConfirm=null;if(dialog.open)dialog.close();if(opener?.isConnected)opener.focus({preventScroll:true});resolve(value);};const onCancel=event=>{event.preventDefault();done(false);},onBackdrop=event=>{if(event.target!==dialog)return;const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)done(false);};currentConfirm={copy};refreshConfirm();ok.setAttribute('data-bk-variant','danger');dialog.addEventListener('cancel',onCancel);dialog.addEventListener('click',onBackdrop);ok.onclick=()=>done(true);cancel.onclick=close.onclick=()=>done(false);dialog.showModal();requestAnimationFrame(()=>{if(currentConfirm)cancel.focus({preventScroll:true});});});}
+      async function deleteProfile(id){if(mutationLock)return;const profile=savedProfiles.find(item=>item.id===id);if(!profile)return;const generation=profilesGeneration,source=networkGeneration;mutationLock=true;try{const yes=await confirmAction({copy:()=>({title:t('deleteConfirmTitle'),message:t('deleteScope').replace('{name}',profileName(profile)),okText:t('confirmDelete')})});if(!yes||generation!==profilesGeneration||source!==networkGeneration)return;if(commitProfiles(savedProfiles.filter(item=>item.id!==id),'savedDeleted'))$('#ssidInput').focus({preventScroll:true});}finally{mutationLock=false;renderUiStatus();}}
+      async function clearProfiles(){if(mutationLock||(!savedProfiles.length&&!profileReadBlocked))return;const generation=profilesGeneration,source=networkGeneration;mutationLock=true;try{const yes=await confirmAction({copy:()=>({title:t('clearConfirmTitle'),message:t(profileReadBlocked?'deleteUnknownScope':'deleteAllScope').replace('{count}',savedProfiles.length),okText:t('confirmDelete')})});if(!yes||generation!==profilesGeneration||source!==networkGeneration)return;const blocked=profileReadBlocked;profileReadBlocked=false;if(commitProfiles([],'savedCleared'))$('#ssidInput').focus({preventScroll:true});else{profileReadBlocked=blocked;if(pendingProfileWrite)pendingProfileWrite.allowUnreadable=blocked;}}finally{mutationLock=false;renderUiStatus();}}
       async function acquireWakeLock() {
         if (!('wakeLock' in navigator)) return;
         try { if (!wakeLock) wakeLock = await navigator.wakeLock.request('screen'); wakeLock.addEventListener('release',()=>{wakeLock=null;},{once:true}); } catch { /* optional enhancement */ }
@@ -2669,12 +2689,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
       function updatePasswordToggleLabel() { const visible=$('#passwordInput').type==='text'; const label=t(visible?'hidePassword':'showPassword'); $('#passwordToggle').title=label; $('#passwordToggle').setAttribute('aria-label',label); }
       function togglePassword() { const input=$('#passwordInput'); input.type=input.type==='password'?'text':'password'; updatePasswordToggleLabel(); }
 
-      async function copyText(text, successKey) {
-        if (!text && successKey==='copiedPassword') { AppToast.show(t('needPassword'),'warning'); return; }
-        try { await navigator.clipboard.writeText(text); AppToast.show(t(successKey),'success'); return; } catch {}
-        const area=document.createElement('textarea'); area.value=text; area.setAttribute('readonly',''); area.style.position='fixed'; area.style.opacity='0'; document.body.append(area); area.select();
-        let ok=false; try { ok=document.execCommand('copy'); } catch {} area.remove(); AppToast.show(t(ok?successKey:'copyFailed'),ok?'success':'warning');
-      }
+      async function copyText(text,successKey){const kind=successKey==='copiedSsid'?'ssid':'password';if(busy[kind]||!text||mutationLock)return;const generation=networkGeneration,payload=buildWifiPayload(getDetails()),current=()=>generation===networkGeneration&&payload===buildWifiPayload(getDetails());busy[kind]=true;messages[kind]='';renderUiStatus();let copied=false;try{try{await navigator.clipboard.writeText(text);copied=true;}catch{if(!current())return;const prior=document.activeElement,area=document.createElement('textarea');area.value=text;area.setAttribute('readonly','');area.style.position='fixed';area.style.opacity='0';try{document.body.append(area);area.focus();area.select();copied=Boolean(document.execCommand('copy'));}catch{copied=false;}finally{const owned=document.activeElement===area;area.remove();if(owned&&prior?.isConnected)prior.focus({preventScroll:true});}}if(current()){messages[kind]=copied?'':'copyFailed';if(copied)AppToast.show(t(successKey),'success');}}finally{busy[kind]=false;renderUiStatus();}}
       function shareText(details) { return language==='ja' ? `Wi-Fi\nSSID: ${details.ssid}\nパスワード: ${details.security==='nopass'?'なし':details.password}` : `Wi-Fi\nSSID: ${details.ssid}\nPassword: ${details.security==='nopass'?'None':details.password}`; }
       function stripPngExtension(value) { return value.replace(/(?:\.png[. ]*)+$/i,'').replace(/^[. ]+|[. ]+$/g,''); }
       function safeFilename(value) {
@@ -2692,20 +2707,8 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
         if (/^(con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\.|$)/i.test(name)) name=`wifi-${name}`;
         return `${name}.png`;
       }
-      async function canvasFile() {
-        const filename=resolveOutputFilename(), canvas=$('#qrDialogCanvas');
-        const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));
-        return blob ? new File([blob],filename,{type:'image/png'}) : null;
-      }
-      async function shareWifi(includeQr=false) {
-        const details=getDetails(); const error=validate(details); if(error){setValidation(error)?.focus();return;}
-        if (!navigator.share) { AppToast.show(t('shareUnsupported'),'warning'); return; }
-        try {
-          const data={title:'Wi-Fi',text:shareText(details)};
-          if (includeQr) { if (!lastPayload && !generateQr()) return; const file=await canvasFile(); if(file && navigator.canShare?.({files:[file]})) data.files=[file]; }
-          await navigator.share(data);
-        } catch (error) { if (error?.name==='AbortError') return; console.error(error); AppToast.show(t('shareFailed'),'warning'); }
-      }
+      async function canvasFile({generation=networkGeneration,filename=resolveOutputFilename()}={}){const payload=buildWifiPayload(getDetails()),canvas=$('#qrDialogCanvas'),blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));if(generation!==networkGeneration||payload!==buildWifiPayload(getDetails()))return null;return blob?new File([blob],filename,{type:'image/png'}):null;}
+      async function shareWifi(includeQr=false){if(busy.share||mutationLock)return;const details=getDetails(),error=validate(details);if(error){setValidation(error)?.focus();return;}if(!navigator.share){messages.share='shareUnsupported';renderUiStatus();return;}const generation=networkGeneration,payload=buildWifiPayload(details),filename=resolveOutputFilename(),current=()=>generation===networkGeneration&&payload===buildWifiPayload(getDetails());busy.share=true;messages.share='';renderUiStatus();try{const data={title:'Wi-Fi',text:shareText(details)};if(includeQr){if(lastPayload!==payload&&!generateQr())return;const file=await canvasFile({generation,filename});if(!current())return;if(!file){messages.share='shareFailed';return;}if(navigator.canShare?.({files:[file]}))data.files=[file];}if(!current())return;await navigator.share(data);}catch(error){if(current()&&error?.name!=='AbortError')messages.share='shareFailed';}finally{busy.share=false;renderUiStatus();}}
       function updateShareSupport() {
         const el=$('#shareSupportStatus'); const supported=Boolean(navigator.share);
         $('#shareButton').hidden=!supported; $('#shareQrButton').hidden=!supported; $('#mainShareActions').classList.toggle('single-action',!supported);
@@ -2726,19 +2729,12 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
       }
       function updateNfcSupport() {
         const button=$('#nfcButton'); const el=$('#nfcSupportStatus'); const error=getNfcSupportError();
-        button.disabled=Boolean(error); button.setAttribute('aria-disabled', error ? 'true' : 'false');
+        button.disabled=Boolean(error)||busy.nfc; button.setAttribute('aria-disabled', button.disabled ? 'true' : 'false');
         if (!error) { el.hidden=true; el.replaceChildren(); return; }
         setSupportMessage(el,error);
       }
-      function validateNfcDetails(details) {
-        const base=validate(details); if(base) return t(base);
-        if(details.security==='WEP') return t('nfcWepUnsupported');
-        if(details.hidden) return t('nfcHiddenUnsupported');
-        const encoder=new TextEncoder();
-        if(encoder.encode(details.ssid).byteLength>32) return t('nfcSsidTooLong');
-        if(details.security!=='nopass' && encoder.encode(details.password).byteLength>64) return t('nfcPasswordTooLong');
-        return '';
-      }
+      function nfcValidationKey(details){const base=validate(details);if(base)return base;if(details.security==='WEP')return 'nfcWepUnsupported';if(details.hidden)return 'nfcHiddenUnsupported';const encoder=new TextEncoder();if(encoder.encode(details.ssid).byteLength>32)return 'nfcSsidTooLong';if(details.security!=='nopass'&&encoder.encode(details.password).byteLength>64)return 'nfcPasswordTooLong';return '';}
+      function validateNfcDetails(details){const key=nfcValidationKey(details);return key?t(key):'';}
       function concatBytes(...parts) {
         const length=parts.reduce((sum,part)=>sum+part.length,0); const out=new Uint8Array(length); let offset=0;
         parts.forEach(part=>{out.set(part,offset);offset+=part.length;}); return out;
@@ -2752,23 +2748,14 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
         return wscAttribute(0x100e,credential);
       }
       function openNfcDialog() {
+        if(busy.nfc)return;
         const supportError=getNfcSupportError(); if(supportError){AppToast.show(supportError,'warning');return;}
         const details=getDetails(); const error=validateNfcDetails(details); if(error){AppToast.show(error,'warning');return;}
-        $('#nfcSsid').textContent=details.ssid; $('#nfcSecurity').textContent=details.security==='nopass'?t('securityNone'):t('securityWpa');
-        $('#nfcState').textContent=''; $('#nfcState').dataset.tone='default'; $('#confirmNfcWrite').disabled=false;
+        nfcPreparedPayload=buildWifiPayload(details);$('#nfcSsid').textContent=details.ssid; $('#nfcSecurity').textContent=details.security==='nopass'?t('securityNone'):t('securityWpa');
+        messages.nfc='';renderUiStatus();$('#nfcState').dataset.tone='default';
         $('#nfcDialog').showModal();
       }
-      async function writeNfcTag() {
-        const details=getDetails(); const error=validateNfcDetails(details); if(error){$('#nfcState').textContent=error;$('#nfcState').dataset.tone='warning';return;}
-        const state=$('#nfcState'), button=$('#confirmNfcWrite'); button.disabled=true; state.textContent=t('nfcReady'); state.dataset.tone='default';
-        try {
-          const ndef=new window.NDEFReader(); const payload=buildNfcWscPayload(details);
-          await ndef.write({records:[{recordType:'mime',mediaType:'application/vnd.wfa.wsc',data:payload}]},{overwrite:true});
-          state.textContent=t('nfcWritten'); state.dataset.tone='success'; AppToast.show(t('nfcWritten'),'success');
-        } catch(err) {
-          console.error(err); const denied=err?.name==='NotAllowedError' || err?.name==='SecurityError'; state.textContent=t(denied?'nfcWriteDenied':'nfcWriteFailed'); state.dataset.tone='warning'; button.disabled=false;
-        }
-      }
+      async function writeNfcTag(){if(busy.nfc||mutationLock)return;const details=getDetails(),error=nfcValidationKey(details);if(nfcPreparedPayload!==buildWifiPayload(details)){messages.nfc='nfcPrevious';renderUiStatus();return;}if(error){messages.nfc=error;renderUiStatus();return;}const generation=networkGeneration,payload=buildWifiPayload(details),current=()=>generation===networkGeneration&&payload===buildWifiPayload(getDetails());busy.nfc=true;messages.nfc='nfcReady';renderUiStatus();try{const ndef=new window.NDEFReader();await ndef.write({records:[{recordType:'mime',mediaType:'application/vnd.wfa.wsc',data:buildNfcWscPayload(details)}]},{overwrite:true});if(current()){messages.nfc='nfcWritten';AppToast.show(t('nfcWritten'),'success');}}catch(error){if(current())messages.nfc=error?.name==='NotAllowedError'||error?.name==='SecurityError'?'nfcWriteDenied':'nfcWriteFailed';}finally{busy.nfc=false;renderUiStatus();}}
       function updatePrintLayout({ prepare=false } = {}) {
         const details=getDetails(); const payload=buildWifiPayload(details);
         // Only opening Print layout may prepare a changed network. Updates must
@@ -2795,23 +2782,14 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
         const details=getDetails(); const error=validate(details); const invalidField=setValidation(error); if(error){invalidField?.focus();return;}
         $('#largeSsid').textContent=details.ssid; $('#largePassword').textContent=details.security==='nopass'?t('openNetwork'):details.password; $('#largeDisplayDialog').showModal(); acquireWakeLock();
       }
-      function downloadQr() {
-        if (!lastPayload && !generateQr()) return;
-        const filename=resolveOutputFilename(), canvas=$('#qrDialogCanvas');
-        canvas.toBlob(blob=>{
-          if(!blob)return;
-          const url=URL.createObjectURL(blob), a=document.createElement('a');
-          a.href=url; a.download=filename; a.click();
-          setTimeout(()=>URL.revokeObjectURL(url),0); AppToast.show(t('savedQr'),'success');
-        },'image/png');
-      }
+      function downloadQr(){if(busy.download||mutationLock)return;if(lastPayload!==buildWifiPayload(getDetails())&&!generateQr())return;const generation=networkGeneration,payload=lastPayload,filename=resolveOutputFilename(),current=()=>generation===networkGeneration&&payload===buildWifiPayload(getDetails());busy.download=true;messages.download='';renderUiStatus();const done=blob=>{let url=null,a=null,delivered=false;try{if(!current())return;if(!blob)throw Error('PNG');url=URL.createObjectURL(blob);a=document.createElement('a');a.href=url;a.download=filename;document.body.append(a);a.click();delivered=true;AppToast.show(BrowserKittyUI.text('downloadStarted',language)+': '+filename,'success');}catch{if(current())messages.download='pngFailed';}finally{if(a)a.remove();if(url){if(delivered)setTimeout(()=>URL.revokeObjectURL(url),0);else URL.revokeObjectURL(url);}busy.download=false;renderUiStatus();}};try{$('#qrDialogCanvas').toBlob(done,'image/png');}catch{done(null);}}
       function closeDialog(dialog) { if(dialog.open) dialog.close(); if (!$('#qrDialog').open && !$('#largeDisplayDialog').open) releaseWakeLock(); }
 
-      $('#languageButton').addEventListener('click',()=>{language=language==='ja'?'en':'ja';writeStorage(storageKey,language);applyLanguage();});
+      $('#languageButton').addEventListener('click',()=>{language=language==='ja'?'en':'ja';languageFailure=!BrowserKittyUI.chooseLanguage(language).persisted;applyLanguage();});
       const helpDialog=$('#helpDialog'); $('#helpButton').addEventListener('click',()=>helpDialog.showModal()); $('#closeHelpButton').addEventListener('click',()=>helpDialog.close());
       $('#wifiForm').addEventListener('submit',event=>{event.preventDefault();generateQr({openDialog:true});});
       $('#passwordToggle').addEventListener('click',togglePassword);
-      $('#clearCurrentButton').addEventListener('click',clearCurrentWifi);
+      $('#clearCurrentButton').addEventListener('click',requestClearCurrent);
       $('#securitySelect').addEventListener('change',()=>{updatePasswordState();setValidation('');invalidateNetworkOutputs();});
       $('#hiddenCheckbox').addEventListener('change',()=>{setValidation('');invalidateNetworkOutputs();});
       $('#ssidInput').addEventListener('input',()=>{setValidation('');invalidateNetworkOutputs();}); $('#passwordInput').addEventListener('input',()=>{setValidation('');invalidateNetworkOutputs();});
@@ -2828,6 +2806,8 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
       [$('#qrDialog'),$('#largeDisplayDialog')].forEach(dialog=>{dialog.addEventListener('close',()=>{if(!$('#qrDialog').open&&!$('#largeDisplayDialog').open)releaseWakeLock();});});
       [helpDialog,$('#saveProfileDialog'),$('#qrDialog'),$('#largeDisplayDialog'),$('#printDialog'),$('#nfcDialog')].forEach(dialog=>dialog.addEventListener('click',event=>{if(dialog===helpDialog&&event.target!==dialog)return;const rect=dialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)closeDialog(dialog);}));
 
+      $('#profileNameInput').addEventListener('input',()=>{profileNameGeneration++;});
+      $('#retryProfiles').addEventListener('click',retryProfiles);
       $('#versionBadge').textContent=`v${APP_CONFIG.version}`; $('#buildVersion').textContent=APP_CONFIG.version; $('#builtAt').textContent=BUILD_MANIFEST.generatedAtUtc||'—'; $('#dependencyCount').textContent=String(BUILD_MANIFEST.dependencies?.length||0);
       updatePasswordState(); applyLanguage();
     })();

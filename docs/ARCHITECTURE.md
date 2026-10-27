@@ -110,3 +110,6 @@ Keep source in one HTML while it remains understandable. When an app grows subst
 - No runtime external resource.
 - Clear state ownership.
 - A build that fails on missing input.
+
+## Common UI v1
+Fixed shared JS/CSS embed through scripts/embed-ui-conventions.ps1 with hash pins. Network and profile generations own asynchronous UI/delivery and confirmation scope. Profile writes commit immutable candidate lists only after storage success; failed retries are invalidated by changed source/profile/name ownership. Language rendering performs no persistence or action. NFC remains explicit and independently pending; its WSC encoder is unchanged. Existing successful download URL lifetime remains deferred and error cleanup is immediate.

@@ -117,3 +117,7 @@
 ### Privacy
 - Wi-Fi credentials are not persisted automatically and runtime network access remains blocked.
 
+
+## Unreleased
+- Integrate fixed common UI v1: explicit-only credential persistence, scoped profile/current-work confirmations, persistent recovery/retry, generation-owned PNG/share/clipboard/NFC actions and common language priority.
+- Preserve Wi-Fi QR escaping/decoder, NFC WSC MIME encoding, profile schemas, editable PNG naming, print consent and existing single-file release behavior.

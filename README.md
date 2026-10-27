@@ -163,3 +163,6 @@ Bug reports and feature proposals are welcome through GitHub Issues. See [CONTRI
 Copyright © 2026 ttomohisa
 
 Licensed under the [MIT License](LICENSE).
+
+### Saving and recovery
+Current credentials never autosave. Explicit profile saves keep their existing browser format; failures retain the previous list and current draft with a visible Retry. Unreadable saved data is not silently overwritten. Current-input discard and saved-profile deletion ask before applying, with exact scope. QR PNG save/share capture the current network and filename; failures retain work and file handoff reports “Download started.” Copy and NFC failures remain visible and translate with the screen.
