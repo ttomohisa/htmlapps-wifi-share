@@ -95,7 +95,7 @@
       border-radius: 999px;
       color: var(--muted);
       background: var(--surface-muted);
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 650;
       vertical-align: 2px;
     }
@@ -184,13 +184,13 @@
       gap: 7px;
       flex: 0 0 auto;
       margin-top: 3px;
-      padding: 7px 10px;
-      border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--line));
-      border-radius: 999px;
+      padding: 7px 0;
+      border: 0;
+      border-radius: 0;
       color: var(--accent);
-      background: var(--accent-soft);
+      background: transparent;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 500;
       white-space: nowrap;
     }
     .local-badge svg { width: 15px; height: 15px; display: block; }
@@ -346,6 +346,18 @@
       color: var(--text);
       cursor: pointer;
     }
+    .dialog-close {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      border: 0;
+      border-radius: 9px;
+      background: transparent;
+      cursor: pointer;
+    }
+    .dialog-close svg { width: 18px; height: 18px; }
     .app-confirm-close:hover { background: var(--surface-hover); }
     .app-confirm-close svg { width: 19px; height: 19px; }
     .app-confirm-body { padding: 18px; }
@@ -849,8 +861,8 @@
   <dialog class="app-confirm-dialog" id="appConfirmDialog" aria-labelledby="appConfirmTitle" aria-describedby="appConfirmMessage">
     <div class="app-confirm-header">
       <h2 class="app-confirm-title" id="appConfirmTitle">確認</h2>
-      <button class="app-confirm-close" id="appConfirmClose" type="button" data-i18n-aria-label="close" aria-label="閉じる">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      <button class="dialog-close" id="appConfirmClose" type="button" data-i18n-aria-label="close" aria-label="閉じる">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12"/><path d="M18 6 6 18"/></svg>
       </button>
     </div>
     <div class="app-confirm-body">
@@ -866,7 +878,7 @@
   <dialog class="save-dialog" id="saveProfileDialog" aria-labelledby="saveProfileDialogTitle">
     <div class="dialog-header">
       <h2 id="saveProfileDialogTitle" data-i18n="saveProfileDialogTitle">このWi-Fiを保存</h2>
-      <button class="icon-button" id="closeSaveProfileDialog" type="button" data-i18n-title="close" data-i18n-aria-label="close" aria-label="閉じる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg></button>
+      <button class="dialog-close" id="closeSaveProfileDialog" type="button" data-i18n-title="close" data-i18n-aria-label="close" aria-label="閉じる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12"/><path d="M18 6 6 18"/></svg></button>
     </div>
     <div class="dialog-body">
       <label class="field" for="profileNameInput">
@@ -887,7 +899,7 @@
   <dialog class="fullscreen-dialog" id="qrDialog" aria-labelledby="qrDialogTitle">
     <div class="dialog-header">
       <h2 id="qrDialogTitle" data-i18n="qrDialogTitle">Wi-Fi QRコード</h2>
-      <button class="icon-button" id="closeQrDialog" type="button" data-i18n-title="close" data-i18n-aria-label="close" aria-label="閉じる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg></button>
+      <button class="dialog-close" id="closeQrDialog" type="button" data-i18n-title="close" data-i18n-aria-label="close" aria-label="閉じる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12"/><path d="M18 6 6 18"/></svg></button>
     </div>
     <div class="qr-dialog-body">
       <div class="qr-dialog-card">
@@ -910,7 +922,7 @@
   <dialog class="fullscreen-dialog" id="largeDisplayDialog" aria-labelledby="largeDisplayTitle">
     <div class="dialog-header">
       <h2 id="largeDisplayTitle" data-i18n="largeDisplayTitle">Wi-Fi情報</h2>
-      <button class="icon-button" id="closeLargeDisplay" type="button" data-i18n-title="close" data-i18n-aria-label="close" aria-label="閉じる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg></button>
+      <button class="dialog-close" id="closeLargeDisplay" type="button" data-i18n-title="close" data-i18n-aria-label="close" aria-label="閉じる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12"/><path d="M18 6 6 18"/></svg></button>
     </div>
     <div class="large-display-body">
       <div class="large-display-card">
@@ -926,7 +938,7 @@
   <dialog class="print-dialog" id="printDialog" aria-labelledby="printDialogTitle">
     <div class="dialog-header">
       <h2 id="printDialogTitle" data-i18n="printDialogTitle">印刷用レイアウト</h2>
-      <button class="icon-button" id="closePrintDialog" type="button" data-i18n-title="close" data-i18n-aria-label="close" aria-label="閉じる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg></button>
+      <button class="dialog-close" id="closePrintDialog" type="button" data-i18n-title="close" data-i18n-aria-label="close" aria-label="閉じる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12"/><path d="M18 6 6 18"/></svg></button>
     </div>
     <div class="dialog-body print-dialog-body">
       <div class="print-preview" aria-hidden="true">
@@ -952,7 +964,7 @@
   <dialog class="save-dialog nfc-dialog" id="nfcDialog" aria-labelledby="nfcDialogTitle">
     <div class="dialog-header">
       <h2 id="nfcDialogTitle"><span data-i18n="nfcDialogTitle">NFCタグ書き込み</span> <span class="experimental-badge">Experimental</span></h2>
-      <button class="icon-button" id="closeNfcDialog" type="button" data-i18n-title="close" data-i18n-aria-label="close" aria-label="閉じる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg></button>
+      <button class="dialog-close" id="closeNfcDialog" type="button" data-i18n-title="close" data-i18n-aria-label="close" aria-label="閉じる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12"/><path d="M18 6 6 18"/></svg></button>
     </div>
     <div class="dialog-body">
       <p class="nfc-lead" data-i18n="nfcLead">対応するAndroidブラウザから、Wi-Fi接続情報をNDEF対応NFCタグへ書き込みます。</p>
@@ -987,8 +999,8 @@
   <dialog id="helpDialog" aria-labelledby="helpTitle">
     <div class="dialog-header">
       <h2 id="helpTitle" data-i18n="helpTitle">使い方と注意事項</h2>
-      <button class="icon-button" id="closeHelpButton" type="button" data-i18n-title="close" data-i18n-aria-label="close" title="閉じる" aria-label="閉じる">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg>
+      <button class="dialog-close" id="closeHelpButton" type="button" data-i18n-title="close" data-i18n-aria-label="close" title="閉じる" aria-label="閉じる">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12"/><path d="M18 6 6 18"/></svg>
       </button>
     </div>
     <div class="dialog-body">
