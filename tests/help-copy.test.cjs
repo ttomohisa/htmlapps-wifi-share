@@ -31,3 +31,25 @@ for (const file of ["src/index.template.html", "wifi-share.html"]) {
     assert.ok(!html.includes('自動では保存されません。'), 'Avoid the redundant saved-network sentence');
   });
 }
+
+for (const file of ["src/index.template.html", "wifi-share.html"]) {
+  test(file + ": NFC, saved-network, and save-action SVG icons remain distinct", () => {
+    const html = fs.readFileSync(path.join(root, file), "utf8");
+    const extract = regex => {
+      const match = html.match(regex);
+      assert.ok(match, "Missing icon for " + regex);
+      return match[1];
+    };
+    const nfc = extract(/<button[^>]+id="nfcButton"[^>]*>[\s\S]*?<svg[^>]*>([\s\S]*?)<\/svg>/);
+    const saved = extract(/<div class="saved-title-wrap">\s*<svg[^>]*>([\s\S]*?)<\/svg>/);
+    const save = extract(/<button[^>]+id="saveProfileButton"[^>]*>[\s\S]*?<svg[^>]*>([\s\S]*?)<\/svg>/);
+    assert.ok(nfc.includes('rect x="4" y="3" width="16" height="18" rx="3"'), "NFC tag pictogram");
+    assert.ok(nfc.includes("M9 16V8l6 8V8"), "NFC letter");
+    assert.ok(saved.includes("M2.5 8.5a14 14 0 0 1 19 0"), "plain Wi-Fi signal");
+    assert.ok(!saved.includes("opacity="), "no decorative frame");
+    assert.ok(save.includes("M6 3.5h12"), "bookmark shape");
+    assert.ok(save.includes("M12 7v6M9 10h6"), "add sign");
+    assert.ok(html.includes("lead: 'Wi-Fiの名前とパスワードから、接続用のQRコードを作れます。'"));
+    assert.ok(html.includes("lead: 'Create a Wi-Fi QR code from the network name and password.'"));
+  });
+}

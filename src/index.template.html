@@ -537,6 +537,7 @@
     .saved-delete { width: 44px; height: 44px; color: var(--muted); }
     .saved-delete:hover { color: var(--danger); }
     .save-profile-button { width: 100%; min-height: 44px; margin-top: 8px; font-size: 11px; }
+    .save-profile-button svg { color: var(--accent); }
     .save-dialog { width: min(440px, calc(100% - 24px)); }
     .save-dialog .dialog-body { padding: 16px; }
     .save-dialog-note { display: flex; gap: 9px; margin: 12px 0 0; padding: 11px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); font-size: 10px; line-height: 1.55; }
@@ -719,7 +720,7 @@
     <section class="page-intro" aria-labelledby="heroTitle">
       <div>
         <h1 class="sr-only" id="heroTitle" data-i18n="introTitle">Wi-Fiを共有</h1>
-        <p data-i18n="lead">Wi-Fiの名前とパスワードを入力すると、共有用のQRコードを作れます。相手に見せるほか、画像で送ったり印刷したりできます。</p>
+        <p data-i18n="lead">Wi-Fiの名前とパスワードから、接続用のQRコードを作れます。</p>
       </div>
       <div class="local-badge">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.6 2.8 8 7 10 4.2-2 7-5.4 7-10V6z"/><path d="m9 12 2 2 4-5"/></svg>
@@ -800,7 +801,7 @@
                 <span data-i18n="printLayout">印刷用レイアウト</span>
               </button>
               <button class="button with-icon experimental-button" id="nfcButton" type="button">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 7.5a6 6 0 0 1 0 9"/><path d="M5.5 4.5a10 10 0 0 1 0 15"/><path d="M12 9.5a2.5 2.5 0 0 1 0 5"/><path d="M15 8v8l4-4-4-4Z"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M9 16V8l6 8V8"/></svg>
                 <span data-i18n="nfcWrite">NFCタグに書き込む</span>
                 <span class="experimental-badge">Experimental</span>
               </button>
@@ -812,7 +813,7 @@
           <div class="saved-section" aria-labelledby="savedWifiTitle">
             <div class="saved-head">
               <div class="saved-title-wrap">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5a10 10 0 0 1 14 0"/><path d="M8.5 16a5 5 0 0 1 7 0"/><path d="M12 20h.01"/><path d="M4 4h16v16H4z" opacity=".18"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5a14 14 0 0 1 19 0"/><path d="M5.5 12a9 9 0 0 1 13 0"/><path d="M8.75 15.5a4.5 4.5 0 0 1 6.5 0"/><circle cx="12" cy="19" r="1" fill="currentColor" stroke="none"/></svg>
                 <h3 id="savedWifiTitle" data-i18n="savedTitle">保存済みWi-Fi</h3>
                 <span class="saved-count" id="savedCount" aria-label="0">0</span>
               </div>
@@ -821,7 +822,7 @@
               </div>
             </div>
             <button class="button with-icon save-profile-button" id="saveProfileButton" type="button">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M4 12h16"/><circle cx="12" cy="12" r="9" opacity=".28"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5h12a1 1 0 0 1 1 1V21l-7-4.5L5 21V4.5a1 1 0 0 1 1-1Z"/><path d="M12 7v6M9 10h6"/></svg>
               <span data-i18n="saveProfile">このWi-Fiを保存</span>
             </button>
             <div class="saved-empty" id="savedEmpty" data-i18n="savedEmpty">よく使うWi-Fiをこの端末に保存できます。</div>
@@ -2431,7 +2432,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
       const translations = {
         ja: {
           brandMeta: 'Wi-Fi情報をQRコード等で共有', switchLanguage: '英語に切り替え', helpTitle: '使い方と注意事項', close: '閉じる',
-          introTitle: 'Wi-Fiを共有', lead: 'Wi-Fiの名前とパスワードを入力すると、共有用のQRコードを作れます。相手に見せるほか、画像で送ったり印刷したりできます。', localBadge: '完全ローカル処理',
+          introTitle: 'Wi-Fiを共有', lead: 'Wi-Fiの名前とパスワードから、接続用のQRコードを作れます。', localBadge: '完全ローカル処理',
           workspaceTitle: 'Wi-Fi情報', workspaceBody: 'SSIDとパスワードをセットで共有できます。',
           ssidLabel: 'ネットワーク名（SSID）', ssidPlaceholder: 'MyHomeWiFi', passwordLabel: 'パスワード', passwordPlaceholder: 'Wi-Fiパスワード',
           securityLabel: 'セキュリティ', securityWpa: 'WPA / WPA2 / WPA3', securityNone: 'パスワードなし', hiddenLabel: 'SSIDを非公開にしている', hiddenHint: '通常はオフのままで構いません。',
@@ -2461,7 +2462,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
         },
         en: {
           brandMeta: 'Share Wi-Fi by QR code and more', switchLanguage: 'Switch to Japanese', helpTitle: 'How to use & notes', close: 'Close',
-          introTitle: 'Share Wi-Fi', lead: 'Enter a Wi-Fi network name and password to make a QR code you can show, send as an image, or print.', localBadge: 'Fully local processing',
+          introTitle: 'Share Wi-Fi', lead: 'Create a Wi-Fi QR code from the network name and password.', localBadge: 'Fully local processing',
           workspaceTitle: 'Wi-Fi details', workspaceBody: 'Share the SSID and password together.',
           ssidLabel: 'Network name (SSID)', ssidPlaceholder: 'MyHomeWiFi', passwordLabel: 'Password', passwordPlaceholder: 'Wi-Fi password',
           securityLabel: 'Security', securityWpa: 'WPA / WPA2 / WPA3', securityNone: 'No password', hiddenLabel: 'Hidden SSID', hiddenHint: 'Leave this off for most networks.',

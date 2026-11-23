@@ -2,6 +2,9 @@
 
 ## 1.1.4 — pending merge
 
+- Shorten the Japanese and English opening copy to one sentence about creating a Wi-Fi QR code.
+- Redraw NFC tag, saved Wi-Fi, and save-profile SVG icons with distinct simpler shapes, without changing controls.
+
 - Make current Wi-Fi clearing a quiet secondary action with a bilingual confirmation; cancelling preserves data.
 - Restyle alternative sharing as simple divided rows, without nested action boxes, and improve narrow-screen layout.
 - Shorten the Wi-Fi details subtitle in Japanese and English.

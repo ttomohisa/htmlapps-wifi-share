@@ -39,7 +39,11 @@ async function main() {
             }
             assert.equal(await page.locator('.page-intro h2').count(), 0, label + ': no visible hero title');
             assert.equal(await page.locator('#heroTitle').getAttribute('class'), 'sr-only', label + ': accessible off-screen h1');
-            assert.match(await page.locator('.page-intro [data-i18n="lead"]').innerText(), language === 'en' ? /Wi-Fi network name and password/ : /Wi-Fiの名前とパスワード/, label + ': descriptive intro');
+            assert.equal(await page.locator('.page-intro [data-i18n="lead"]').innerText(), language === 'en' ? 'Create a Wi-Fi QR code from the network name and password.' : 'Wi-Fiの名前とパスワードから、接続用のQRコードを作れます。', label + ': concise intro');
+            assert.ok((await page.locator('.page-intro [data-i18n="lead"]').innerText()).length <= 65, label + ': intro stays concise');
+            assert.equal(await page.locator('#nfcButton svg rect').count(), 1, label + ': NFC tag icon');
+            assert.equal(await page.locator('.saved-title-wrap svg circle').count(), 1, label + ': Wi-Fi signal icon');
+            assert.equal(await page.locator('#saveProfileButton svg path').count(), 2, label + ': bookmark plus icon');
             assert.equal(await page.locator('main .sharing-guide').count(), 0, label + ': no sharing section under the app');
             assert.equal(await page.locator('.workspace-head [data-i18n="workspaceBody"]').innerText(), language === 'en' ? 'Share the SSID and password together.' : 'SSIDとパスワードをセットで共有できます。', label + ': concise workspace text');
             assert.equal(await page.locator('#clearCurrentButton').evaluate(el => getComputedStyle(el).borderTopStyle), 'none', label + ': subtle clear button');

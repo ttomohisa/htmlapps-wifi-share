@@ -7,7 +7,7 @@
 - Reject SSIDs longer than 32 UTF-8 bytes and invalid WPA passphrase lengths; accept 64-character hex PSKs. Keep WEP and open-network behavior unchanged.
 - Keep all explicitly saved Wi-Fi profiles visible on reload instead of silently truncating the list after 50 entries.
 - Add executable regressions for these cases and publish a tagged GitHub Release after the versioned main-branch build succeeds.
-- Show a concise bilingual hero description instead of a visible heading; retain an off-screen semantic h1. Tighten the space before the form.
+- Show a one-sentence bilingual hero description of creating a Wi-Fi QR code, without a visible heading; retain an off-screen semantic h1. Tighten the space before the form.
 - Show the local-processing badge only above the 520px smartphone breakpoint; do not remove its text or desktop visibility.
 - Move all six sharing-method descriptions from the bottom expandable guide into the scrollable “How to use & notes” dialog, preserving every method in Japanese and English. Keep Build information last.
 - Remove the redundant automatic-saving sentence from the saved-profiles empty state without changing consent or actual persistence.
@@ -15,6 +15,7 @@
 - Show secondary sharing actions as divided rows inside the single workspace border instead of nested bordered tiles; keep every action and accessible tap targets.
 - Use “SSIDとパスワードをセットで共有できます。” / “Share the SSID and password together.” as the workspace subtitle.
 - A versioned main merge must run build/tests before creating the new v1.1.4 tag and GitHub Release with readable HTML, self-extract HTML, and ZIP.
+- Use simple SVG icons for NFC tag writing (tag with N mark), saved Wi-Fi (unframed signal), and Save this Wi-Fi (bookmark plus), preserving labels and behavior.
 
 
 ## v1.1.3 — Short-viewport dialog reachability
