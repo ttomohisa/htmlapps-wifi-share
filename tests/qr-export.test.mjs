@@ -62,7 +62,7 @@ test('editing filename preserves focus and QR, while Wi-Fi inputs still invalida
 test('existing validation and WIFI payload semantics are preserved', () => {
   const h=harness();
   for(const security of ['WPA','WEP','nopass']) { const d={ssid:'合成;\\,:"SSID',password:'dummy;\\,:"password',security,hidden:true};assert.equal(h.app.validate(d),'');const p=h.app.buildWifiPayload(d);assert.match(p,/H:true;;$/);assert.equal(p.includes('P:'),security!=='nopass');assert.match(p,/S:合成\\;\\\\\\,\\:\\"SSID;/); }
-  assert.equal(h.app.validate({ssid:' ',password:' ',security:'WPA'}),'','Whitespace has always been allowed');
+  assert.equal(h.app.validate({ssid:' ',password:' '.repeat(8),security:'WPA'}),'','Valid whitespace SSIDs and WPA passphrases remain accepted');
   assert.equal(h.app.validate({ssid:'Sample',password:'',security:'nopass'}),'');
 });
 

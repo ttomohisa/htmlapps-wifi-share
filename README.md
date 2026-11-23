@@ -72,7 +72,7 @@ Saving a Wi-Fi profile in browser storage is not the same as storing it in the o
 
 ## Publish with GitHub Pages
 
-The repository includes a workflow that builds the standalone HTML and deploys `dist` to GitHub Pages.
+The repository includes a workflow that builds the standalone HTML and deploys `dist` to GitHub Pages. A separate workflow publishes versioned standalone HTML and ZIP assets as a GitHub Release after a successful `main` build when the version is new; existing releases are not overwritten.
 
 1. Push the repository to GitHub as `htmlapps-wifi-share`.
 2. Open **Settings → Pages → Build and deployment → Source** and select **GitHub Actions**.

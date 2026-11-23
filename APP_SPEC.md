@@ -1,5 +1,14 @@
 # APP_SPEC.md
 
+## v1.1.4 — Credential sharing and NFC cancel safety
+
+- Cancel any pending Web NFC write on explicit dialog dismissal, Escape, or pagehide using AbortSignal; keep writes single-flight and never report cancellation as a failure.
+- Share QR images as image files only. If file sharing is unavailable, guide the user to save the PNG rather than silently exposing the password as share text.
+- Reject SSIDs longer than 32 UTF-8 bytes and invalid WPA passphrase lengths; accept 64-character hex PSKs. Keep WEP and open-network behavior unchanged.
+- Keep all explicitly saved Wi-Fi profiles visible on reload instead of silently truncating the list after 50 entries.
+- Add executable regressions for these cases and publish a tagged GitHub Release after the versioned main-branch build succeeds.
+
+
 ## v1.1.3 — Short-viewport dialog reachability
 
 - Keep root and body scroll locked on screen while any native modal is open; native print styling and lifecycle remain unchanged.

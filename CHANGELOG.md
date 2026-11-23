@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.4 — pending merge
+
+- Cancel pending NFC writes when the NFC dialog closes, Escape is pressed, or the page is left.
+- Never fall back from QR-image sharing to sharing plaintext credentials; guide unsupported devices to save the PNG.
+- Validate SSID UTF-8 byte length and WPA passphrase/hex key length before generating QR or saving.
+- Do not silently drop saved Wi-Fi entries past 50 when reloading.
+- Add regression coverage and a versioned-release workflow that runs after merging into main.
+- Include previously unreleased mobile Help layout and footer refinements.
+
 ## Unreleased — mobile Help layout
 
 - Hide the informational footer at 520px and below and move existing build details to the end of Help, available at every width.

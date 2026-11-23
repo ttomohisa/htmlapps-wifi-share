@@ -71,7 +71,7 @@ QR画像の保存・共有前に、QR画面の **PNGファイル名** を変更�
 
 ## GitHub Pagesで公開する
 
-このリポジトリには、単一HTMLをビルドして `dist` をGitHub Pagesへ公開するWorkflowが含まれています。
+このリポジトリには、単一HTMLをビルドして `dist` をGitHub Pagesへ公開するWorkflowが含まれています。新しいバージョンが`main`に取り込まれた場合は、別のWorkflowがビルドとテストの成功後にタグとGitHub Release（HTML・ZIP）を作成します。既存のリリースは上書きしません。
 
 1. `htmlapps-wifi-share` としてGitHubへpushします。
 2. **Settings → Pages → Build and deployment → Source** で **GitHub Actions** を選択します。
