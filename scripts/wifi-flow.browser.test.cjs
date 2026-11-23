@@ -55,6 +55,7 @@ async function inspect(browser, name, language, width) {
       await page.locator('#passwordInput').fill('sample-password-2026');
       await page.locator('#showQrButton').click();
       await page.locator('#outputFilename').fill('guest-wifi.png');
+      await page.locator('#outputFilename').evaluate(el => el.blur());
       // Omit a transient export toast from documentation screenshots.
       await page.locator('#appToast').evaluate(el => el.classList.remove('show'));
       const screenshotDir = path.join(__dirname, '..', 'test-results', 'mobile-help');

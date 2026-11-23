@@ -7,6 +7,7 @@
 - Update validation messages on language switches without clearing inputs.
 - Regenerate the root standalone HTML from the readable build, and test all four artifact variants for parity.
 - Refresh Japanese, English, and mobile screenshots from live Chromium output using synthetic Wi-Fi details.
+- Retain the bundled QR encoder's complete MIT license notice inside standalone HTML and repository notices.
 
 - Cancel stale QR PNG downloads and image shares when credentials change during asynchronous encoding.
 - Mask saved passwords upon loading; reject empty SSID copy attempts.

@@ -76,3 +76,15 @@ test('release documentation has one pending version and valid screenshots', () =
   assert.match(read('SECURITY.md'), /QR and PNG/);
   assert.match(read('VERIFY_OFFLINE.md'), /NFC hardware is \*\*not\*\* verified/);
 });
+
+test('third-party QR MIT permission text is retained in standalone sources', () => {
+  const fragments = [
+    'Copyright (c) 2009 Kazuhiko Arase',
+    'Permission is hereby granted, free of charge, to any person obtaining a copy',
+    'THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND'
+  ];
+  for (const path of ['src/index.template.html', 'wifi-share.html', 'THIRD_PARTY_NOTICES.md']) {
+    const content = read(path);
+    for (const fragment of fragments) assert.ok(content.includes(fragment), path + ': ' + fragment);
+  }
+});
