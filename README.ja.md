@@ -16,6 +16,8 @@ GitHub Pagesから最初のHTMLを読み込んだ後、Wi-Fi QR生成、PNG作�
 
 [![Wi-Fi Share スクリーンショット](assets/screenshot.png)](https://ttomohisa.github.io/htmlapps-wifi-share/)
 
+[スマホのQR画面を見る](assets/screenshot-mobile.png)
+
 ## 主な機能
 
 - **PNGファイル名を変更** — QR画像の保存・共有の前に名前を変更できます。初期名はSSIDから作り、`.png`を安全に補います。

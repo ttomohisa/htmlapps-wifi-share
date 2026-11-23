@@ -22,7 +22,8 @@ References:
   THIRD_PARTY_NOTICES.md   QR code generator attribution
   .github/workflows/       CI, preview, Pages and GitHub Release
 
-No account or runtime server is needed. SSIDs and passwords remain
-in memory unless explicitly saved or handed off to another destination.
+No account or application backend is needed. The hosted page still
+loads its initial HTML over the network. Unsaved SSIDs and passwords
+stay in page memory until an explicit share, copy, print or export.
 Do not manually change generated dist/ files; build from the source.
 The repository owner, not ChatGPT, merges release pull requests.

@@ -2,6 +2,12 @@
 
 ## [1.1.4] - Unreleased
 
+- Let users edit and safely normalize PNG filenames for QR image downloads and sharing.
+- Prevent changed Wi-Fi details from leaving stale QR or password data in print layouts; browser printing requires a current prepared layout.
+- Update validation messages on language switches without clearing inputs.
+- Regenerate the root standalone HTML from the readable build, and test all four artifact variants for parity.
+- Refresh Japanese, English, and mobile screenshots from live Chromium output using synthetic Wi-Fi details.
+
 - Cancel stale QR PNG downloads and image shares when credentials change during asynchronous encoding.
 - Mask saved passwords upon loading; reject empty SSID copy attempts.
 - Align the Japanese README, security and offline-verification documentation with the actual app.
@@ -35,19 +41,6 @@
 
 - Normalize icon brand color and exact 25% background corner radii without changing artwork.
 - Rebuild matching header, favicon, download alias, and self-extract representations.
-
-## [Unreleased]
-
-### Added
-- Added localized Clear current Wi-Fi to reset current inputs and generated views without changing saved profiles, language, or edited PNG filenames.
-- Added an editable Japanese/English PNG filename next to QR export actions, with a shared safe-name resolver for downloads and image sharing.
-- Added executable export, validation, and release-parity regressions to repository/CI checks.
-
-### Fixed
-- Credential edits and profile loads now clear stale printable SSID, password, and QR data and reset password-print consent. Native printing requires a current prepared layout.
-- Regression checks now execute current-state behavior across source, readable, decoded self-extract, and root-download artifacts using the bundled QR encoder.
-- Active SSID/password validation now follows language changes without resetting input or focus.
-- Default builds now refresh the root offline download from the readable release.
 
 ## [1.1.1] - 2026-10-07
 

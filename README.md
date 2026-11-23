@@ -16,6 +16,8 @@ GitHub Pages delivers the initial HTML. After it loads, Wi-Fi QR generation, PNG
 
 [![Wi-Fi Share screenshot](assets/screenshot-en.png)](https://ttomohisa.github.io/htmlapps-wifi-share/)
 
+[View the mobile QR screen](assets/screenshot-mobile.png)
+
 ## Features
 
 - **Choose the PNG filename** — Edit the name before saving or sharing the QR image; the app supplies an SSID-based default and adds `.png` safely.
@@ -47,7 +49,7 @@ The generated app does not need a local web server for the core QR, copy fallbac
 
 ## Usage
 
-Use **EN / JA** in the header to switch languages. Language, Help, and Close tooltips and accessible labels follow the selected language. The **How to use & notes** dialog contains a guide to all six sharing methods; the standalone guide below the form has been removed.
+Use **EN / JA** in the header to switch languages. Language, Help, and Close tooltips and accessible labels follow the selected language. The **How to use & notes** dialog explains all six sharing methods.
 
 1. Enter the network name (SSID).
 2. Enter the password and choose `WPA / WPA2 / WPA3`, `WEP`, or `No password`.

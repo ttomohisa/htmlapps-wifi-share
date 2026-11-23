@@ -51,7 +51,7 @@ The app is intentionally Wi-Fi-specific. It is not a general-purpose QR generato
 2. Enter the password and choose WPA/WPA2/WPA3, WEP, or no password.
 3. Optionally mark the SSID as hidden.
 4. Share primarily by QR code, with system share, copy, large display, print layout, and supported NFC tags as alternatives.
-5. Use Clear current Wi-Fi to reset the current form and its generated output, or close the page when finished. Wi-Fi credentials are not persisted automatically.
+5. To reset the current form and generated output, choose Clear current Wi-Fi and confirm the dialog; cancelling preserves the details. Alternatively, close the page when finished. Wi-Fi credentials are not persisted automatically.
 
 ## 4. Functional requirements
 

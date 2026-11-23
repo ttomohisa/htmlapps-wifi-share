@@ -54,7 +54,7 @@ both languages, including a test-only QR decoder for rendered images. Actual har
   with a disposable NDEF tag. Check permissions, cancellation and that
   the tag has the intended network data. NFC hardware is **not** verified
   by simulated desktop tests.
-- Check the README screenshots reflect the released UI and recheck
+- Check that Japanese/English desktop and smartphone README screenshots show the actual released UI, contain synthetic credentials only, and recheck
   APP_SPEC.md, both READMEs, SECURITY.md and CHANGELOG.md.
 - After owner merge, confirm `main` CI passed and verify a new version
   tag and GitHub Release with readable HTML, self-extract HTML and ZIP.
