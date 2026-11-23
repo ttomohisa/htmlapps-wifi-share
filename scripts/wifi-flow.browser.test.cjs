@@ -120,18 +120,7 @@ async function inspect(browser, name, language, width) {
     }
     // Also capture a Japanese desktop view; mobile QA uses 390px separately.
     await inspect(browser, 'dist/index.html', 'ja', 1360);
-    // Temporary maintainer export: screenshots contain only public sample credentials.
-    if (process.env.BK_EXPORT_SCREENSHOTS === '1') {
-      const folder = path.join(__dirname, '..', 'test-results', 'mobile-help');
-      for (const name of ['release-ja.png', 'release-en.png', 'release-mobile.png']) {
-        const raw = require('node:fs').readFileSync(path.join(folder, name)).toString('base64');
-        const chunkLength = 6000;
-        const total = Math.ceil(raw.length / chunkLength);
-        for (let i = 0; i < total; i++) {
-          console.log('BKSHOT|' + name + '|' + i + '|' + total + '|' + raw.slice(i * chunkLength, (i + 1) * chunkLength));
-        }
-      }
-    }
+
   } finally {
     await browser.close();
   }
