@@ -10,7 +10,8 @@ test('Wi-Fi validation rejects oversized UTF-8 SSIDs and short/long WPA password
   assert.equal(h.app.validate(details('あ'.repeat(11),'12345678')),'ssidTooLong');
   assert.equal(h.app.validate(details('Guest','1234567')),'invalidWpaPassword');
   assert.equal(h.app.validate(details('Guest','A'.repeat(63))),'');
-  assert.equal(h.app.validate(details('Guest','A'.repeat(64))),'invalidWpaPassword');
+  assert.equal(h.app.validate(details('Guest','A'.repeat(64))),''); // 64 hex characters are a valid raw PSK.
+  assert.equal(h.app.validate(details('Guest','Z'.repeat(64))),'invalidWpaPassword');
   assert.equal(h.app.validate(details('Guest','0123456789abcdef'.repeat(4))),'');
   assert.equal(h.app.validate(details('Guest','0123456789abcdef'.repeat(3)+'nohex-at-the-end!')),'invalidWpaPassword');
   // Existing WEP/open compatibility is maintained.
