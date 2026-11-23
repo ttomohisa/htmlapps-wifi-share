@@ -37,7 +37,8 @@ async function main() {
                   && [...range.getClientRects()].every(rect => rect.left >= box.left - 1 && rect.right <= box.right + 1 && rect.top >= box.top - 1 && rect.bottom <= box.bottom + 1);
               }), label + ': badge text fits');
             }
-            assert.equal(await page.locator('#heroTitle').isVisible(), false, label + ': no visible hero title');
+            assert.equal(await page.locator('.page-intro h2').count(), 0, label + ': no visible hero title');
+            assert.equal(await page.locator('#heroTitle').getAttribute('class'), 'sr-only', label + ': accessible off-screen h1');
             assert.match(await page.locator('.page-intro [data-i18n="lead"]').innerText(), language === 'en' ? /Wi-Fi network name and password/ : /Wi-Fiの名前とパスワード/, label + ': descriptive intro');
             assert.equal(await page.locator('main .sharing-guide').count(), 0, label + ': no sharing section under the app');
             assert.equal(await page.locator('.page-intro').evaluate(el => getComputedStyle(el).paddingBottom === '12px'), width <= 520, label + ': compact smartphone intro');
