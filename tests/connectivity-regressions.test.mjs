@@ -99,3 +99,34 @@ for (const dismiss of ['cancel','close','escape','pagehide']) {
     assert.doesNotMatch(h.node('#nfcState').textContent,/Could not write/);
   });
 }
+
+test('QR PNG save is cancelled if the network changes before async encoding finishes', async () => {
+  const h=harness('en'); h.network('Previous Guest','valid-password'); h.app.generateQr();
+  h.defer();
+  await h.node('#saveQrButton').click();
+  h.input('ssidInput','Updated Guest');
+  h.flush();
+  assert.equal(h.downloads.length,0,'Stale QR must not be downloaded');
+  assert.match(h.node('#appToastMessage').textContent,/Wi-Fi details changed/);
+});
+
+test('QR-image system share never leaks a previous network during async PNG encoding', async () => {
+  const h=harness('ja'); h.network('Old Guest','valid-password'); h.app.generateQr();
+  h.defer();
+  const pending=h.node('#shareQrButton').click();
+  h.input('passwordInput','another-valid-password');
+  h.flush(); await pending;
+  assert.equal(h.shares.length,0,'Stale QR must not leave via OS share');
+  assert.match(h.node('#appToastMessage').textContent,/Wi-Fi情報が変わりました/);
+});
+
+test('an empty SSID cannot be copied with a false success notification', async () => {
+  const copied=[]; const h=harness('ja',null,{navigator:{clipboard:{writeText:async text=>copied.push(text)}}});
+  await h.node('#copySsidButton').click();
+  assert.equal(copied.length,0);
+  assert.equal(h.node('#validationMessage').textContent,'ネットワーク名（SSID）を入力してください。');
+  assert.equal(h.document.activeElement,h.node('#ssidInput'));
+  h.input('ssidInput','Guest Network');
+  await h.node('#copySsidButton').click();
+  assert.deepEqual(copied,['Guest Network']);
+});

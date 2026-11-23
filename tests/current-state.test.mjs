@@ -132,3 +132,15 @@ for (const language of ['ja','en']) test(`${language}: clear confirmation locali
   assert.equal(h.storage.get('wifi-share-profiles-v1'),stored);
   assert.equal(h.storageWrites.length,0);
 });
+
+for(const language of ['ja','en']) test(`${language}: loading saved Wi-Fi masks its password even after a previous reveal`,()=>{
+  const h=harness(language,[second]);
+  h.network('Current Network','valid-password');
+  h.node('#passwordToggle').click();
+  assert.equal(h.node('#passwordInput').type,'text');
+  h.app.loadProfile(second.id);
+  assert.equal(h.node('#passwordInput').type,'password');
+  assert.equal(h.node('#passwordInput').value,second.password);
+  assert.equal(h.node('#passwordToggle').getAttribute('aria-label'),language==='ja'?'パスワードを表示':'Show password');
+  assert.equal(h.storageWrites.length,0);
+});
