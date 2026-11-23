@@ -41,8 +41,11 @@ jobs:
           if ($version -notmatch '^\d+\.\d+\.\d+$') { throw "Invalid SemVer: $version" }
           $tag="v$version"
           "tag=$tag" >> $env:GITHUB_OUTPUT
-          gh release view $tag --repo $env:GITHUB_REPOSITORY --json tagName *> $null
-          if ($LASTEXITCODE -eq 0) {
+          # A missing release is normal on the first publish. Do not probe it
+          # with a failing native command under GitHub Actions' strict pwsh mode.
+          $releases = @(gh release list --repo $env:GITHUB_REPOSITORY --json tagName --limit 1000 | ConvertFrom-Json)
+          if ($LASTEXITCODE -ne 0) { throw "Could not list GitHub Releases for $env:GITHUB_REPOSITORY." }
+          if ($releases.tagName -contains $tag) {
             Write-Host "GitHub Release $tag already exists. No published release will be overwritten."
             "exists=true" >> $env:GITHUB_OUTPUT
             exit 0

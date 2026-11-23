@@ -29,7 +29,12 @@ test('main merge publishes a versioned tag and GitHub Release after successful t
   assert.match(workflow,/src\/index\.template\.html/);
   assert.match(workflow,/permissions:\s*\n\s*contents:\s*write/);
   assert.match(workflow,/\.\/scripts\/check-repository\.ps1/);
-  assert.match(workflow,/gh release view \$tag/);
+  // First publish must not turn the expected 404 from "gh release view"
+  // into a failing PowerShell step when the release does not exist yet.
+  assert.doesNotMatch(workflow,/gh release view \$tag/);
+  assert.match(workflow,/gh release list --repo \$env:GITHUB_REPOSITORY --json tagName --limit 1000/);
+  assert.match(workflow,/\$LASTEXITCODE -ne 0/);
+  assert.match(workflow,/\$releases\.tagName -contains \$tag/);
   assert.match(workflow,/gh release create \$tag/);
   assert.match(workflow,/--target \$env:GITHUB_SHA/);
   assert.match(workflow,/--generate-notes/);
