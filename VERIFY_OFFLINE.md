@@ -8,8 +8,8 @@ pwsh -NoProfile -File .\scripts\check-repository.ps1
 ```
 
 The CI also checks the readable, self-extract and root-download HTML
-variants and runs targeted desktop/mobile Chromium tests in both
-languages. Actual hardware results remain separate from CI.
+variants. The unprivileged PR job runs desktop/mobile Chromium tests in
+both languages, including a test-only QR decoder for rendered images. Actual hardware results remain separate from CI.
 
 ## Browser and offline behavior
 

@@ -38,6 +38,13 @@ test('main merge publishes a versioned tag and GitHub Release after successful t
   assert.match(workflow,/Compress-Archive/);
 });
 
+test('the unprivileged Chromium job covers decoded QR and credential flow regressions', () => {
+  const job=read('.github/workflows/preview.yml');
+  assert.ok(job.includes('playwright@1.58.2 jsqr@1.4.0'));
+  assert.ok(job.includes('node scripts/wifi-flow.browser.test.cjs'));
+  assert.ok(job.includes('if ($LASTEXITCODE -ne 0)'));
+});
+
 test('aggregate checks cover current-state behavior and the decoded self-extract artifact', () => {
   const check=read('scripts/check-repository.ps1');
   assert.ok(check.includes('"dist/index.self-extract.html"'));
