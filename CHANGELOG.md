@@ -1,28 +1,26 @@
 # Changelog
 
-## 1.1.4 — pending merge
+## [1.1.4] - Unreleased
 
+- Cancel stale QR PNG downloads and image shares when credentials change during asynchronous encoding.
+- Mask saved passwords upon loading; reject empty SSID copy attempts.
+- Align the Japanese README, security and offline-verification documentation with the actual app.
+- Include Help copy and icon checks in the release regression suite.
 - Shorten the Japanese and English opening copy to one sentence about creating a Wi-Fi QR code.
 - Redraw NFC tag, saved Wi-Fi, and save-profile SVG icons with distinct simpler shapes, without changing controls.
-
 - Make current Wi-Fi clearing a quiet secondary action with a bilingual confirmation; cancelling preserves data.
 - Restyle alternative sharing as simple divided rows, without nested action boxes, and improve narrow-screen layout.
 - Shorten the Wi-Fi details subtitle in Japanese and English.
 - Cover versioned tag and GitHub Release workflow in regression checks.
-
 - Replace the prominent hero headline with shorter Japanese/English instructions and reduce the surrounding whitespace.
 - Hide the local-processing badge on smartphones while retaining it on larger screens; move all six sharing-method explanations into Help.
 - Shorten the saved Wi-Fi empty-state copy in Japanese and English without changing storage behavior.
-
 - Cancel pending NFC writes when the NFC dialog closes, Escape is pressed, or the page is left.
 - Never fall back from QR-image sharing to sharing plaintext credentials; guide unsupported devices to save the PNG.
 - Validate SSID UTF-8 byte length and WPA passphrase/hex key length before generating QR or saving.
 - Do not silently drop saved Wi-Fi entries past 50 when reloading.
 - Add regression coverage and a versioned-release workflow that runs after merging into main.
 - Include previously unreleased mobile Help layout and footer refinements.
-
-## Unreleased — mobile Help layout
-
 - Hide the informational footer at 520px and below and move existing build details to the end of Help, available at every width.
 - Preserve keyboard disclosure access without accidental backdrop dismissal; keep functional controls and existing local-processing wording unchanged.
 

@@ -21,7 +21,7 @@ GitHub Pages delivers the initial HTML. After it loads, Wi-Fi QR generation, PNG
 - **Choose the PNG filename** — Edit the name before saving or sharing the QR image; the app supplies an SSID-based default and adds `.png` safely.
 - **Connect by QR code** — Generate Wi-Fi QR codes for WPA/WPA2/WPA3 Personal, WEP, open networks, and hidden SSIDs.
 - **Use the phone's share sheet when available** — Send the Wi-Fi details or a generated QR PNG through the browser's Web Share API.
-- **Copy only what you need** — Copy the SSID and password separately for manual setup.
+- **Copy only what you need** — Copy the SSID and password separately for manual setup; an empty SSID is not reported as a successful copy.
 - **Show details at a distance** — Display the SSID and password in a large, phone-friendly view when QR scanning is not practical.
 - **Print layout** — Create an A4 Wi-Fi sign centered on the QR code and SSID, with password printing off by default. Prepare it again after changing or clearing network details.
 - **Clear current Wi-Fi** — Reset the current form and generated views while keeping saved networks, language, and edited PNG filenames.
@@ -58,7 +58,7 @@ Use **EN / JA** in the header to switch languages. Language, Help, and Close too
 7. On supported Android browsers, use **Write NFC tag** to write the network to an NDEF-compatible tag (Experimental).
 8. For a network you use repeatedly, choose **Save this Wi-Fi** and optionally give it a display name.
 
-Before saving or sharing a QR image, edit **PNG filename** in the QR view. The default follows the SSID until you edit it. Your edited name stays for this page session, including after reopening the QR view or changing the SSID. Leave it blank to use the current SSID. Unsafe filename characters are replaced and duplicate `.png` endings are removed.
+Before saving or sharing a QR image, edit **PNG filename** in the QR view. The default follows the SSID until you edit it. Your edited name stays for this page session, including after reopening the QR view or changing the SSID. Leave it blank to use the current SSID. Unsafe filename characters are replaced and duplicate `.png` endings are removed. If Wi-Fi details change while a QR image is being exported or shared, that operation is cancelled so it cannot use the previous credentials.
 
 Choose **Clear current Wi-Fi** when switching networks or finishing a session, then confirm the reset. Cancelling keeps the current inputs and QR code. It clears the current inputs and QR, large-display, and print output, restores WPA with hidden SSID off, and masks the password. Saved Wi-Fi, language, and manually edited PNG filenames are kept. It does not securely erase browser memory or recall content already copied, shared, saved, or printed.
 
@@ -66,7 +66,7 @@ Open **Print layout** before printing. After any network edit, profile load, or 
 
 ### Saved Wi-Fi profiles
 
-Saved profiles are optional. The app stores them in this browser's local storage only after you explicitly save them. The list shows the display name, SSID, and security type, but does not reveal the stored password. You can load, delete, or clear saved profiles from the same device.
+Saved profiles are optional. The app stores them in this browser's local storage only after you explicitly save them. The list shows the display name, SSID, and security type, but does not reveal the stored password. You can load, delete, or clear saved profiles from the same device. Loaded passwords are masked even if the previous password was visible.
 
 Saving a Wi-Fi profile in browser storage is not the same as storing it in the operating system's protected credential manager.
 

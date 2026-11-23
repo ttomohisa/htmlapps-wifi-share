@@ -16,12 +16,12 @@ GitHub Pagesから最初のHTMLを読み込んだ後、Wi-Fi QR生成、PNG作�
 
 [![Wi-Fi Share スクリーンショット](assets/screenshot.png)](https://ttomohisa.github.io/htmlapps-wifi-share/)
 
-## Features
+## 主な機能
 
 - **PNGファイル名を変更** — QR画像の保存・共有の前に名前を変更できます。初期名はSSIDから作り、`.png`を安全に補います。
 - **QRコードで接続情報を共有** — WPA / WPA2 / WPA3 Personal、WEP、パスワードなし、非公開SSIDに対応したWi-Fi QRを生成します。
 - **対応端末ではOS標準の共有機能を利用** — Web Share APIを使い、Wi-Fi情報や生成したQR画像を共有できます。
-- **必要な情報だけコピー** — SSIDとパスワードを個別にコピーできます。
+- **必要な情報だけコピー** — SSIDとパスワードを個別にコピーできます。SSIDが空欄のときは入力を促します。
 - **QRが使いにくい場面では大きく表示** — PCなどへ手入力しやすいよう、SSIDとパスワードをスマホ画面に大きく表示します。
 - **印刷用レイアウト** — A4向けのWi-Fi案内を作成します。QRコードとSSIDを中心にし、パスワード印刷は必要な場合だけ有効にできます。
 - **NFCタグ書き込み（Experimental）** — Web NFC対応のAndroidブラウザでは、Wi-Fi接続情報をNDEF対応タグへ書き込めます。
@@ -29,7 +29,7 @@ GitHub Pagesから最初のHTMLを読み込んだ後、Wi-Fi QR生成、PNG作�
 - **スマホで見せやすいUI** — 全画面QR、狭い画面向けレイアウト、対応環境ではScreen Wake Lockを利用します。
 - **単一HTML・完全ローカル処理** — 日本語 / 英語UI、登録不要、実行時CDN依存なし、生成HTMLでは `connect-src 'none'` を設定しています。
 
-## Quick start
+## はじめに
 
 ### Web版を使う
 
@@ -44,7 +44,7 @@ GitHub Pagesから最初のHTMLを読み込んだ後、Wi-Fi QR生成、PNG作�
 
 QR生成、コピーのフォールバック、大きく表示、PNG保存、印刷用レイアウトなどの基本機能はローカルHTMLでも利用できる設計です。Web Share、Screen Wake Lock、Web NFCなど、一部のWeb APIはHTTPSなどのSecure Contextを必要とします。
 
-## Usage
+## 使い方
 
 ヘッダーの **EN / JA** で言語を切り替えます。言語切り替え・使い方・閉じるボタンのツールチップと読み上げ用ラベルも選択した言語に合わせて変わります。6種類の共有方法は右上の **使い方と注意事項** にまとめています。
 
@@ -57,7 +57,7 @@ QR生成、コピーのフォールバック、大きく表示、PNG保存、印
 7. 対応Androidブラウザでは **NFCタグに書き込む** からNDEF対応タグへ書き込めます（Experimental）。
 8. 繰り返し使うWi-Fiは **このWi-Fiを保存** を選び、必要なら表示名を付けます。
 
-QR画像の保存・共有前に、QR画面の **PNGファイル名** を変更できます。編集するまではSSIDに合わせて初期名が変わります。編集後の名前は、QR画面を開き直したりSSIDを変えたりしても、このページを閉じるまで保持します。空欄なら現在のSSIDを使います。ファイル名に使えない文字は置換し、重複する`.png`は取り除きます。
+QR画像の保存・共有前に、QR画面の **PNGファイル名** を変更できます。編集するまではSSIDに合わせて初期名が変わります。編集後の名前は、QR画面を開き直したりSSIDを変えたりしても、このページを閉じるまで保持します。空欄なら現在のSSIDを使います。ファイル名に使えない文字は置換し、重複する`.png`は取り除きます。画像の保存や共有中にWi-Fi情報が変わった場合は処理を中止するため、QRコードを作り直してください。
 
 ネットワークの切り替えや利用終了時は **入力中のWi-Fiをクリア** を選び、確認画面で実行できます。キャンセルした場合は入力内容と作成済みのQRを残します。入力とQR・大きく表示・印刷の内容をリセットし、WPA・非公開SSIDオフ・パスワード非表示へ戻します。保存済みWi-Fi、言語、変更したPNGファイル名は残ります。ブラウザのメモリを安全に消去したり、コピー・共有・保存・印刷済みの内容を取り消したりする機能ではありません。
 
@@ -65,7 +65,7 @@ QR画像の保存・共有前に、QR画面の **PNGファイル名** を変更�
 
 ### 保存済みWi-Fi
 
-保存機能は任意です。**このWi-Fiを保存** を押した場合だけ、このブラウザのlocalStorageへ保存します。一覧には表示名、SSID、セキュリティ方式を表示し、保存したパスワードは一覧に表示しません。保存済みWi-Fiは呼び出し・個別削除・全削除ができます。
+保存機能は任意です。**このWi-Fiを保存** を押した場合だけ、このブラウザのlocalStorageへ保存します。一覧には表示名、SSID、セキュリティ方式を表示し、保存したパスワードは一覧に表示しません。保存済みWi-Fiは呼び出し・個別削除・全削除ができます。呼び出したパスワードは、以前に表示していた場合でも非表示に戻ります。
 
 ブラウザ内保存は、OSの保護された資格情報ストアへ保存する機能とは異なります。
 
@@ -97,11 +97,11 @@ Workflowではリポジトリ検証、通常単一HTML版・自己展開版の�
 └─ dist/index.self-extract.html  # 自己展開単一HTML生成物
 ```
 
-### Build
+### ビルド
 
 リポジトリの回帰テストにはNode.js 22以降が必要です。通常ビルドでは`dist/index.html`からルートの`wifi-share.html`も同じ内容に更新します。`-OutputPath`指定時はルートのHTMLを変更しません。
 
-Windows PowerShell 7で:
+Windowsでは次のバッチファイルを実行します（内部ではWindows PowerShellを使用します）。
 
 ```powershell
 .\build-standalone.bat
@@ -116,7 +116,7 @@ Windows PowerShell 7で:
 - `dist/index.self-extract.html` の生成と検証
 - `dist` 配下へのビルド / 依存マニフェスト出力
 
-## Privacy / 実行時通信
+## プライバシーと通信
 
 生成HTMLのContent Security Policyには `connect-src 'none'` を設定しています。analytics、telemetry、外部フォント、CDN script、アプリ用バックエンドは使用しません。
 
@@ -131,13 +131,13 @@ SSID、パスワード、生成したQR情報は、ユーザーが明示的に�
 
 保存操作をしなければ、入力したWi-Fi情報を自動的に永続保存しません。
 
-## Browser support
+## 対応ブラウザ
 
 基本のQR生成は現在のChrome / Edge / Safari / FirefoxのPC・スマートフォンを対象としています。Web ShareとScreen Wake Lockは補助機能で、ブラウザ / OSの対応状況やSecure Context条件に依存します。Web NFCはExperimentalで対応範囲がさらに限定され、HTTPS上の対応Androidブラウザでのみ利用できます。
 
 OSに保存されている現在のWi-Fiパスワードを読み取ることや、Webページから端末のWi-Fi設定を直接変更することはできません。QRを読み取った後の接続処理は、読み取り側の端末・OS・カメラ機能が行います。
 
-## Limitations
+## 制限事項
 
 - Enterprise / EAP Wi-Fiの設定には対応していません。
 - Bluetooth / NFCによるスマホ間のWi-Fi情報直接転送は実装していません。NFCは対応端末からNDEFタグへ書き込むExperimental機能のみです。
@@ -149,15 +149,15 @@ OSに保存されている現在のWi-Fiパスワードを読み取ることや�
 - QRコード自体にWi-Fi接続情報が含まれるため、QRを読み取れる相手はそのネットワークへ接続できる可能性があります。
 - Wi-Fi QRの読み取り後の互換性は、最終的に読み取り側端末とOSの実装に依存します。
 
-## Dependencies
+## 依存ライブラリ
 
 `dependencies.json` で宣言する実行時パッケージ依存はありません。QRエンコーダーはアプリソースへ直接同梱しており、Kazuhiko Arase氏のQR Code Generator for JavaScriptをベースとしたMIT Licenseのコードを使用しています。詳細は [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) を参照してください。
 
-## Contributing
+## 開発への参加
 
 不具合報告や機能提案はGitHub Issuesで受け付けています。開発手順は [CONTRIBUTING.md](CONTRIBUTING.md) を参照してください。
 
-## License
+## ライセンス
 
 Copyright © 2026 ttomohisa
 

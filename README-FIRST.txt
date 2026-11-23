@@ -1,18 +1,28 @@
-Single HTML App Template
-========================
+Wi-Fi Share — Repository quick start
+================================
 
-1. Read README.ja.md.
-2. Rewrite APP_SPEC.md for the new application.
-3. Update app.config.json and replace `assets\favicon.svg` with the application icon. The build uses that one file for both the browser favicon and upper-left app icon.
-4. Inspect components/ and reuse generic patterns where they fit: Undo toast for reversible actions, confirmation dialog for irreversible/high-risk actions, compact popover menus, preset/custom numeric settings, async source guards, the mobile bottom bar for persistent smartphone navigation/actions, and webrtc-qr-pairing.html for fully serverless same-LAN browser pairing. For the WebRTC component, also copy the pinned assets from examples/dependencies.webrtc-qr.json. For long 3-5 group smartphone tools, prefer mobile page tabs over one long stacked page.
-5. Give the repository to the coding LLM and tell it to read AGENTS.md first.
-6. If you add or change dependencies, sync dependencies.lock.json with scripts\sync-dependency-lock.ps1; use scripts\update-dependency.ps1 for reviewed upgrades.
-7. If the app exports files, make the output filename user-editable before export.
-8. Run build-standalone.bat on Windows. It runs scripts\check-powershell-syntax.ps1 before the build; fix parser or encoding failures instead of bypassing them.
-9. Review dist\build-size-report.json, then open dist\index.html and dist\index.self-extract.html directly and test both with the network disabled. On smartphones, also verify the help dialog can scroll to its final item.
+Open: https://ttomohisa.github.io/htmlapps-wifi-share/
 
-Do not edit either generated HTML in dist\ manually.
+Build on Windows:
+  1. Run build-standalone.bat (including the PowerShell syntax preflight).
+  2. Open dist/index.html or dist/index.self-extract.html.
+  3. The default build also refreshes the root wifi-share.html download.
 
-WebRTC readiness
+Run release checks:
+  powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts\check-powershell-syntax.ps1
+  pwsh -NoProfile -File scripts\check-repository.ps1
+  Follow VERIFY_OFFLINE.md for manual smartphone, NFC, and OS sharing QA.
 
-For custom WebRTC DataChannel layouts, set readyChannelLabel to a reliable control channel and wait for onConnected rather than raw PeerConnection connected.
+References:
+  src/index.template.html  Editable single-file application source
+  APP_SPEC.md              Product specification and acceptance tests
+  README.ja.md / README.md User documentation
+  CHANGELOG.md             Release history
+  SECURITY.md              Credential handling and data-exit paths
+  THIRD_PARTY_NOTICES.md   QR code generator attribution
+  .github/workflows/       CI, preview, Pages and GitHub Release
+
+No account or runtime server is needed. SSIDs and passwords remain
+in memory unless explicitly saved or handed off to another destination.
+Do not manually change generated dist/ files; build from the source.
+The repository owner, not ChatGPT, merges release pull requests.

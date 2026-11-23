@@ -16,6 +16,8 @@
 - Use “SSIDとパスワードをセットで共有できます。” / “Share the SSID and password together.” as the workspace subtitle.
 - A versioned main merge must run build/tests before creating the new v1.1.4 tag and GitHub Release with readable HTML, self-extract HTML, and ZIP.
 - Use simple SVG icons for NFC tag writing (tag with N mark), saved Wi-Fi (unframed signal), and Save this Wi-Fi (bookmark plus), preserving labels and behavior.
+- Remask stored passwords when a profile is loaded. An empty SSID must not show copy success.
+- QR PNG download and QR-image share must abort if Wi-Fi details change during asynchronous encoding. Show a localized retry message.
 
 
 ## v1.1.3 — Short-viewport dialog reachability
@@ -60,7 +62,7 @@ The app is intentionally Wi-Fi-specific. It is not a general-purpose QR generato
 - Render a high-contrast QR with a quiet zone.
 - Provide a full-screen QR dialog suitable for showing to another phone.
 - Keep the screen awake while QR or large-display dialogs are open when Screen Wake Lock is available.
-- Copy SSID or password individually with Clipboard API plus a compatibility fallback.
+- Copy SSID or password individually with Clipboard API plus a compatibility fallback; copying an empty SSID shows a validation error.
 - Use Web Share API when available. Share text, and include a generated PNG QR file when the browser supports file sharing.
 - Provide a large-display mode showing SSID and password for manual entry on another device.
 - Save the QR as PNG on explicit user action. The QR dialog provides a labeled Japanese/English PNG filename field shared by Save and QR image Share.
@@ -69,7 +71,7 @@ The app is intentionally Wi-Fi-specific. It is not a general-purpose QR generato
 - Keep active SSID/password validation in the selected UI language when switching languages, without changing validation rules or moving focus.
 - Provide an A4 print layout containing the SSID and QR code, with password printing opt-in and off by default.
 - Clear current Wi-Fi resets SSID/password, restores WPA and hidden-off, remasks the password, clears validation and transient QR/large-display/print output, and focuses SSID. It preserves saved profiles, language, and deliberate PNG filename edits without writing credentials to storage.
-- All credential edits and saved-profile loads invalidate old QR/large-display/print output and reset print-password consent. Print layout must be explicitly prepared for the current details; native printing before preparation shows only a localized instruction. An unchanged prepared layout remains printable after closing its dialog.
+- All credential edits and saved-profile loads invalidate old QR/large-display/print output and reset print-password consent. Loading a saved profile must also mask the password. Print layout must be explicitly prepared for the current details; native printing before preparation shows only a localized instruction. An unchanged prepared layout remains printable after closing its dialog.
 - Clearing current Wi-Fi does not provide secure memory erasure or recall content already copied, shared, downloaded, or printed.
 - On supported Web NFC environments, write an Android-compatible Wi-Fi WSC NDEF MIME record (`application/vnd.wfa.wsc`) to an NFC tag after explicit confirmation.
 - Treat NFC tag writing as Experimental, require HTTPS/Web NFC support, and reject WEP or hidden SSID configurations that are not safely representable in the implemented WSC path.
@@ -122,7 +124,7 @@ Current stable Chrome/Edge desktop and Android, Safari on iPhone/macOS, and Fire
 - Runtime CSP contains `connect-src 'none'`.
 - Wi-Fi credentials never leave the page except through explicit OS share/copy/save actions.
 - WPA, WEP, open, hidden SSID, Japanese text, and reserved-character payload tests pass.
-- QR images decode back to the exact generated `WIFI:` payload. Edited names, blank fallback, repeated extensions, Japanese/unsafe names, dialog reopen, input invalidation, and validation language switching pass automated regression checks for source and generated downloads.
+- QR images decode back to the exact generated `WIFI:` payload. Async PNG encoding must not export obsolete QR credentials after a network edit. Edited names, blank fallback, repeated extensions, Japanese/unsafe names, dialog reopen, input invalidation, and validation language switching pass automated regression checks for source and generated downloads.
 - Clear/repeated-clear, all credential edits, profile reload, print preparation and native-beforeprint freshness guards pass in Japanese and English across source, readable, decoded self-extract, and root download artifacts. Saved profile storage and deliberate filename edits remain unchanged.
 - Japanese and English UI fit at 360px without horizontal scroll.
 - `assets/favicon.svg` and the upper-left app icon are the same design.
