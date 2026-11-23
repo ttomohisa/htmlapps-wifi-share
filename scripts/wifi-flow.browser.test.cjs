@@ -2,6 +2,7 @@
 // Public, synthetic credentials only. The test uses pinned test-only tooling.
 const assert = require('node:assert/strict');
 const path = require('node:path');
+const fs = require('node:fs');
 const { pathToFileURL } = require('node:url');
 const { chromium } = require('playwright');
 const jsQR = require('jsqr');
@@ -48,6 +49,27 @@ async function inspect(browser, name, language, width) {
     assert.equal(download.suggestedFilename(), '案内-Guest.png', label + ': sanitized PNG filename');
     await download.path();
     await page.locator('#closeQrDialog').click();
+    // Capture the actual app with public demo credentials, not its empty state.
+    if (name === 'dist/index.html') {
+      await page.locator('#ssidInput').fill(language === 'ja' ? 'ゲストWi-Fi' : 'Guest Wi-Fi');
+      await page.locator('#passwordInput').fill('sample-password-2026');
+      await page.locator('#showQrButton').click();
+      const screenshotDir = path.join(__dirname, '..', 'test-results', 'mobile-help');
+      fs.mkdirSync(screenshotDir, { recursive: true });
+      const screenshotName = width <= 520 ? 'release-mobile.png'
+        : language === 'ja' ? 'release-ja.png' : 'release-en.png';
+      if (width <= 520) {
+        await page.screenshot({ path: path.join(screenshotDir, screenshotName) });
+      } else {
+        await page.locator('#closeQrDialog').click();
+        await page.screenshot({ path: path.join(screenshotDir, screenshotName) });
+      }
+      if (width <= 520) await page.locator('#closeQrDialog').click();
+      await page.locator('#ssidInput').fill(ssid);
+      await page.locator('#passwordInput').fill(password);
+      await page.locator('#showQrButton').click();
+      await page.locator('#closeQrDialog').click();
+    }
     await page.locator('#saveProfileButton').click();
     assert.equal(await page.locator('#saveProfileDialog').evaluate(d => d.open), true, label + ': Save dialog');
     await page.locator('#profileNameInput').fill('Sample network');
@@ -92,6 +114,8 @@ async function inspect(browser, name, language, width) {
         await inspect(browser, name, language, language === 'ja' ? 390 : 1360);
       }
     }
+    // Also capture a Japanese desktop view; mobile QA uses 390px separately.
+    await inspect(browser, 'dist/index.html', 'ja', 1360);
   } finally {
     await browser.close();
   }
