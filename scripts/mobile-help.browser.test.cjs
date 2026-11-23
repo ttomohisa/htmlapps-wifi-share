@@ -41,6 +41,16 @@ async function main() {
             assert.equal(await page.locator('#heroTitle').getAttribute('class'), 'sr-only', label + ': accessible off-screen h1');
             assert.match(await page.locator('.page-intro [data-i18n="lead"]').innerText(), language === 'en' ? /Wi-Fi network name and password/ : /Wi-Fiの名前とパスワード/, label + ': descriptive intro');
             assert.equal(await page.locator('main .sharing-guide').count(), 0, label + ': no sharing section under the app');
+            assert.equal(await page.locator('.workspace-head [data-i18n="workspaceBody"]').innerText(), language === 'en' ? 'Share the SSID and password together.' : 'SSIDとパスワードをセットで共有できます。', label + ': concise workspace text');
+            assert.equal(await page.locator('#clearCurrentButton').evaluate(el => getComputedStyle(el).borderTopStyle), 'none', label + ': subtle clear button');
+            const secondary = await page.locator('.alt-share #copySsidButton').evaluate(el => ({
+              left: getComputedStyle(el).borderLeftWidth,
+              bottom: getComputedStyle(el).borderBottomWidth,
+              radius: getComputedStyle(el).borderTopLeftRadius
+            }));
+            assert.equal(secondary.left, '0px', label + ': no nested button boxes');
+            assert.equal(secondary.bottom, '1px', label + ': subtle separators remain');
+            assert.equal(secondary.radius, '0px', label + ': no nested action tiles');
             assert.equal(await page.locator('.page-intro').evaluate(el => getComputedStyle(el).paddingBottom === '12px'), width <= 520, label + ': compact smartphone intro');
             if (file === 'dist/index.html' && [1360, 320].includes(width)) {
               await page.screenshot({ path: path.join(results, `intro-${language}-${width}.png`) });

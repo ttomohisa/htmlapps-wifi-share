@@ -2,6 +2,11 @@
 
 ## 1.1.4 — pending merge
 
+- Make current Wi-Fi clearing a quiet secondary action with a bilingual confirmation; cancelling preserves data.
+- Restyle alternative sharing as simple divided rows, without nested action boxes, and improve narrow-screen layout.
+- Shorten the Wi-Fi details subtitle in Japanese and English.
+- Cover versioned tag and GitHub Release workflow in regression checks.
+
 - Replace the prominent hero headline with shorter Japanese/English instructions and reduce the surrounding whitespace.
 - Hide the local-processing badge on smartphones while retaining it on larger screens; move all six sharing-method explanations into Help.
 - Shorten the saved Wi-Fi empty-state copy in Japanese and English without changing storage behavior.

@@ -11,6 +11,10 @@
 - Show the local-processing badge only above the 520px smartphone breakpoint; do not remove its text or desktop visibility.
 - Move all six sharing-method descriptions from the bottom expandable guide into the scrollable “How to use & notes” dialog, preserving every method in Japanese and English. Keep Build information last.
 - Remove the redundant automatic-saving sentence from the saved-profiles empty state without changing consent or actual persistence.
+- Make Clear current Wi-Fi visually subdued and require localized confirmation; Cancel, Close, Escape, and backdrop dismissal retain all current data.
+- Show secondary sharing actions as divided rows inside the single workspace border instead of nested bordered tiles; keep every action and accessible tap targets.
+- Use “SSIDとパスワードをセットで共有できます。” / “Share the SSID and password together.” as the workspace subtitle.
+- A versioned main merge must run build/tests before creating the new v1.1.4 tag and GitHub Release with readable HTML, self-extract HTML, and ZIP.
 
 
 ## v1.1.3 — Short-viewport dialog reachability

@@ -21,6 +21,23 @@ test('root download is byte-identical to the fresh readable build', () => {
   assert.deepEqual(fs.readFileSync(new URL('wifi-share.html',root)),fs.readFileSync(new URL('dist/index.html',root)));
 });
 
+test('main merge publishes a versioned tag and GitHub Release after successful tests', () => {
+  const workflow=read('.github/workflows/release.yml');
+  const cfg=JSON.parse(read('app.config.json'));
+  assert.equal(cfg.version,'1.1.4');
+  assert.match(workflow,/push:\s*\n\s*branches:\s*\[main\]/);
+  assert.match(workflow,/src\/index\.template\.html/);
+  assert.match(workflow,/permissions:\s*\n\s*contents:\s*write/);
+  assert.match(workflow,/\.\/scripts\/check-repository\.ps1/);
+  assert.match(workflow,/gh release view \$tag/);
+  assert.match(workflow,/gh release create \$tag/);
+  assert.match(workflow,/--target \$env:GITHUB_SHA/);
+  assert.match(workflow,/--generate-notes/);
+  assert.match(workflow,/dist\/index\.html/);
+  assert.match(workflow,/dist\/index\.self-extract\.html/);
+  assert.match(workflow,/Compress-Archive/);
+});
+
 test('aggregate checks cover current-state behavior and the decoded self-extract artifact', () => {
   const check=read('scripts/check-repository.ps1');
   assert.ok(check.includes('"dist/index.self-extract.html"'));

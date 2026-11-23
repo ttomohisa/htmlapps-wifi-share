@@ -228,6 +228,19 @@
     .button.primary { border-color: var(--accent); color: white; background: var(--accent); }
     .button.primary:hover { border-color: var(--accent-hover); background: var(--accent-hover); }
     .button.danger { color: var(--danger); }
+    .clear-current-button {
+      justify-self: end;
+      min-height: 44px;
+      padding: 8px 2px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 540;
+    }
+    .clear-current-button:hover { border-color: transparent; background: transparent; color: var(--text); text-decoration: underline; }
+    .clear-current-button:active { transform: none; }
     .save-status { align-self: center; color: var(--muted); font-size: 12px; }
     .export-row { display: flex; align-items: end; gap: 10px; margin-top: 12px; }
     .export-field { display: grid; gap: 5px; min-width: min(100%, 320px); }
@@ -488,9 +501,10 @@
     .qr-canvas-wrap { display: grid; place-items: center; width: 100%; padding: 16px; }
     .qr-canvas-wrap canvas { display: block; width: min(100%, 280px); height: auto; image-rendering: pixelated; }
     .qr-ssid { max-width: 100%; margin-top: 10px; font-weight: 760; text-align: center; overflow-wrap: anywhere; }
-    .alt-share { margin-top: 17px; padding-top: 17px; border-top: 1px solid var(--line); }
-    .alt-share h3 { margin: 0; font-size: 14px; }
-    .alt-share > p { margin: 3px 0 11px; color: var(--muted); font-size: 11px; }
+    /* The workspace is the single outer card; secondary actions are divided rows. */
+    .alt-share { margin-top: 12px; padding-top: 16px; border-top: 1px solid var(--line); }
+    .alt-share h3 { margin: 0; font-size: 14px; font-weight: 730; }
+    .alt-share > p { margin: 3px 0 10px; color: var(--muted); font-size: 11px; }
     .action-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
     .action-grid-main { grid-template-columns: repeat(2, minmax(0,1fr)); }
     .action-grid-main.single-action { grid-template-columns: 1fr; }
@@ -557,6 +571,26 @@
     .experimental-button { position: relative; padding-right: 92px; }
     .experimental-badge { display: inline-flex; align-items: center; justify-content: center; min-height: 20px; padding: 2px 7px; border: 1px solid currentColor; border-radius: 999px; font-size: 9px; font-weight: 800; line-height: 1; letter-spacing: .02em; white-space: nowrap; opacity: .78; }
     .experimental-button .experimental-badge { position: absolute; right: 10px; }
+    .alt-share .action-grid, .alt-share .copy-action-grid, .alt-share .utility-action-grid { gap: 0 14px; margin-top: 0; }
+    .alt-share .button.with-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+      min-height: 46px;
+      padding: 11px 6px;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      font-size: 12px;
+      font-weight: 580;
+      text-align: left;
+    }
+    .alt-share .button.with-icon svg { color: var(--muted); }
+    .alt-share .button.with-icon:hover { border-bottom-color: var(--line-strong); background: var(--surface-muted); }
+    .alt-share .button.with-icon:active { transform: none; }
+    .alt-share .experimental-button { padding-right: 92px; }
     .print-dialog { width: min(720px, calc(100% - 24px)); max-height: calc(100dvh - 24px); }
     .print-dialog-body { display: grid; gap: 14px; }
     .print-preview { display: grid; place-items: center; max-height: 58dvh; overflow: auto; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-alt, #f6f7f6); }
@@ -605,6 +639,7 @@
       .action-grid { grid-template-columns: 1fr 1fr; }
       .action-grid-main { grid-template-columns: 1fr; }
       .action-grid .button { min-height: 48px; font-size: 12px; }
+      .alt-share .utility-action-grid { grid-template-columns: 1fr; }
       .fullscreen-dialog { width: 100%; max-width: none; height: 100dvh; max-height: 100dvh; margin: 0; border: 0; border-radius: 0; }
       .qr-dialog-body { padding: 16px 14px calc(20px + env(safe-area-inset-bottom)); }
       .qr-dialog-canvas { padding: 12px; }
@@ -697,7 +732,7 @@
       <div class="workspace-head">
         <div>
           <h2 id="workspaceTitle" data-i18n="workspaceTitle">Wi-Fi情報</h2>
-          <p data-i18n="workspaceBody">入力して、相手に合う方法で共有します。Wi-Fi情報は自動保存しません。</p>
+          <p data-i18n="workspaceBody">SSIDとパスワードをセットで共有できます。</p>
         </div>
       </div>
       <div class="wifi-layout">
@@ -738,7 +773,7 @@
             <span data-i18n="showQr">QRコードを表示</span>
           </button>
 
-          <button class="button" id="clearCurrentButton" type="button" data-i18n="clearCurrent">入力中のWi-Fiをクリア</button>
+          <button class="button clear-current-button" id="clearCurrentButton" type="button" data-i18n="clearCurrent">入力中のWi-Fiをクリア</button>
 
           <div class="alt-share">
             <h3 data-i18n="otherWays">Wi-Fi情報をほかの方法で共有</h3>
@@ -2397,10 +2432,10 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
         ja: {
           brandMeta: 'Wi-Fi情報をQRコード等で共有', switchLanguage: '英語に切り替え', helpTitle: '使い方と注意事項', close: '閉じる',
           introTitle: 'Wi-Fiを共有', lead: 'Wi-Fiの名前とパスワードを入力すると、共有用のQRコードを作れます。相手に見せるほか、画像で送ったり印刷したりできます。', localBadge: '完全ローカル処理',
-          workspaceTitle: 'Wi-Fi情報', workspaceBody: '一度入力すれば、SSIDとパスワードをセットで共有できます。保存するかどうかは自分で選べます。',
+          workspaceTitle: 'Wi-Fi情報', workspaceBody: 'SSIDとパスワードをセットで共有できます。',
           ssidLabel: 'ネットワーク名（SSID）', ssidPlaceholder: 'MyHomeWiFi', passwordLabel: 'パスワード', passwordPlaceholder: 'Wi-Fiパスワード',
           securityLabel: 'セキュリティ', securityWpa: 'WPA / WPA2 / WPA3', securityNone: 'パスワードなし', hiddenLabel: 'SSIDを非公開にしている', hiddenHint: '通常はオフのままで構いません。',
-          clearCurrent: '入力中のWi-Fiをクリア', printUnprepared: '印刷する前に「印刷用レイアウト」を開いてください。',
+          clearCurrent: '入力中のWi-Fiをクリア', clearCurrentConfirmTitle: '入力中のWi-Fiをクリアしますか？', clearCurrentConfirmMessage: '現在のSSIDとパスワード、作成したQRコードや印刷用レイアウトを消します。保存済みWi-Fiは残ります。', clearCurrentConfirmButton: 'クリアする', printUnprepared: '印刷する前に「印刷用レイアウト」を開いてください。',
           showPassword: 'パスワードを表示', hidePassword: 'パスワードを隠す', showQr: 'QRコードを表示', otherWays: 'Wi-Fi情報をほかの方法で共有', otherWaysBody: '共有・個別コピー・大きく表示・印刷を利用できます。対応端末ではNFCタグ書き込みも試せます。',
           share: 'Wi-Fi情報を共有', copyPassword: 'パスワードをコピー', copySsid: 'SSIDをコピー', largeDisplay: '大きく表示', printLayout: '印刷用レイアウト', nfcWrite: 'NFCタグに書き込む', privacyShort: 'SSIDとパスワードはサーバーへ送信されません。保存を選んだ場合のみ、この端末のブラウザ内に保存します。',
           savedTitle: '保存済みWi-Fi', savedEmpty: 'よく使うWi-Fiをこの端末に保存できます。', saveProfile: 'このWi-Fiを保存', clearSaved: 'すべて削除', loadSaved: '呼び出す', deleteSaved: '削除', hiddenSaved: '非公開SSID', saveProfileDialogTitle: 'このWi-Fiを保存', profileNameLabel: '表示名', profileNamePlaceholder: '自宅', saveProfileNote: 'SSIDとパスワードをこの端末のブラウザ内に保存します。OSのパスワード管理機能とは異なります。', cancel: 'キャンセル', save: '保存する', update: '更新する',
@@ -2413,7 +2448,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
           card5Title: '印刷', card5Body: 'A4用のWi-Fi案内を作り、QRコードとSSIDを掲示できます。',
           card6Title: 'NFCタグ', card6Body: '対応AndroidブラウザではWi-Fi情報をNFCタグへ書き込めます（Experimental）。',
           buildInfo: 'ビルド情報', appVersion: 'アプリバージョン', builtAt: '生成日時', dependencies: '内包依存数', footer: 'Wi-Fi情報をブラウザで共有',
-          helpClearCurrent: '「入力中のWi-Fiをクリア」で入力とQR・大きく表示・印刷の内容をリセットできます。保存済みWi-Fi、言語、変更したPNGファイル名は残ります。コピー・共有・保存・印刷済みの内容は取り消せません。',
+          helpClearCurrent: '「入力中のWi-Fiをクリア」を選び、確認すると入力とQR・大きく表示・印刷の内容をリセットします。保存済みWi-Fi、言語、変更したPNGファイル名は残ります。コピー・共有・保存・印刷済みの内容は取り消せません。',
           helpBasicsTitle: '基本操作', helpStep1: 'ネットワーク名（SSID）とパスワードを入力します。', helpStep2: '通常は「WPA / WPA2 / WPA3」のまま使います。パスワードなしのWi-Fiではセキュリティを切り替えてください。', helpStep3: '「QRコードを表示」を押し、相手のスマホのカメラで読み取ります。共有・コピー・大きく表示・印刷も利用できます。', helpStep4: 'よく使うWi-Fiは「このWi-Fiを保存」を選ぶと、この端末のブラウザ内から呼び出せます。',
           helpPrivacyTitle: 'プライバシー', helpPrivacyBody: '入力したSSIDとパスワードはブラウザ内だけで処理され、このアプリからサーバーへ送信されません。保存を選んだWi-Fiだけ、この端末のブラウザ内に保存します。', helpNotesTitle: '注意事項',
 
@@ -2427,10 +2462,10 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
         en: {
           brandMeta: 'Share Wi-Fi by QR code and more', switchLanguage: 'Switch to Japanese', helpTitle: 'How to use & notes', close: 'Close',
           introTitle: 'Share Wi-Fi', lead: 'Enter a Wi-Fi network name and password to make a QR code you can show, send as an image, or print.', localBadge: 'Fully local processing',
-          workspaceTitle: 'Wi-Fi details', workspaceBody: 'Enter it once and share the SSID and password together. You choose whether to save it on this device.',
+          workspaceTitle: 'Wi-Fi details', workspaceBody: 'Share the SSID and password together.',
           ssidLabel: 'Network name (SSID)', ssidPlaceholder: 'MyHomeWiFi', passwordLabel: 'Password', passwordPlaceholder: 'Wi-Fi password',
           securityLabel: 'Security', securityWpa: 'WPA / WPA2 / WPA3', securityNone: 'No password', hiddenLabel: 'Hidden SSID', hiddenHint: 'Leave this off for most networks.',
-          clearCurrent: 'Clear current Wi-Fi', printUnprepared: 'Open Print layout before printing.',
+          clearCurrent: 'Clear current Wi-Fi', clearCurrentConfirmTitle: 'Clear current Wi-Fi?', clearCurrentConfirmMessage: 'This clears the SSID, password, QR code, and prepared print layout. Saved Wi-Fi entries are kept.', clearCurrentConfirmButton: 'Clear', printUnprepared: 'Open Print layout before printing.',
           showPassword: 'Show password', hidePassword: 'Hide password', showQr: 'Show QR code', otherWays: 'Share Wi-Fi details another way', otherWaysBody: 'Use system share, individual copy, large display, or print. NFC tag writing is also available on supported devices.',
           share: 'Share Wi-Fi details', copyPassword: 'Copy password', copySsid: 'Copy SSID', largeDisplay: 'Large display', printLayout: 'Print layout', nfcWrite: 'Write NFC tag', privacyShort: 'SSID and password are not sent to a server. They are stored in this browser only when you choose Save.',
           savedTitle: 'Saved Wi-Fi', savedEmpty: 'Save frequently used Wi-Fi details on this device.', saveProfile: 'Save this Wi-Fi', clearSaved: 'Delete all', loadSaved: 'Load', deleteSaved: 'Delete', hiddenSaved: 'Hidden SSID', saveProfileDialogTitle: 'Save this Wi-Fi', profileNameLabel: 'Display name', profileNamePlaceholder: 'Home', saveProfileNote: 'The SSID and password will be stored in this browser on this device. This is not the same as the OS password manager.', cancel: 'Cancel', save: 'Save', update: 'Update',
@@ -2443,7 +2478,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
           card5Title: 'Print', card5Body: 'Create an A4 Wi-Fi sign with the QR code and SSID.',
           card6Title: 'NFC tag', card6Body: 'On supported Android browsers, write Wi-Fi details to an NFC tag (Experimental).',
           buildInfo: 'Build information', appVersion: 'App version', builtAt: 'Built at', dependencies: 'Embedded dependencies', footer: 'Share Wi-Fi details in your browser',
-          helpClearCurrent: 'Clear current Wi-Fi resets the form, QR, large display, and print layout. Saved Wi-Fi, language, and edited PNG filenames are kept. Previously copied, shared, saved, or printed content cannot be recalled.',
+          helpClearCurrent: 'Choose Clear current Wi-Fi and confirm to reset the form, QR, large display, and print layout. Saved Wi-Fi, language, and edited PNG filenames are kept. Previously copied, shared, saved, or printed content cannot be recalled.',
           helpBasicsTitle: 'Basics', helpStep1: 'Enter the network name (SSID) and password.', helpStep2: 'For most networks, keep WPA / WPA2 / WPA3 selected. Switch security for open networks.', helpStep3: 'Tap Show QR code and scan it with the other phone camera. Share, Copy, Large display, and Print are also available.', helpStep4: 'For frequently used networks, choose Save this Wi-Fi to load the details later from this browser.',
           helpPrivacyTitle: 'Privacy', helpPrivacyBody: 'SSID and password are processed only in the browser and are not sent to a server by this app. Only Wi-Fi details you explicitly save are stored in this browser.', helpNotesTitle: 'Notes',
 
@@ -2506,6 +2541,14 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
         $('#passwordInput').type='password'; updatePasswordState(); updatePasswordToggleLabel();
         setValidation(''); invalidateNetworkOutputs(); syncOutputFilename();
         $('#ssidInput').focus();
+      }
+      async function requestClearCurrentWifi() {
+        const confirmed=await confirmAction({
+          title:t('clearCurrentConfirmTitle'),
+          message:t('clearCurrentConfirmMessage'),
+          okText:t('clearCurrentConfirmButton')
+        });
+        if (confirmed) clearCurrentWifi();
       }
 
       const AppToast = (() => {
@@ -2635,9 +2678,25 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
       function confirmAction({title,message,okText}) {
         return new Promise(resolve=>{
           const dialog=$('#appConfirmDialog'), ok=$('#appConfirmOk'), cancel=$('#appConfirmCancel'), close=$('#appConfirmClose');
+          const previousFocus=document.activeElement;
           $('#appConfirmTitle').textContent=title; $('#appConfirmMessage').textContent=message; cancel.textContent=t('cancel'); ok.textContent=okText;
-          const done=value=>{dialog.removeEventListener('cancel',onCancel);ok.onclick=cancel.onclick=close.onclick=null;if(dialog.open)dialog.close();resolve(value);};
-          const onCancel=event=>{event.preventDefault();done(false);}; dialog.addEventListener('cancel',onCancel); ok.onclick=()=>done(true); cancel.onclick=close.onclick=()=>done(false); dialog.showModal();
+          const done=value=>{
+            dialog.removeEventListener('cancel',onCancel); dialog.removeEventListener('click',onBackdrop);
+            ok.onclick=cancel.onclick=close.onclick=null;
+            if(dialog.open)dialog.close();
+            if(previousFocus?.isConnected) previousFocus.focus({preventScroll:true});
+            resolve(value);
+          };
+          const onCancel=event=>{event.preventDefault();done(false);};
+          const onBackdrop=event=>{
+            if(event.target!==dialog)return;
+            const rect=dialog.getBoundingClientRect();
+            if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)done(false);
+          };
+          dialog.addEventListener('cancel',onCancel);
+          dialog.addEventListener('click',onBackdrop);
+          ok.onclick=()=>done(true); cancel.onclick=close.onclick=()=>done(false);
+          dialog.showModal(); cancel.focus({preventScroll:true});
         });
       }
       async function deleteProfile(id) {
@@ -2831,7 +2890,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
       const helpDialog=$('#helpDialog'); $('#helpButton').addEventListener('click',()=>helpDialog.showModal()); $('#closeHelpButton').addEventListener('click',()=>helpDialog.close());
       $('#wifiForm').addEventListener('submit',event=>{event.preventDefault();generateQr({openDialog:true});});
       $('#passwordToggle').addEventListener('click',togglePassword);
-      $('#clearCurrentButton').addEventListener('click',clearCurrentWifi);
+      $('#clearCurrentButton').addEventListener('click',requestClearCurrentWifi);
       $('#securitySelect').addEventListener('change',()=>{updatePasswordState();setValidation('');invalidateNetworkOutputs();});
       $('#hiddenCheckbox').addEventListener('change',()=>{setValidation('');invalidateNetworkOutputs();});
       $('#ssidInput').addEventListener('input',()=>{setValidation('');invalidateNetworkOutputs();}); $('#passwordInput').addEventListener('input',()=>{setValidation('');invalidateNetworkOutputs();});

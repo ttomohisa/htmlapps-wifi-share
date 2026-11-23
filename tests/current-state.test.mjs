@@ -16,6 +16,13 @@ function prepare(h) {
   assert.equal(h.node('#printSheetPassword').textContent,first.password);
   assert.ok(h.node('#printSheetQr').draws.length>100);
 }
+async function acceptCurrentClear(h) {
+  const pending=h.node('#clearCurrentButton').click();
+  assert.equal(h.node('#appConfirmDialog').open,true,'confirmation opens');
+  h.node('#appConfirmOk').onclick();
+  await pending;
+  assert.equal(h.node('#appConfirmDialog').open,false,'confirmation closes');
+}
 function assertUnprepared(h) {
   assert.equal(h.node('#printSheet').dataset.ready,'false');
   assert.equal(h.node('#printPasswordCheckbox').checked,false);
@@ -44,12 +51,12 @@ for(const language of ['ja','en']) {
     const h=harness(language);prepare(h);h.network('','');assert.equal(h.app.generateQr(),false);assertUnprepared(h);
     h.emitWindow('beforeprint');assertUnprepared(h);
   });
-  test(`${language}: clear resets form, transients, validation, masking, and focus without storage writes`,()=>{
+  test(`${language}: clear resets form, transients, validation, masking, and focus without storage writes`,async()=>{
     const h=harness(language,[second]);h.app.loadProfile(second.id);prepare(h);
     const stored=[...h.storage];h.node('#passwordToggle').click();h.node('#securitySelect').value='WEP';h.node('#hiddenCheckbox').checked=true;
     h.input('outputFilename','会場 handout.png');h.app.generateQr({openDialog:true});
     h.node('#largeDisplayButton').click();h.node('#printLayoutButton').click();
-    h.node('#clearCurrentButton')?.click();
+    await acceptCurrentClear(h);
     assert.equal(h.app.getDetails().ssid,'');assert.equal(h.app.getDetails().password,'');assert.equal(h.app.getDetails().security,'WPA');assert.equal(h.app.getDetails().hidden,false);
     assert.equal(h.node('#passwordInput').type,'password');assert.equal(h.node('#passwordInput').disabled,false);assert.equal(h.node('#passwordToggle').disabled,false);
     assert.equal(h.node('#passwordToggle').getAttribute('aria-label'),language==='ja'?'パスワードを表示':'Show password');
@@ -59,8 +66,8 @@ for(const language of ['ja','en']) {
     for(const id of canvasIds) assert.equal(h.node('#'+id).draws.length,0,id);
     assertUnprepared(h);assert.equal(h.document.activeElement,h.node('#ssidInput'));
     assert.equal(h.node('#outputFilename').value,'会場 handout.png');assert.deepEqual([...h.storage],stored);assert.equal(h.storageWrites.length,0);
-    assert.equal(h.document.documentElement.lang,language);h.node('#clearCurrentButton').click();assertUnprepared(h);
-    assert.equal(h.app.generateQr(),false);h.node('#clearCurrentButton').click();assert.equal(h.node('#validationMessage').textContent,'');assert.equal(h.node('#ssidInput').getAttribute('aria-invalid'),null);
+    assert.equal(h.document.documentElement.lang,language);await acceptCurrentClear(h);assertUnprepared(h);
+    assert.equal(h.app.generateQr(),false);await acceptCurrentClear(h);assert.equal(h.node('#validationMessage').textContent,'');assert.equal(h.node('#ssidInput').getAttribute('aria-invalid'),null);
     h.app.loadProfile(second.id);assert.equal(h.app.getDetails().ssid,second.ssid);
   });
   test(`${language}: native print stays unprepared until explicitly prepared`,()=>{
@@ -76,11 +83,11 @@ for(const language of ['ja','en']) {
     assert.notEqual(JSON.stringify(h.node('#printSheetQr').draws),old);assert.equal(h.node('#printPasswordCheckbox').checked,false);assert.equal(h.node('#printSheetPasswordRow').hidden,true);
   });
 }
-test('clear remains separate from deleting profiles and resets automatic filenames',()=>{
+test('clear remains separate from deleting profiles and resets automatic filenames',async()=>{
   const h=harness();h.network();h.app.generateQr();
   assert.equal(h.node('#clearCurrentButton')?.type,'button');assert.equal(h.node('#clearCurrentButton')?.dataset.i18n,'clearCurrent');
-  h.node('#clearCurrentButton').click();assert.equal(h.node('#outputFilename').value,'wifi-network.png');
-  h.node('#securitySelect').value='nopass';h.node('#securitySelect').emit('change');h.node('#clearCurrentButton').click();assert.equal(h.node('#passwordInput').disabled,false);
+  await acceptCurrentClear(h);assert.equal(h.node('#outputFilename').value,'wifi-network.png');
+  h.node('#securitySelect').value='nopass';h.node('#securitySelect').emit('change');await acceptCurrentClear(h);assert.equal(h.node('#passwordInput').disabled,false);
 });
 test('print CSS hides unprepared credential cards and shows only preparation instructions',()=>{
   assert.match(source,/\.print-sheet(?![^{}]*\[data-ready)[^{]*\s+\.print-sheet-card\s*\{[^}]*display:\s*none\s*!important/s);
@@ -95,4 +102,33 @@ for(const action of ['confirmPrint','printPasswordCheckbox','languageButton']) t
   assertUnprepared(h);assert.equal(h.printCalls.length,0);assert.equal(h.node('#printDialog').open,false);
   h.node('#printLayoutButton').click();assert.equal(h.node('#printSheetSsid').textContent,second.ssid);assert.equal(h.node('#printPasswordCheckbox').checked,false);
   h.node('#confirmPrint').click();assert.equal(h.printCalls.length,1);assert.equal(h.node('#printSheetPasswordRow').hidden,true);
+});
+
+for (const language of ['ja','en']) test(`${language}: clear confirmation localizes and all dismissal paths preserve Wi-Fi`, async () => {
+  const h=harness(language,[second]);h.network('Guest Wi-Fi','valid-password');h.app.generateQr();
+  const payload=h.app.lastPayload, stored=h.storage.get('wifi-share-profiles-v1');
+  for(const dismiss of ['appConfirmCancel','appConfirmClose','cancel','backdrop']) {
+    h.node('#clearCurrentButton').focus();
+    const pending=h.node('#clearCurrentButton').click();
+    assert.equal(h.node('#appConfirmDialog').open,true);
+    assert.equal(h.node('#appConfirmTitle').textContent,language==='ja'?'入力中のWi-Fiをクリアしますか？':'Clear current Wi-Fi?');
+    assert.equal(h.node('#appConfirmOk').textContent,language==='ja'?'クリアする':'Clear');
+    assert.equal(h.document.activeElement,h.node('#appConfirmCancel'));
+    if(dismiss==='cancel') await h.node('#appConfirmDialog').emit('cancel');
+    else if(dismiss==='backdrop') await h.node('#appConfirmDialog').emit('click',{target:h.node('#appConfirmDialog'),clientX:0,clientY:0});
+    else h.node('#'+dismiss).onclick();
+    await pending;
+    assert.equal(h.node('#appConfirmDialog').open,false);
+    assert.equal(h.app.getDetails().ssid,'Guest Wi-Fi');
+    assert.equal(h.app.getDetails().password,'valid-password');
+    assert.equal(h.app.lastPayload,payload);
+    assert.equal(h.storage.get('wifi-share-profiles-v1'),stored);
+    assert.equal(h.storageWrites.length,0);
+    assert.equal(h.document.activeElement,h.node('#clearCurrentButton'));
+  }
+  await acceptCurrentClear(h);
+  assert.equal(h.app.getDetails().ssid,'');
+  assert.equal(h.app.getDetails().password,'');
+  assert.equal(h.storage.get('wifi-share-profiles-v1'),stored);
+  assert.equal(h.storageWrites.length,0);
 });

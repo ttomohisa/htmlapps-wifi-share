@@ -60,7 +60,7 @@ Use **EN / JA** in the header to switch languages. Language, Help, and Close too
 
 Before saving or sharing a QR image, edit **PNG filename** in the QR view. The default follows the SSID until you edit it. Your edited name stays for this page session, including after reopening the QR view or changing the SSID. Leave it blank to use the current SSID. Unsafe filename characters are replaced and duplicate `.png` endings are removed.
 
-Use **Clear current Wi-Fi** when switching networks or finishing a session. It clears the current inputs and QR, large-display, and print output, restores WPA with hidden SSID off, and masks the password. Saved Wi-Fi, language, and manually edited PNG filenames are kept. It does not securely erase browser memory or recall content already copied, shared, saved, or printed.
+Choose **Clear current Wi-Fi** when switching networks or finishing a session, then confirm the reset. Cancelling keeps the current inputs and QR code. It clears the current inputs and QR, large-display, and print output, restores WPA with hidden SSID off, and masks the password. Saved Wi-Fi, language, and manually edited PNG filenames are kept. It does not securely erase browser memory or recall content already copied, shared, saved, or printed.
 
 Open **Print layout** before printing. After any network edit, profile load, or reset, native browser printing shows an instruction until you prepare the layout again. Closing an unchanged prepared layout keeps that card printable.
 

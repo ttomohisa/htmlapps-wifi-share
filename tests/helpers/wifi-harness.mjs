@@ -24,11 +24,11 @@ export function harness(language = 'en', initialProfiles = null, overrides = {})
       this.hidden = 'hidden' in attrs; this.disabled = 'disabled' in attrs; this.checked = false;
       this.width = Number(attrs.width) || 300; this.height = Number(attrs.height) || 150; this.draws = [];
       this.listeners = {}; this.children = []; this.style = {}; this.textContent = ''; this.open = false;
-      this.classList = {add(){},remove(){},toggle(){}};
+      this.classList = {add(){},remove(){},toggle(){}}; this.isConnected=true;
     }
     addEventListener(type, fn) { (this.listeners[type] ||= []).push(fn); }
-    removeEventListener() {}
-    emit(type) { return Promise.all((this.listeners[type] || []).map(fn => fn({target:this,preventDefault(){}}))); }
+    removeEventListener(type,fn) { this.listeners[type]=(this.listeners[type]||[]).filter(listener=>listener!==fn); }
+    emit(type, event={}) { return Promise.all((this.listeners[type] || []).map(fn => fn({target:this,preventDefault(){},...event}))); }
     click() { if (this.tagName === 'a') downloads.push(this.download); else if (!this.disabled) return this.emit('click'); }
     setAttribute(k,v) { this.attrs[k] = String(v); }
     getAttribute(k) { return this.attrs[k] ?? null; }
@@ -37,6 +37,7 @@ export function harness(language = 'en', initialProfiles = null, overrides = {})
     select() { this.focus(); }
     showModal() { this.previousFocus = document.activeElement; this.open = true; }
     close() { this.open = false; this.previousFocus?.focus(); this.emit('close'); }
+    getBoundingClientRect() { return {left:50,top:50,right:350,bottom:350}; }
     replaceChildren(...children) { this.children = children; }
     append(...children) { this.children.push(...children); }
     querySelector() { return this.child ||= new Element('span'); }
