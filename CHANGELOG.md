@@ -1,7 +1,33 @@
 # Changelog
 
-## Unreleased — mobile Help layout
+## [1.1.4] - Unreleased
 
+- Let users edit and safely normalize PNG filenames for QR image downloads and sharing.
+- Prevent changed Wi-Fi details from leaving stale QR or password data in print layouts; browser printing requires a current prepared layout.
+- Update validation messages on language switches without clearing inputs.
+- Regenerate the root standalone HTML from the readable build, and test all four artifact variants for parity.
+- Refresh Japanese, English, and mobile screenshots from live Chromium output using synthetic Wi-Fi details.
+- Retain the bundled QR encoder's complete MIT license notice inside standalone HTML and repository notices.
+
+- Cancel stale QR PNG downloads and image shares when credentials change during asynchronous encoding.
+- Mask saved passwords upon loading; reject empty SSID copy attempts.
+- Align the Japanese README, security and offline-verification documentation with the actual app.
+- Include Help copy and icon checks in the release regression suite.
+- Shorten the Japanese and English opening copy to one sentence about creating a Wi-Fi QR code.
+- Redraw NFC tag, saved Wi-Fi, and save-profile SVG icons with distinct simpler shapes, without changing controls.
+- Make current Wi-Fi clearing a quiet secondary action with a bilingual confirmation; cancelling preserves data.
+- Restyle alternative sharing as simple divided rows, without nested action boxes, and improve narrow-screen layout.
+- Shorten the Wi-Fi details subtitle in Japanese and English.
+- Cover versioned tag and GitHub Release workflow in regression checks.
+- Replace the prominent hero headline with shorter Japanese/English instructions and reduce the surrounding whitespace.
+- Hide the local-processing badge on smartphones while retaining it on larger screens; move all six sharing-method explanations into Help.
+- Shorten the saved Wi-Fi empty-state copy in Japanese and English without changing storage behavior.
+- Cancel pending NFC writes when the NFC dialog closes, Escape is pressed, or the page is left.
+- Never fall back from QR-image sharing to sharing plaintext credentials; guide unsupported devices to save the PNG.
+- Validate SSID UTF-8 byte length and WPA passphrase/hex key length before generating QR or saving.
+- Do not silently drop saved Wi-Fi entries past 50 when reloading.
+- Add regression coverage and a versioned-release workflow that runs after merging into main.
+- Include previously unreleased mobile Help layout and footer refinements.
 - Hide the informational footer at 520px and below and move existing build details to the end of Help, available at every width.
 - Preserve keyboard disclosure access without accidental backdrop dismissal; keep functional controls and existing local-processing wording unchanged.
 
@@ -16,19 +42,6 @@
 
 - Normalize icon brand color and exact 25% background corner radii without changing artwork.
 - Rebuild matching header, favicon, download alias, and self-extract representations.
-
-## [Unreleased]
-
-### Added
-- Added localized Clear current Wi-Fi to reset current inputs and generated views without changing saved profiles, language, or edited PNG filenames.
-- Added an editable Japanese/English PNG filename next to QR export actions, with a shared safe-name resolver for downloads and image sharing.
-- Added executable export, validation, and release-parity regressions to repository/CI checks.
-
-### Fixed
-- Credential edits and profile loads now clear stale printable SSID, password, and QR data and reset password-print consent. Native printing requires a current prepared layout.
-- Regression checks now execute current-state behavior across source, readable, decoded self-extract, and root-download artifacts using the bundled QR encoder.
-- Active SSID/password validation now follows language changes without resetting input or focus.
-- Default builds now refresh the root offline download from the readable release.
 
 ## [1.1.1] - 2026-10-07
 

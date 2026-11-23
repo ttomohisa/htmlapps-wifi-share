@@ -26,14 +26,39 @@ async function main() {
             await page.goto(pathToFileURL(path.resolve(__dirname, '..', file)).href);
             await page.locator('#helpButton').waitFor();
             if (await page.locator('html').getAttribute('lang') !== language) await page.locator('#languageButton').click();
-            assert.equal(await page.locator('[data-i18n="localBadge"]').innerText(), language === 'en' ? 'Fully local processing' : '完全ローカル処理', label);
-            assert.ok(await page.locator('.local-badge').evaluate(el => {
-              const box = el.getBoundingClientRect();
-              const range = document.createRange();
-              range.selectNodeContents(el.querySelector('[data-i18n="localBadge"]'));
-              return box.left >= 0 && box.right <= innerWidth && el.scrollWidth <= el.clientWidth + 1
-                && [...range.getClientRects()].every(rect => rect.left >= box.left - 1 && rect.right <= box.right + 1 && rect.top >= box.top - 1 && rect.bottom <= box.bottom + 1);
-            }), label + ': badge text fits');
+            assert.equal(await page.locator('[data-i18n="localBadge"]').textContent(), language === 'en' ? 'Fully local processing' : '完全ローカル処理', label);
+            assert.equal(await page.locator('.local-badge').isVisible(), width > 520, label + ': smartphone badge visibility');
+            if (width > 520) {
+              assert.ok(await page.locator('.local-badge').evaluate(el => {
+                const box = el.getBoundingClientRect();
+                const range = document.createRange();
+                range.selectNodeContents(el.querySelector('[data-i18n="localBadge"]'));
+                return box.left >= 0 && box.right <= innerWidth && el.scrollWidth <= el.clientWidth + 1
+                  && [...range.getClientRects()].every(rect => rect.left >= box.left - 1 && rect.right <= box.right + 1 && rect.top >= box.top - 1 && rect.bottom <= box.bottom + 1);
+              }), label + ': badge text fits');
+            }
+            assert.equal(await page.locator('.page-intro h2').count(), 0, label + ': no visible hero title');
+            assert.equal(await page.locator('#heroTitle').getAttribute('class'), 'sr-only', label + ': accessible off-screen h1');
+            assert.equal(await page.locator('.page-intro [data-i18n="lead"]').innerText(), language === 'en' ? 'Create a Wi-Fi QR code from the network name and password.' : 'Wi-Fiの名前とパスワードから、接続用のQRコードを作れます。', label + ': concise intro');
+            assert.ok((await page.locator('.page-intro [data-i18n="lead"]').innerText()).length <= 65, label + ': intro stays concise');
+            assert.equal(await page.locator('#nfcButton svg rect').count(), 1, label + ': NFC tag icon');
+            assert.equal(await page.locator('.saved-title-wrap svg circle').count(), 1, label + ': Wi-Fi signal icon');
+            assert.equal(await page.locator('#saveProfileButton svg path').count(), 2, label + ': bookmark plus icon');
+            assert.equal(await page.locator('main .sharing-guide').count(), 0, label + ': no sharing section under the app');
+            assert.equal(await page.locator('.workspace-head [data-i18n="workspaceBody"]').innerText(), language === 'en' ? 'Share the SSID and password together.' : 'SSIDとパスワードをセットで共有できます。', label + ': concise workspace text');
+            assert.equal(await page.locator('#clearCurrentButton').evaluate(el => getComputedStyle(el).borderTopStyle), 'none', label + ': subtle clear button');
+            const secondary = await page.locator('.alt-share #copySsidButton').evaluate(el => ({
+              left: getComputedStyle(el).borderLeftWidth,
+              bottom: getComputedStyle(el).borderBottomWidth,
+              radius: getComputedStyle(el).borderTopLeftRadius
+            }));
+            assert.equal(secondary.left, '0px', label + ': no nested button boxes');
+            assert.equal(secondary.bottom, '1px', label + ': subtle separators remain');
+            assert.equal(secondary.radius, '0px', label + ': no nested action tiles');
+            assert.equal(await page.locator('.page-intro').evaluate(el => getComputedStyle(el).paddingBottom === '12px'), width <= 520, label + ': compact smartphone intro');
+            if (file === 'dist/index.html' && [1360, 320].includes(width)) {
+              await page.screenshot({ path: path.join(results, `intro-${language}-${width}.png`) });
+            }
             assert.equal(await page.locator('main').locator(buildSelector).count(), 0, label);
             assert.equal(await page.locator('footer').isVisible(), width > 520, label);
 
@@ -44,6 +69,11 @@ async function main() {
             assert.ok(await body.evaluate(el => Boolean(el.lastElementChild.querySelector('summary[data-i18n="buildInfo"]'))), label);
             assert.equal(await page.locator(buildSelector).count(), 1, label);
             assert.equal(await page.locator(buildSelector).isVisible(), true, label);
+            assert.equal(await page.locator('#helpDialog .help-sharing-list > li').count(), 6, label + ': all sharing methods moved into Help');
+            for (let i = 1; i <= 6; i++) {
+              assert.equal(await page.locator(`#helpDialog [data-i18n="card${i}Title"]`).count(), 1, label);
+              assert.ok((await page.locator(`#helpDialog [data-i18n="card${i}Body"]`).textContent()).length > 10, label);
+            }
             for (const id of ['buildVersion', 'builtAt', 'dependencyCount']) assert.equal(await page.locator('#' + id).count(), 1, label);
 
             {

@@ -169,15 +169,15 @@
       align-items: flex-start;
       justify-content: space-between;
       gap: 20px;
-      padding: 0 2px 18px;
+      padding: 0 2px 14px;
     }
-    .page-intro h2 {
+    .page-intro p {
       margin: 0;
-      font-size: clamp(21px, 3vw, 26px);
-      line-height: 1.3;
-      letter-spacing: -.025em;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
     }
-    .page-intro p { margin: 5px 0 0; max-width: 760px; color: var(--muted); font-size: 13px; }
     .local-badge {
       display: inline-flex;
       align-items: center;
@@ -195,7 +195,7 @@
     }
     .local-badge svg { width: 15px; height: 15px; display: block; }
     .workspace {
-      margin: 0 0 28px;
+      margin: 0;
       padding: 20px;
       border: 1px solid var(--line);
       border-radius: 16px;
@@ -228,6 +228,19 @@
     .button.primary { border-color: var(--accent); color: white; background: var(--accent); }
     .button.primary:hover { border-color: var(--accent-hover); background: var(--accent-hover); }
     .button.danger { color: var(--danger); }
+    .clear-current-button {
+      justify-self: end;
+      min-height: 44px;
+      padding: 8px 2px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 540;
+    }
+    .clear-current-button:hover { border-color: transparent; background: transparent; color: var(--text); text-decoration: underline; }
+    .clear-current-button:active { transform: none; }
     .save-status { align-self: center; color: var(--muted); font-size: 12px; }
     .export-row { display: flex; align-items: end; gap: 10px; margin-top: 12px; }
     .export-field { display: grid; gap: 5px; min-width: min(100%, 320px); }
@@ -240,11 +253,6 @@
     .section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 18px; margin-bottom: 15px; }
     .section-title { font-size: 20px; }
     .section-head p { margin: 0; color: var(--muted); font-size: 13px; }
-    .card-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-    .card { min-height: 150px; padding: 17px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); box-shadow: var(--shadow-sm); }
-    .card-number { color: var(--accent); font-size: 11px; font-weight: 800; letter-spacing: .08em; }
-    .card h3 { margin: 17px 0 6px; font-size: 15px; }
-    .card p { margin: 0; color: var(--muted); font-size: 12px; }
     details { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; box-shadow: var(--shadow-sm); }
     summary { cursor: pointer; padding: 14px 16px; font-weight: 720; }
     .build-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 0 16px 16px; }
@@ -313,6 +321,11 @@
     .dialog-body p { margin: 8px 0 0; }
     .dialog-body ul, .dialog-body ol { margin: 8px 0 0; padding-left: 22px; }
     .dialog-body li + li { margin-top: 7px; }
+    .help-sharing-list { list-style: none; margin-top: 8px !important; padding-left: 0 !important; }
+    .help-sharing-list li { padding: 9px 0; }
+    .help-sharing-list li + li { margin-top: 0; border-top: 1px solid var(--line); }
+    .help-sharing-list strong { display: block; color: var(--text); font-size: 13px; }
+    .help-sharing-list span { display: block; margin-top: 2px; }
     .dialog-note {
       margin-top: 12px;
       padding: 11px 12px;
@@ -404,7 +417,6 @@
       .page-intro { align-items: stretch; flex-direction: column; gap: 10px; }
       .local-badge { align-self: flex-start; }
       .workspace-head, .section-head { align-items: stretch; flex-direction: column; }
-      .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .build-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 520px) {
@@ -417,12 +429,12 @@
       .header-actions { gap: 11px; }
       .language-button { padding-block: 6px; }
       .header-icon-button { padding-block: 6px; }
-      .main { padding-top: 18px; }
-      .page-intro { padding-bottom: 14px; }
+      .main { padding-top: 14px; }
+      .page-intro { padding-bottom: 12px; }
+      .local-badge { display: none; }
       .workspace { padding: 14px; border-radius: 14px; }
       .stats { width: 100%; }
       .stat { flex: 1 1 0; min-width: 0; }
-      .card-grid { grid-template-columns: 1fr; }
       .toolbar, .button-row { width: 100%; }
       .button-row .button { flex: 1 1 auto; }
       .export-row, .export-field { width: 100%; }
@@ -489,9 +501,10 @@
     .qr-canvas-wrap { display: grid; place-items: center; width: 100%; padding: 16px; }
     .qr-canvas-wrap canvas { display: block; width: min(100%, 280px); height: auto; image-rendering: pixelated; }
     .qr-ssid { max-width: 100%; margin-top: 10px; font-weight: 760; text-align: center; overflow-wrap: anywhere; }
-    .alt-share { margin-top: 17px; padding-top: 17px; border-top: 1px solid var(--line); }
-    .alt-share h3 { margin: 0; font-size: 14px; }
-    .alt-share > p { margin: 3px 0 11px; color: var(--muted); font-size: 11px; }
+    /* The workspace is the single outer card; secondary actions are divided rows. */
+    .alt-share { margin-top: 12px; padding-top: 16px; border-top: 1px solid var(--line); }
+    .alt-share h3 { margin: 0; font-size: 14px; font-weight: 730; }
+    .alt-share > p { margin: 3px 0 10px; color: var(--muted); font-size: 11px; }
     .action-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
     .action-grid-main { grid-template-columns: repeat(2, minmax(0,1fr)); }
     .action-grid-main.single-action { grid-template-columns: 1fr; }
@@ -524,6 +537,7 @@
     .saved-delete { width: 44px; height: 44px; color: var(--muted); }
     .saved-delete:hover { color: var(--danger); }
     .save-profile-button { width: 100%; min-height: 44px; margin-top: 8px; font-size: 11px; }
+    .save-profile-button svg { color: var(--accent); }
     .save-dialog { width: min(440px, calc(100% - 24px)); }
     .save-dialog .dialog-body { padding: 16px; }
     .save-dialog-note { display: flex; gap: 9px; margin: 12px 0 0; padding: 11px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); font-size: 10px; line-height: 1.55; }
@@ -553,20 +567,31 @@
     .support-status { display: inline-flex; align-items: center; gap: 5px; margin-top: 9px; color: var(--muted); font-size: 10px; line-height: 1.45; }
     .support-status[hidden] { display: none !important; }
     .support-status svg { width: 13px; height: 13px; flex: 0 0 auto; }
-    .sharing-guide { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); box-shadow: var(--shadow); }
-    .sharing-guide > summary { display: flex; align-items: center; justify-content: space-between; gap: 18px; min-height: 58px; padding: 14px 18px; cursor: pointer; list-style: none; }
-    .sharing-guide > summary::-webkit-details-marker { display: none; }
-    .sharing-guide-summary { min-width: 0; }
-    .sharing-guide-title { display: block; font-size: 15px; font-weight: 800; }
-    .sharing-guide-body { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; font-weight: 500; }
-    .sharing-guide-chevron { width: 18px; height: 18px; flex: 0 0 auto; color: var(--muted); transition: transform .18s ease; }
-    .sharing-guide[open] .sharing-guide-chevron { transform: rotate(180deg); }
-    .sharing-guide .card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 0 18px 18px; }
     .utility-action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
     .utility-action-grid .button { min-height: 44px; }
     .experimental-button { position: relative; padding-right: 92px; }
     .experimental-badge { display: inline-flex; align-items: center; justify-content: center; min-height: 20px; padding: 2px 7px; border: 1px solid currentColor; border-radius: 999px; font-size: 9px; font-weight: 800; line-height: 1; letter-spacing: .02em; white-space: nowrap; opacity: .78; }
     .experimental-button .experimental-badge { position: absolute; right: 10px; }
+    .alt-share .action-grid, .alt-share .copy-action-grid, .alt-share .utility-action-grid { gap: 0 14px; margin-top: 0; }
+    .alt-share .button.with-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+      min-height: 46px;
+      padding: 11px 6px;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      font-size: 12px;
+      font-weight: 580;
+      text-align: left;
+    }
+    .alt-share .button.with-icon svg { color: var(--muted); }
+    .alt-share .button.with-icon:hover { border-bottom-color: var(--line-strong); background: var(--surface-muted); }
+    .alt-share .button.with-icon:active { transform: none; }
+    .alt-share .experimental-button { padding-right: 92px; }
     .print-dialog { width: min(720px, calc(100% - 24px)); max-height: calc(100dvh - 24px); }
     .print-dialog-body { display: grid; gap: 14px; }
     .print-preview { display: grid; place-items: center; max-height: 58dvh; overflow: auto; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-alt, #f6f7f6); }
@@ -615,6 +640,7 @@
       .action-grid { grid-template-columns: 1fr 1fr; }
       .action-grid-main { grid-template-columns: 1fr; }
       .action-grid .button { min-height: 48px; font-size: 12px; }
+      .alt-share .utility-action-grid { grid-template-columns: 1fr; }
       .fullscreen-dialog { width: 100%; max-width: none; height: 100dvh; max-height: 100dvh; margin: 0; border: 0; border-radius: 0; }
       .qr-dialog-body { padding: 16px 14px calc(20px + env(safe-area-inset-bottom)); }
       .qr-dialog-canvas { padding: 12px; }
@@ -624,9 +650,6 @@
       .save-dialog { width: 100%; max-width: none; margin: auto 0 0; border-width: 1px 0 0; border-radius: 22px 22px 0 0; }
       .save-dialog .dialog-body { padding-bottom: calc(18px + env(safe-area-inset-bottom)); }
       .save-dialog-actions .button { min-height: 48px; }
-      .sharing-guide > summary { min-height: 60px; padding: 14px; }
-      .sharing-guide .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0 14px 14px; }
-      .sharing-guide .card-grid { grid-template-columns: 1fr; }
       .utility-action-grid { grid-template-columns: 1fr; }
       .experimental-button { padding-right: 96px; }
       .print-dialog { width: 100%; max-width: none; height: 100dvh; max-height: 100dvh; margin: 0; border: 0; border-radius: 0; }
@@ -680,7 +703,7 @@
           <img id="appBrandIcon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4IiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IldpLUZpIFNoYXJlIj4KICA8cmVjdCB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgcng9IjMyIiBmaWxsPSIjMTY2MjRmIi8+CiAgPHBhdGggZD0iTTI3IDUyYzIxLTE5IDUzLTE5IDc0IDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTTQwIDY4YzE0LTEyIDM0LTEyIDQ4IDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTTU0IDg0YzYtNSAxNC01IDIwIDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPGNpcmNsZSBjeD0iNjQiIGN5PSI5OSIgcj0iNiIgZmlsbD0iI2ZmZiIvPgo8L3N2Zz4K" alt="">
         </div>
         <div class="brand-copy">
-          <p class="brand-name"><span id="brandName">Wi-Fi共有</span><span class="version-badge" id="versionBadge">v1.1.3</span></p>
+          <p class="brand-name"><span id="brandName">Wi-Fi共有</span><span class="version-badge" id="versionBadge">v1.1.4</span></p>
           <p class="brand-meta" data-i18n="brandMeta">Wi-Fi情報をQRコード等で共有</p>
         </div>
       </div>
@@ -696,8 +719,8 @@
   <main class="main">
     <section class="page-intro" aria-labelledby="heroTitle">
       <div>
-        <h2 id="heroTitle" data-i18n="introTitle">Wi-Fiをかんたんに共有</h2>
-        <p data-i18n="lead">ネットワーク名とパスワードを入力して、QRコード・共有・コピー・大きく表示から選べます。</p>
+        <h1 class="sr-only" id="heroTitle" data-i18n="introTitle">Wi-Fiを共有</h1>
+        <p data-i18n="lead">Wi-Fiの名前とパスワードから、接続用のQRコードを作れます。</p>
       </div>
       <div class="local-badge">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.6 2.8 8 7 10 4.2-2 7-5.4 7-10V6z"/><path d="m9 12 2 2 4-5"/></svg>
@@ -710,7 +733,7 @@
       <div class="workspace-head">
         <div>
           <h2 id="workspaceTitle" data-i18n="workspaceTitle">Wi-Fi情報</h2>
-          <p data-i18n="workspaceBody">入力して、相手に合う方法で共有します。Wi-Fi情報は自動保存しません。</p>
+          <p data-i18n="workspaceBody">SSIDとパスワードをセットで共有できます。</p>
         </div>
       </div>
       <div class="wifi-layout">
@@ -751,7 +774,7 @@
             <span data-i18n="showQr">QRコードを表示</span>
           </button>
 
-          <button class="button" id="clearCurrentButton" type="button" data-i18n="clearCurrent">入力中のWi-Fiをクリア</button>
+          <button class="button clear-current-button" id="clearCurrentButton" type="button" data-i18n="clearCurrent">入力中のWi-Fiをクリア</button>
 
           <div class="alt-share">
             <h3 data-i18n="otherWays">Wi-Fi情報をほかの方法で共有</h3>
@@ -778,7 +801,7 @@
                 <span data-i18n="printLayout">印刷用レイアウト</span>
               </button>
               <button class="button with-icon experimental-button" id="nfcButton" type="button">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 7.5a6 6 0 0 1 0 9"/><path d="M5.5 4.5a10 10 0 0 1 0 15"/><path d="M12 9.5a2.5 2.5 0 0 1 0 5"/><path d="M15 8v8l4-4-4-4Z"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M9 16V8l6 8V8"/></svg>
                 <span data-i18n="nfcWrite">NFCタグに書き込む</span>
                 <span class="experimental-badge">Experimental</span>
               </button>
@@ -790,7 +813,7 @@
           <div class="saved-section" aria-labelledby="savedWifiTitle">
             <div class="saved-head">
               <div class="saved-title-wrap">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5a10 10 0 0 1 14 0"/><path d="M8.5 16a5 5 0 0 1 7 0"/><path d="M12 20h.01"/><path d="M4 4h16v16H4z" opacity=".18"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5a14 14 0 0 1 19 0"/><path d="M5.5 12a9 9 0 0 1 13 0"/><path d="M8.75 15.5a4.5 4.5 0 0 1 6.5 0"/><circle cx="12" cy="19" r="1" fill="currentColor" stroke="none"/></svg>
                 <h3 id="savedWifiTitle" data-i18n="savedTitle">保存済みWi-Fi</h3>
                 <span class="saved-count" id="savedCount" aria-label="0">0</span>
               </div>
@@ -799,10 +822,10 @@
               </div>
             </div>
             <button class="button with-icon save-profile-button" id="saveProfileButton" type="button">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M4 12h16"/><circle cx="12" cy="12" r="9" opacity=".28"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5h12a1 1 0 0 1 1 1V21l-7-4.5L5 21V4.5a1 1 0 0 1 1-1Z"/><path d="M12 7v6M9 10h6"/></svg>
               <span data-i18n="saveProfile">このWi-Fiを保存</span>
             </button>
-            <div class="saved-empty" id="savedEmpty" data-i18n="savedEmpty">よく使うWi-Fiをこの端末に保存できます。自動では保存されません。</div>
+            <div class="saved-empty" id="savedEmpty" data-i18n="savedEmpty">よく使うWi-Fiをこの端末に保存できます。</div>
             <div class="saved-list" id="savedList" hidden></div>
           </div>
 
@@ -830,25 +853,6 @@
     </section>
     <!-- APP:END -->
 
-    <section class="shell section">
-      <details class="sharing-guide">
-        <summary>
-          <span class="sharing-guide-summary">
-            <span class="sharing-guide-title" data-i18n="guaranteesTitle">共有方法</span>
-            <span class="sharing-guide-body" data-i18n="guaranteesBody">相手の端末や状況に合わせて選べます。</span>
-          </span>
-          <svg class="sharing-guide-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-        </summary>
-        <div class="card-grid">
-          <article class="card"><div class="card-number">01</div><h3 data-i18n="card1Title">QRコード</h3><p data-i18n="card1Body">相手のスマホのカメラで読み取り、OSの案内からWi-Fiへ接続します。</p></article>
-          <article class="card"><div class="card-number">02</div><h3 data-i18n="card2Title">端末の共有機能</h3><p data-i18n="card2Body">対応ブラウザでは共有シートを開き、AirDropやQuick Shareなどへ渡せます。</p></article>
-          <article class="card"><div class="card-number">03</div><h3 data-i18n="card3Title">コピー</h3><p data-i18n="card3Body">SSIDまたはパスワードを個別にコピーして、設定画面へ貼り付けられます。</p></article>
-          <article class="card"><div class="card-number">04</div><h3 data-i18n="card4Title">大きく表示</h3><p data-i18n="card4Body">PCやQR非対応端末へ手入力するとき、画面いっぱいに表示します。</p></article>
-          <article class="card"><div class="card-number">05</div><h3 data-i18n="card5Title">印刷</h3><p data-i18n="card5Body">A4用のWi-Fi案内を作り、QRコードとSSIDを掲示できます。</p></article>
-          <article class="card"><div class="card-number">06</div><h3 data-i18n="card6Title">NFCタグ</h3><p data-i18n="card6Body">対応AndroidブラウザではWi-Fi情報をNFCタグへ書き込めます（Experimental）。</p></article>
-        </div>
-      </details>
-    </section>
   </main>
 
   <footer><span id="footerName">Wi-Fi共有</span> · MIT License · <span data-i18n="footer">Wi-Fi情報をブラウザで共有</span></footer>
@@ -1014,6 +1018,15 @@
         <li data-i18n="helpClearCurrent">「入力中のWi-Fiをクリア」で入力とQR・大きく表示・印刷の内容をリセットできます。保存済みWi-Fi、言語、変更したPNGファイル名は残ります。コピー・共有・保存・印刷済みの内容は取り消せません。</li>
         <li data-i18n="helpStep4">よく使うWi-Fiは「このWi-Fiを保存」を選ぶと、この端末のブラウザ内から呼び出せます。</li>
       </ol>
+      <h3 data-i18n="guaranteesTitle">共有方法</h3>
+      <ul class="help-sharing-list">
+        <li><strong data-i18n="card1Title">QRコード</strong><span data-i18n="card1Body">相手のスマホのカメラで読み取り、OSの案内からWi-Fiへ接続します。</span></li>
+        <li><strong data-i18n="card2Title">端末の共有機能</strong><span data-i18n="card2Body">対応ブラウザでは共有シートを開き、AirDropやQuick Shareなどへ渡せます。</span></li>
+        <li><strong data-i18n="card3Title">コピー</strong><span data-i18n="card3Body">SSIDまたはパスワードを個別にコピーして、設定画面へ貼り付けられます。</span></li>
+        <li><strong data-i18n="card4Title">大きく表示</strong><span data-i18n="card4Body">PCやQR非対応端末へ手入力するとき、画面いっぱいに表示します。</span></li>
+        <li><strong data-i18n="card5Title">印刷</strong><span data-i18n="card5Body">A4用のWi-Fi案内を作り、QRコードとSSIDを掲示できます。</span></li>
+        <li><strong data-i18n="card6Title">NFCタグ</strong><span data-i18n="card6Body">対応AndroidブラウザではWi-Fi情報をNFCタグへ書き込めます（Experimental）。</span></li>
+      </ul>
       <h3 data-i18n="helpPrivacyTitle">プライバシー</h3>
       <p data-i18n="helpPrivacyBody">入力したSSIDとパスワードはブラウザ内だけで処理され、このアプリからサーバーへ送信されません。保存を選んだWi-Fiだけ、この端末のブラウザ内に保存します。</p>
       <h3 data-i18n="helpNotesTitle">注意事項</h3>
@@ -1045,6 +1058,29 @@
 <script>
 /* QR encoder: Kazuhiko Arase QRCode for JavaScript, MIT License.
    Browser bundle assembled from qrcode-terminal 0.12.0 vendor/QRCode. */
+/*
+MIT License
+
+Copyright (c) 2009 Kazuhiko Arase
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 (function(global){'use strict';
 const modules={
 "./QRMode": function(module, exports, require){
@@ -2312,8 +2348,8 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
     (() => {
       'use strict';
 
-      const APP_CONFIG = {"$schema":"./schemas/app-config.schema.json","name":"Wi-Fi Share","nameJa":"Wi-Fi共有","slug":"wifi-share","version":"1.1.3","description":"Share Wi-Fi details by QR code, system share, copy, print layout, and experimental NFC tag writing without sending them to a server.","descriptionJa":"Wi-Fi情報をサーバーへ送信せず、QRコード等で共有します。印刷用レイアウトとExperimentalのNFCタグ書き込みにも対応します。","defaultLanguage":"auto","repository":{"owner":"ttomohisa","name":"htmlapps-wifi-share"},"build":{"output":"dist/index.html","blockRuntimeNetwork":true,"selfExtract":{"enabled":true,"output":"dist/index.self-extract.html"},"sizeBudget":{"readableWarningMb":25,"selfExtractWarningMb":12}}};
-      const BUILD_MANIFEST = {"schemaVersion":2,"builder":"single-html-app-template/1.3","generatedAtUtc":"2026-11-14T01:19:39.2416914Z","app":{"name":"Wi-Fi Share","slug":"wifi-share","version":"1.1.3"},"dependencies":[]};
+      const APP_CONFIG = {"$schema":"./schemas/app-config.schema.json","name":"Wi-Fi Share","nameJa":"Wi-Fi共有","slug":"wifi-share","version":"1.1.4","description":"Share Wi-Fi details by QR code, system share, copy, print layout, and experimental NFC tag writing without sending them to a server.","descriptionJa":"Wi-Fi情報をサーバーへ送信せず、QRコード等で共有します。印刷用レイアウトとExperimentalのNFCタグ書き込みにも対応します。","defaultLanguage":"auto","repository":{"owner":"ttomohisa","name":"htmlapps-wifi-share"},"build":{"output":"dist/index.html","blockRuntimeNetwork":true,"selfExtract":{"enabled":true,"output":"dist/index.self-extract.html"},"sizeBudget":{"readableWarningMb":25,"selfExtractWarningMb":12}}};
+      const BUILD_MANIFEST = {"schemaVersion":2,"builder":"single-html-app-template/1.3","generatedAtUtc":"2026-11-14T01:19:39.2416914Z","app":{"name":"Wi-Fi Share","slug":"wifi-share","version":"1.1.4"},"dependencies":[]};
       // Asset payloads are Base64 exactly once. The JSON bundle itself is embedded directly.
       const assetBundle = {"schemaVersion":2,"dependencies":{}};
       const blobUrls = new Set();
@@ -2419,16 +2455,16 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
       const translations = {
         ja: {
           brandMeta: 'Wi-Fi情報をQRコード等で共有', switchLanguage: '英語に切り替え', helpTitle: '使い方と注意事項', close: '閉じる',
-          introTitle: 'Wi-Fiをかんたんに共有', lead: 'ネットワーク名とパスワードを入力して、QRコードを中心に共有・コピー・印刷などへ使えます。', localBadge: '完全ローカル処理',
-          workspaceTitle: 'Wi-Fi情報', workspaceBody: '一度入力すれば、SSIDとパスワードをセットで共有できます。保存するかどうかは自分で選べます。',
+          introTitle: 'Wi-Fiを共有', lead: 'Wi-Fiの名前とパスワードから、接続用のQRコードを作れます。', localBadge: '完全ローカル処理',
+          workspaceTitle: 'Wi-Fi情報', workspaceBody: 'SSIDとパスワードをセットで共有できます。',
           ssidLabel: 'ネットワーク名（SSID）', ssidPlaceholder: 'MyHomeWiFi', passwordLabel: 'パスワード', passwordPlaceholder: 'Wi-Fiパスワード',
           securityLabel: 'セキュリティ', securityWpa: 'WPA / WPA2 / WPA3', securityNone: 'パスワードなし', hiddenLabel: 'SSIDを非公開にしている', hiddenHint: '通常はオフのままで構いません。',
-          clearCurrent: '入力中のWi-Fiをクリア', printUnprepared: '印刷する前に「印刷用レイアウト」を開いてください。',
+          clearCurrent: '入力中のWi-Fiをクリア', clearCurrentConfirmTitle: '入力中のWi-Fiをクリアしますか？', clearCurrentConfirmMessage: '現在のSSIDとパスワード、作成したQRコードや印刷用レイアウトを消します。保存済みWi-Fiは残ります。', clearCurrentConfirmButton: 'クリアする', printUnprepared: '印刷する前に「印刷用レイアウト」を開いてください。',
           showPassword: 'パスワードを表示', hidePassword: 'パスワードを隠す', showQr: 'QRコードを表示', otherWays: 'Wi-Fi情報をほかの方法で共有', otherWaysBody: '共有・個別コピー・大きく表示・印刷を利用できます。対応端末ではNFCタグ書き込みも試せます。',
           share: 'Wi-Fi情報を共有', copyPassword: 'パスワードをコピー', copySsid: 'SSIDをコピー', largeDisplay: '大きく表示', printLayout: '印刷用レイアウト', nfcWrite: 'NFCタグに書き込む', privacyShort: 'SSIDとパスワードはサーバーへ送信されません。保存を選んだ場合のみ、この端末のブラウザ内に保存します。',
-          savedTitle: '保存済みWi-Fi', savedEmpty: 'よく使うWi-Fiをこの端末に保存できます。自動では保存されません。', saveProfile: 'このWi-Fiを保存', clearSaved: 'すべて削除', loadSaved: '呼び出す', deleteSaved: '削除', hiddenSaved: '非公開SSID', saveProfileDialogTitle: 'このWi-Fiを保存', profileNameLabel: '表示名', profileNamePlaceholder: '自宅', saveProfileNote: 'SSIDとパスワードをこの端末のブラウザ内に保存します。OSのパスワード管理機能とは異なります。', cancel: 'キャンセル', save: '保存する', update: '更新する',
+          savedTitle: '保存済みWi-Fi', savedEmpty: 'よく使うWi-Fiをこの端末に保存できます。', saveProfile: 'このWi-Fiを保存', clearSaved: 'すべて削除', loadSaved: '呼び出す', deleteSaved: '削除', hiddenSaved: '非公開SSID', saveProfileDialogTitle: 'このWi-Fiを保存', profileNameLabel: '表示名', profileNamePlaceholder: '自宅', saveProfileNote: 'SSIDとパスワードをこの端末のブラウザ内に保存します。OSのパスワード管理機能とは異なります。', cancel: 'キャンセル', save: '保存する', update: '更新する',
           previewTitle: 'QRプレビュー', previewBody: 'QRコードを作るとここにも表示されます。', previewEmpty: 'Wi-Fi情報を入力してQRコードを表示してください。',
-          guaranteesTitle: '共有方法', guaranteesBody: 'QRコードを中心に、相手の端末や状況に合わせて選べます。',
+          guaranteesTitle: '共有方法',
           card1Title: 'QRコード', card1Body: '相手のスマホのカメラで読み取り、OSの案内からWi-Fiへ接続します。',
           card2Title: '端末の共有機能', card2Body: '対応ブラウザでは共有シートを開き、AirDropやQuick Shareなどへ渡せます。',
           card3Title: 'コピー', card3Body: 'SSIDまたはパスワードを個別にコピーして、設定画面へ貼り付けられます。',
@@ -2436,29 +2472,29 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
           card5Title: '印刷', card5Body: 'A4用のWi-Fi案内を作り、QRコードとSSIDを掲示できます。',
           card6Title: 'NFCタグ', card6Body: '対応AndroidブラウザではWi-Fi情報をNFCタグへ書き込めます（Experimental）。',
           buildInfo: 'ビルド情報', appVersion: 'アプリバージョン', builtAt: '生成日時', dependencies: '内包依存数', footer: 'Wi-Fi情報をブラウザで共有',
-          helpClearCurrent: '「入力中のWi-Fiをクリア」で入力とQR・大きく表示・印刷の内容をリセットできます。保存済みWi-Fi、言語、変更したPNGファイル名は残ります。コピー・共有・保存・印刷済みの内容は取り消せません。',
+          helpClearCurrent: '「入力中のWi-Fiをクリア」を選び、確認すると入力とQR・大きく表示・印刷の内容をリセットします。保存済みWi-Fi、言語、変更したPNGファイル名は残ります。コピー・共有・保存・印刷済みの内容は取り消せません。',
           helpBasicsTitle: '基本操作', helpStep1: 'ネットワーク名（SSID）とパスワードを入力します。', helpStep2: '通常は「WPA / WPA2 / WPA3」のまま使います。パスワードなしのWi-Fiではセキュリティを切り替えてください。', helpStep3: '「QRコードを表示」を押し、相手のスマホのカメラで読み取ります。共有・コピー・大きく表示・印刷も利用できます。', helpStep4: 'よく使うWi-Fiは「このWi-Fiを保存」を選ぶと、この端末のブラウザ内から呼び出せます。',
           helpPrivacyTitle: 'プライバシー', helpPrivacyBody: '入力したSSIDとパスワードはブラウザ内だけで処理され、このアプリからサーバーへ送信されません。保存を選んだWi-Fiだけ、この端末のブラウザ内に保存します。', helpNotesTitle: '注意事項',
 
-          helpNoteConnect: 'QRコードを読み取った後のWi-Fi接続操作は、相手のOSやカメラアプリの対応状況に依存します。', helpNoteShare: '「共有する」はWeb Share API対応ブラウザで利用できます。共有先や表示内容はOSにより異なります。', helpNoteQr: 'QRコードの中には接続に必要なWi-Fi情報が含まれます。QR画像を渡した相手はその情報を利用できます。', helpNoteSaved: '保存済みWi-Fiのパスワードはブラウザの保存領域に保持されます。共有端末では保存しないでください。', helpNoteOpen: 'Enterprise/EAP Wi-Fiや証明書を使う接続設定には対応していません。', helpNotePrint: '印刷前に「印刷用レイアウト」を開いてください。Wi-Fi情報の変更やクリア後は再度開く必要があります。A4向けで、パスワード印刷は初期状態ではオフです。', helpNoteNfc: 'NFCタグ書き込みはExperimentalです。対応するWeb NFC環境でのみ利用でき、端末やWi-Fi方式によって接続動作が異なります。', helpOffline: 'QR生成・コピー・画像保存・印刷レイアウト生成は完全ローカル処理です。共有・Wake Lock・NFCタグ書き込みは、ブラウザや開き方によって利用できない場合があります。',
+          helpNoteConnect: 'QRコードを読み取った後のWi-Fi接続操作は、相手のOSやカメラアプリの対応状況に依存します。', helpNoteShare: '「共有する」はWeb Share API対応ブラウザで利用できます。共有先や表示内容はOSにより異なります。', helpNoteQr: 'QRコードにはWi-Fiの接続情報が含まれます。画像を渡した相手はその情報を利用できます。保存や共有の途中でWi-Fi情報を変えた場合は、もう一度QRコードを作ってください。', helpNoteSaved: '保存済みWi-Fiのパスワードはブラウザの保存領域に保持されます。共有端末では保存しないでください。', helpNoteOpen: 'Enterprise/EAP Wi-Fiや証明書を使う接続設定には対応していません。', helpNotePrint: '印刷前に「印刷用レイアウト」を開いてください。Wi-Fi情報の変更やクリア後は再度開く必要があります。A4向けで、パスワード印刷は初期状態ではオフです。', helpNoteNfc: 'NFCタグ書き込みはExperimentalです。対応するWeb NFC環境でのみ利用でき、端末やWi-Fi方式によって接続動作が異なります。', helpOffline: 'QR生成・コピー・画像保存・印刷レイアウト生成は完全ローカル処理です。共有・Wake Lock・NFCタグ書き込みは、ブラウザや開き方によって利用できない場合があります。',
           outputFilenameLabel: 'PNGファイル名', outputFilenameHint: '保存・画像共有に使う名前です。.pngは自動で付きます。空欄ならSSIDから付けます。', helpExportName: 'QR画面のPNGファイル名は保存・画像共有の前に変更できます。変更した名前はこのページを閉じるまで保持し、空欄ならSSIDから付けます。',
           qrDialogTitle: 'Wi-Fi QRコード', qrScanHint: '相手のスマホのカメラで読み取ってください。', saveQr: 'QR画像を保存', shareQr: 'QR画像を共有', largeDisplayTitle: 'Wi-Fi情報',
           printDialogTitle: '印刷用レイアウト', printScanHint: 'カメラでQRコードを読み取って接続', printPassword: 'パスワードも印刷する', printPasswordHint: '初期状態ではQRコードとSSIDだけを印刷します。', printNow: '印刷する',
           nfcDialogTitle: 'NFCタグ書き込み', nfcLead: '対応するAndroidブラウザから、Wi-Fi接続情報をNDEF対応NFCタグへ書き込みます。', nfcWarning: 'タグの既存内容は上書きされます。書き込んだタグを読み取れる人はWi-Fi情報を利用できます。', nfcCompatibility: 'Web NFC対応ブラウザのHTTPS版で利用できます。WEP・非公開SSID・WPA3専用ネットワークでは利用できない、または接続できない場合があります。', startNfcWrite: '書き込みを開始', nfcReady: 'NFCタグにスマホを近づけてください。', nfcWritten: 'NFCタグへ書き込みました。', nfcUnsupported: 'この環境ではNFCタグ書き込みを利用できません。対応するAndroidブラウザでBrowser Kittyの公開ページを開いてください。', nfcInsecure: 'NFCタグ書き込みはBrowser Kittyの公開ページから利用してください。', nfcWepUnsupported: 'NFCタグ書き込みはWEPに対応していません。QRコードを利用してください。', nfcHiddenUnsupported: 'NFCタグ書き込みは非公開SSIDに対応していません。QRコードを利用してください。', nfcSsidTooLong: 'SSIDがNFCタグ用の上限（UTF-8で32バイト）を超えています。', nfcPasswordTooLong: 'パスワードがNFCタグ用の上限（UTF-8で64バイト）を超えています。', nfcWriteDenied: 'NFCの使用が許可されませんでした。ブラウザの権限設定を確認してください。', nfcWriteFailed: 'NFCタグへ書き込めませんでした。対応するNDEFタグを近づけて、もう一度試してください。',
-          savedLoaded: '保存済みWi-Fiを呼び出しました。', savedCreated: 'Wi-Fiをこの端末に保存しました。', savedUpdated: '保存済みWi-Fiを更新しました。', savedDeleted: '保存済みWi-Fiを削除しました。', savedCleared: '保存済みWi-Fiをすべて削除しました。', saveFailed: 'Wi-Fiを保存できませんでした。このブラウザの保存設定を確認してください。', deleteConfirmTitle: '保存済みWi-Fiを削除', deleteConfirmMessage: '「{name}」をこの端末から削除しますか？', clearConfirmTitle: '保存済みWi-Fiをすべて削除', clearConfirmMessage: '保存しているWi-Fi情報をすべてこの端末から削除しますか？', confirmDelete: '削除する', needSsid: 'ネットワーク名（SSID）を入力してください。', needPassword: 'Wi-Fiパスワードを入力してください。', qrFailed: 'QRコードを作成できませんでした。入力内容を確認してください。', copiedSsid: 'SSIDをコピーしました。', copiedPassword: 'パスワードをコピーしました。', copyFailed: 'コピーできませんでした。長押しして選択してください。', shareUnsupported: 'このブラウザでは共有機能を利用できません。', shareAvailable: '端末の共有機能を利用できます。', shareCancelled: '共有をキャンセルしました。', shareFailed: '共有できませんでした。QRコードまたはコピーを利用してください。', savedQr: 'QR画像を保存しました。', openNetwork: 'パスワードなし', wakeUnavailable: '画面を消さない機能はこの環境では利用できません。'
+          savedLoaded: '保存済みWi-Fiを呼び出しました。', savedCreated: 'Wi-Fiをこの端末に保存しました。', savedUpdated: '保存済みWi-Fiを更新しました。', savedDeleted: '保存済みWi-Fiを削除しました。', savedCleared: '保存済みWi-Fiをすべて削除しました。', saveFailed: 'Wi-Fiを保存できませんでした。このブラウザの保存設定を確認してください。', deleteConfirmTitle: '保存済みWi-Fiを削除', deleteConfirmMessage: '「{name}」をこの端末から削除しますか？', clearConfirmTitle: '保存済みWi-Fiをすべて削除', clearConfirmMessage: '保存しているWi-Fi情報をすべてこの端末から削除しますか？', confirmDelete: '削除する', needSsid: 'ネットワーク名（SSID）を入力してください。', ssidTooLong: 'ネットワーク名はUTF-8で32バイト以内にしてください。', needPassword: 'Wi-Fiパスワードを入力してください。', invalidWpaPassword: 'WPAのパスワードは8〜63バイト、または64桁の16進数で入力してください。', shareQrUnsupported: 'この端末ではQR画像を直接共有できません。画像を保存してから共有してください。', qrFailed: 'QRコードを作成できませんでした。入力内容を確認してください。', qrExportChanged: 'Wi-Fi情報が変わりました。QRコードをもう一度作ってください。', qrSaveFailed: 'QR画像を保存できませんでした。もう一度試してください。', copiedSsid: 'SSIDをコピーしました。', copiedPassword: 'パスワードをコピーしました。', copyFailed: 'コピーできませんでした。長押しして選択してください。', shareUnsupported: 'このブラウザでは共有機能を利用できません。', shareAvailable: '端末の共有機能を利用できます。', shareCancelled: '共有をキャンセルしました。', shareFailed: '共有できませんでした。QRコードまたはコピーを利用してください。', savedQr: 'QR画像を保存しました。', openNetwork: 'パスワードなし', wakeUnavailable: '画面を消さない機能はこの環境では利用できません。'
         },
         en: {
           brandMeta: 'Share Wi-Fi by QR code and more', switchLanguage: 'Switch to Japanese', helpTitle: 'How to use & notes', close: 'Close',
-          introTitle: 'Share Wi-Fi easily', lead: 'Enter a network name and password, then use QR code, share, copy, print, and more.', localBadge: 'Fully local processing',
-          workspaceTitle: 'Wi-Fi details', workspaceBody: 'Enter it once and share the SSID and password together. You choose whether to save it on this device.',
+          introTitle: 'Share Wi-Fi', lead: 'Create a Wi-Fi QR code from the network name and password.', localBadge: 'Fully local processing',
+          workspaceTitle: 'Wi-Fi details', workspaceBody: 'Share the SSID and password together.',
           ssidLabel: 'Network name (SSID)', ssidPlaceholder: 'MyHomeWiFi', passwordLabel: 'Password', passwordPlaceholder: 'Wi-Fi password',
           securityLabel: 'Security', securityWpa: 'WPA / WPA2 / WPA3', securityNone: 'No password', hiddenLabel: 'Hidden SSID', hiddenHint: 'Leave this off for most networks.',
-          clearCurrent: 'Clear current Wi-Fi', printUnprepared: 'Open Print layout before printing.',
+          clearCurrent: 'Clear current Wi-Fi', clearCurrentConfirmTitle: 'Clear current Wi-Fi?', clearCurrentConfirmMessage: 'This clears the SSID, password, QR code, and prepared print layout. Saved Wi-Fi entries are kept.', clearCurrentConfirmButton: 'Clear', printUnprepared: 'Open Print layout before printing.',
           showPassword: 'Show password', hidePassword: 'Hide password', showQr: 'Show QR code', otherWays: 'Share Wi-Fi details another way', otherWaysBody: 'Use system share, individual copy, large display, or print. NFC tag writing is also available on supported devices.',
           share: 'Share Wi-Fi details', copyPassword: 'Copy password', copySsid: 'Copy SSID', largeDisplay: 'Large display', printLayout: 'Print layout', nfcWrite: 'Write NFC tag', privacyShort: 'SSID and password are not sent to a server. They are stored in this browser only when you choose Save.',
-          savedTitle: 'Saved Wi-Fi', savedEmpty: 'Save frequently used Wi-Fi details on this device. Nothing is saved automatically.', saveProfile: 'Save this Wi-Fi', clearSaved: 'Delete all', loadSaved: 'Load', deleteSaved: 'Delete', hiddenSaved: 'Hidden SSID', saveProfileDialogTitle: 'Save this Wi-Fi', profileNameLabel: 'Display name', profileNamePlaceholder: 'Home', saveProfileNote: 'The SSID and password will be stored in this browser on this device. This is not the same as the OS password manager.', cancel: 'Cancel', save: 'Save', update: 'Update',
+          savedTitle: 'Saved Wi-Fi', savedEmpty: 'Save frequently used Wi-Fi details on this device.', saveProfile: 'Save this Wi-Fi', clearSaved: 'Delete all', loadSaved: 'Load', deleteSaved: 'Delete', hiddenSaved: 'Hidden SSID', saveProfileDialogTitle: 'Save this Wi-Fi', profileNameLabel: 'Display name', profileNamePlaceholder: 'Home', saveProfileNote: 'The SSID and password will be stored in this browser on this device. This is not the same as the OS password manager.', cancel: 'Cancel', save: 'Save', update: 'Update',
           previewTitle: 'QR preview', previewBody: 'Your QR code will also appear here.', previewEmpty: 'Enter Wi-Fi details and show the QR code.',
-          guaranteesTitle: 'Sharing methods', guaranteesBody: 'Use QR code first, then choose what fits the recipient device and situation.',
+          guaranteesTitle: 'Sharing methods',
           card1Title: 'QR code', card1Body: 'Scan with the other phone camera and follow the OS prompt to join Wi-Fi.',
           card2Title: 'System share', card2Body: 'On supported browsers, open the system share sheet for AirDrop, Quick Share, and other apps.',
           card3Title: 'Copy', card3Body: 'Copy the SSID or password individually and paste it into the Wi-Fi settings.',
@@ -2466,16 +2502,16 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
           card5Title: 'Print', card5Body: 'Create an A4 Wi-Fi sign with the QR code and SSID.',
           card6Title: 'NFC tag', card6Body: 'On supported Android browsers, write Wi-Fi details to an NFC tag (Experimental).',
           buildInfo: 'Build information', appVersion: 'App version', builtAt: 'Built at', dependencies: 'Embedded dependencies', footer: 'Share Wi-Fi details in your browser',
-          helpClearCurrent: 'Clear current Wi-Fi resets the form, QR, large display, and print layout. Saved Wi-Fi, language, and edited PNG filenames are kept. Previously copied, shared, saved, or printed content cannot be recalled.',
+          helpClearCurrent: 'Choose Clear current Wi-Fi and confirm to reset the form, QR, large display, and print layout. Saved Wi-Fi, language, and edited PNG filenames are kept. Previously copied, shared, saved, or printed content cannot be recalled.',
           helpBasicsTitle: 'Basics', helpStep1: 'Enter the network name (SSID) and password.', helpStep2: 'For most networks, keep WPA / WPA2 / WPA3 selected. Switch security for open networks.', helpStep3: 'Tap Show QR code and scan it with the other phone camera. Share, Copy, Large display, and Print are also available.', helpStep4: 'For frequently used networks, choose Save this Wi-Fi to load the details later from this browser.',
           helpPrivacyTitle: 'Privacy', helpPrivacyBody: 'SSID and password are processed only in the browser and are not sent to a server by this app. Only Wi-Fi details you explicitly save are stored in this browser.', helpNotesTitle: 'Notes',
 
-          helpNoteConnect: 'What happens after scanning depends on the recipient OS and camera app support.', helpNoteShare: 'Share uses the Web Share API. Available destinations and presentation vary by OS.', helpNoteQr: 'The QR code contains the Wi-Fi connection details. Anyone who receives the QR can use those details.', helpNoteSaved: 'Saved Wi-Fi passwords are kept in browser storage. Do not save them on a shared device.', helpNoteOpen: 'Enterprise/EAP Wi-Fi and certificate provisioning are not supported.', helpNotePrint: 'Open Print layout before printing, and reopen it after changing or clearing Wi-Fi details. The layout is designed for A4. Printing the password is off by default.', helpNoteNfc: 'NFC tag writing is Experimental. It works only in supported Web NFC environments, and connection behavior varies by device and Wi-Fi mode.', helpOffline: 'QR generation, copy, image saving, and print layout generation are fully local. Share, Wake Lock, and NFC tag writing may be unavailable depending on the browser and how the page is opened.',
+          helpNoteConnect: 'What happens after scanning depends on the recipient OS and camera app support.', helpNoteShare: 'Share uses the Web Share API. Available destinations and presentation vary by OS.', helpNoteQr: 'The QR code contains Wi-Fi connection details. Anyone who receives it can use them. If you edit the Wi-Fi details while exporting or sharing, generate the QR code again.', helpNoteSaved: 'Saved Wi-Fi passwords are kept in browser storage. Do not save them on a shared device.', helpNoteOpen: 'Enterprise/EAP Wi-Fi and certificate provisioning are not supported.', helpNotePrint: 'Open Print layout before printing, and reopen it after changing or clearing Wi-Fi details. The layout is designed for A4. Printing the password is off by default.', helpNoteNfc: 'NFC tag writing is Experimental. It works only in supported Web NFC environments, and connection behavior varies by device and Wi-Fi mode.', helpOffline: 'QR generation, copy, image saving, and print layout generation are fully local. Share, Wake Lock, and NFC tag writing may be unavailable depending on the browser and how the page is opened.',
           outputFilenameLabel: 'PNG filename', outputFilenameHint: 'Used for saving and image sharing. .png is added automatically. Leave blank to use the SSID.', helpExportName: 'Before saving or sharing the QR image, edit its PNG filename in the QR view. Your edited name stays until you close this page; leave it blank to use the SSID.',
           qrDialogTitle: 'Wi-Fi QR code', qrScanHint: 'Scan this with the other phone camera.', saveQr: 'Save QR image', shareQr: 'Share QR image', largeDisplayTitle: 'Wi-Fi details',
           printDialogTitle: 'Print layout', printScanHint: 'Scan the QR code with the camera to connect', printPassword: 'Print the password too', printPasswordHint: 'By default, only the QR code and SSID are printed.', printNow: 'Print',
           nfcDialogTitle: 'Write NFC tag', nfcLead: 'Write Wi-Fi connection details to an NDEF-compatible NFC tag from a supported Android browser.', nfcWarning: 'Existing tag contents will be overwritten. Anyone who can read the written tag can use the Wi-Fi details.', nfcCompatibility: 'Available on Web NFC browsers over HTTPS. WEP, hidden SSIDs, and WPA3-only networks may be unsupported or may not connect.', startNfcWrite: 'Start writing', nfcReady: 'Hold an NFC tag near your phone.', nfcWritten: 'Wi-Fi details were written to the NFC tag.', nfcUnsupported: 'NFC tag writing is not available in this environment. Open the Browser Kitty page in a supported Android browser.', nfcInsecure: 'Use the published Browser Kitty page for NFC tag writing.', nfcWepUnsupported: 'NFC tag writing does not support WEP. Use the QR code instead.', nfcHiddenUnsupported: 'NFC tag writing does not support hidden SSIDs. Use the QR code instead.', nfcSsidTooLong: 'The SSID exceeds the NFC limit of 32 UTF-8 bytes.', nfcPasswordTooLong: 'The password exceeds the NFC limit of 64 UTF-8 bytes.', nfcWriteDenied: 'NFC permission was not granted. Check the browser permission settings.', nfcWriteFailed: 'Could not write to the NFC tag. Hold a compatible NDEF tag near the phone and try again.',
-          savedLoaded: 'Saved Wi-Fi loaded.', savedCreated: 'Wi-Fi saved on this device.', savedUpdated: 'Saved Wi-Fi updated.', savedDeleted: 'Saved Wi-Fi deleted.', savedCleared: 'All saved Wi-Fi details deleted.', saveFailed: 'Could not save Wi-Fi details. Check this browser storage settings.', deleteConfirmTitle: 'Delete saved Wi-Fi', deleteConfirmMessage: 'Delete “{name}” from this device?', clearConfirmTitle: 'Delete all saved Wi-Fi', clearConfirmMessage: 'Delete all saved Wi-Fi details from this device?', confirmDelete: 'Delete', needSsid: 'Enter the network name (SSID).', needPassword: 'Enter the Wi-Fi password.', qrFailed: 'Could not create the QR code. Check the entered details.', copiedSsid: 'SSID copied.', copiedPassword: 'Password copied.', copyFailed: 'Could not copy. Select and copy the text manually.', shareUnsupported: 'System sharing is not available in this browser.', shareAvailable: 'System sharing is available on this device.', shareCancelled: 'Share cancelled.', shareFailed: 'Could not share. Use the QR code or copy instead.', savedQr: 'QR image saved.', openNetwork: 'No password', wakeUnavailable: 'Keep-screen-on is not available in this environment.'
+          savedLoaded: 'Saved Wi-Fi loaded.', savedCreated: 'Wi-Fi saved on this device.', savedUpdated: 'Saved Wi-Fi updated.', savedDeleted: 'Saved Wi-Fi deleted.', savedCleared: 'All saved Wi-Fi details deleted.', saveFailed: 'Could not save Wi-Fi details. Check this browser storage settings.', deleteConfirmTitle: 'Delete saved Wi-Fi', deleteConfirmMessage: 'Delete “{name}” from this device?', clearConfirmTitle: 'Delete all saved Wi-Fi', clearConfirmMessage: 'Delete all saved Wi-Fi details from this device?', confirmDelete: 'Delete', needSsid: 'Enter the network name (SSID).', ssidTooLong: 'The network name must be 32 UTF-8 bytes or fewer.', needPassword: 'Enter the Wi-Fi password.', invalidWpaPassword: 'For WPA, enter 8–63 UTF-8 bytes or exactly 64 hexadecimal characters.', shareQrUnsupported: 'This device cannot share the QR image directly. Save the image first, then share it.', qrFailed: 'Could not create the QR code. Check the entered details.', qrExportChanged: 'Wi-Fi details changed. Generate the QR code again.', qrSaveFailed: 'Could not save the QR image. Please try again.', copiedSsid: 'SSID copied.', copiedPassword: 'Password copied.', copyFailed: 'Could not copy. Select and copy the text manually.', shareUnsupported: 'System sharing is not available in this browser.', shareAvailable: 'System sharing is available on this device.', shareCancelled: 'Share cancelled.', shareFailed: 'Could not share. Use the QR code or copy instead.', savedQr: 'QR image saved.', openNetwork: 'No password', wakeUnavailable: 'Keep-screen-on is not available in this environment.'
         }
       };
 
@@ -2483,6 +2519,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
       const storageKey = 'wifi-share-language';
       const profilesStorageKey = 'wifi-share-profiles-v1';
       let language = readStorage(storageKey) || detectLanguage();
+      if (language !== 'ja' && language !== 'en') language = detectLanguage();
       let lastPayload = '';
       let preparedPrintPayload = '';
       let validationKey = '';
@@ -2490,6 +2527,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
       let wakeLock = null;
       let savedProfiles = readProfiles();
       let saveEditingId = null;
+      let nfcWriteController = null;
 
       function readStorage(key) { try { return localStorage.getItem(key); } catch { return null; } }
       function writeStorage(key, value) { try { localStorage.setItem(key, value); return true; } catch { return false; } }
@@ -2497,7 +2535,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
         try {
           const raw=localStorage.getItem(profilesStorageKey); if(!raw) return []; const parsed=JSON.parse(raw);
           if(!Array.isArray(parsed)) return [];
-          return parsed.filter(item=>item && typeof item.id==='string' && typeof item.ssid==='string' && ['WPA','WEP','nopass'].includes(item.security) && (item.password == null || typeof item.password==='string')).slice(0,50);
+          return parsed.filter(item=>item && typeof item.id==='string' && typeof item.ssid==='string' && ['WPA','WEP','nopass'].includes(item.security) && (item.password == null || typeof item.password==='string'));
         } catch { return []; }
       }
       function persistProfiles() { return writeStorage(profilesStorageKey, JSON.stringify(savedProfiles)); }
@@ -2508,8 +2546,8 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
         const ssid=$('#ssidInput'), password=$('#passwordInput');
         ssid?.removeAttribute('aria-invalid'); password?.removeAttribute('aria-invalid');
         const message=$('#validationMessage'); if(message) message.textContent=key?t(key):'';
-        if(key==='needSsid') { ssid?.setAttribute('aria-invalid','true'); return ssid; }
-        if(key==='needPassword') { password?.setAttribute('aria-invalid','true'); return password; }
+        if(key==='needSsid' || key==='ssidTooLong') { ssid?.setAttribute('aria-invalid','true'); return ssid; }
+        if(key==='needPassword' || key==='invalidWpaPassword') { password?.setAttribute('aria-invalid','true'); return password; }
         return null;
       }
       function invalidateNetworkOutputs() {
@@ -2528,6 +2566,14 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
         $('#passwordInput').type='password'; updatePasswordState(); updatePasswordToggleLabel();
         setValidation(''); invalidateNetworkOutputs(); syncOutputFilename();
         $('#ssidInput').focus();
+      }
+      async function requestClearCurrentWifi() {
+        const confirmed=await confirmAction({
+          title:t('clearCurrentConfirmTitle'),
+          message:t('clearCurrentConfirmMessage'),
+          okText:t('clearCurrentConfirmButton')
+        });
+        if (confirmed) clearCurrentWifi();
       }
 
       const AppToast = (() => {
@@ -2562,7 +2608,14 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
       }
       function validate(details) {
         if (!details.ssid) return 'needSsid';
+        if (new TextEncoder().encode(details.ssid).byteLength > 32) return 'ssidTooLong';
         if (details.security !== 'nopass' && !details.password) return 'needPassword';
+        if (details.security === 'WPA') {
+          const bytes = new TextEncoder().encode(details.password).byteLength;
+          const isPassphrase = bytes >= 8 && bytes <= 63;
+          const isHexPsk = /^[0-9a-fA-F]{64}$/.test(details.password);
+          if (!isPassphrase && !isHexPsk) return 'invalidWpaPassword';
+        }
         return '';
       }
       function buildWifiPayload(details) {
@@ -2628,7 +2681,9 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
       }
       function loadProfile(id) {
         const profile=savedProfiles.find(item=>item.id===id); if(!profile) return;
-        $('#ssidInput').value=profile.ssid; $('#securitySelect').value=profile.security; $('#hiddenCheckbox').checked=Boolean(profile.hidden); updatePasswordState();
+        $('#ssidInput').value=profile.ssid; $('#securitySelect').value=profile.security; $('#hiddenCheckbox').checked=Boolean(profile.hidden);
+        // Loading a stored password must not inherit an earlier reveal state.
+        $('#passwordInput').type='password'; updatePasswordState(); updatePasswordToggleLabel();
         if(profile.security!=='nopass') $('#passwordInput').value=profile.password || '';
         setValidation(''); invalidateNetworkOutputs(); generateQr(); AppToast.show(t('savedLoaded'),'success'); window.scrollTo({top:0,behavior:'smooth'});
       }
@@ -2650,9 +2705,25 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
       function confirmAction({title,message,okText}) {
         return new Promise(resolve=>{
           const dialog=$('#appConfirmDialog'), ok=$('#appConfirmOk'), cancel=$('#appConfirmCancel'), close=$('#appConfirmClose');
+          const previousFocus=document.activeElement;
           $('#appConfirmTitle').textContent=title; $('#appConfirmMessage').textContent=message; cancel.textContent=t('cancel'); ok.textContent=okText;
-          const done=value=>{dialog.removeEventListener('cancel',onCancel);ok.onclick=cancel.onclick=close.onclick=null;if(dialog.open)dialog.close();resolve(value);};
-          const onCancel=event=>{event.preventDefault();done(false);}; dialog.addEventListener('cancel',onCancel); ok.onclick=()=>done(true); cancel.onclick=close.onclick=()=>done(false); dialog.showModal();
+          const done=value=>{
+            dialog.removeEventListener('cancel',onCancel); dialog.removeEventListener('click',onBackdrop);
+            ok.onclick=cancel.onclick=close.onclick=null;
+            if(dialog.open)dialog.close();
+            if(previousFocus?.isConnected) previousFocus.focus({preventScroll:true});
+            resolve(value);
+          };
+          const onCancel=event=>{event.preventDefault();done(false);};
+          const onBackdrop=event=>{
+            if(event.target!==dialog)return;
+            const rect=dialog.getBoundingClientRect();
+            if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)done(false);
+          };
+          dialog.addEventListener('cancel',onCancel);
+          dialog.addEventListener('click',onBackdrop);
+          ok.onclick=()=>done(true); cancel.onclick=close.onclick=()=>done(false);
+          dialog.showModal(); cancel.focus({preventScroll:true});
         });
       }
       async function deleteProfile(id) {
@@ -2682,6 +2753,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
       function togglePassword() { const input=$('#passwordInput'); input.type=input.type==='password'?'text':'password'; updatePasswordToggleLabel(); }
 
       async function copyText(text, successKey) {
+        if (!text && successKey==='copiedSsid') { setValidation('needSsid')?.focus(); return; }
         if (!text && successKey==='copiedPassword') { AppToast.show(t('needPassword'),'warning'); return; }
         try { await navigator.clipboard.writeText(text); AppToast.show(t(successKey),'success'); return; } catch {}
         const area=document.createElement('textarea'); area.value=text; area.setAttribute('readonly',''); area.style.position='fixed'; area.style.opacity='0'; document.body.append(area); area.select();
@@ -2713,9 +2785,23 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
         const details=getDetails(); const error=validate(details); if(error){setValidation(error)?.focus();return;}
         if (!navigator.share) { AppToast.show(t('shareUnsupported'),'warning'); return; }
         try {
-          const data={title:'Wi-Fi',text:shareText(details)};
-          if (includeQr) { if (!lastPayload && !generateQr()) return; const file=await canvasFile(); if(file && navigator.canShare?.({files:[file]})) data.files=[file]; }
-          await navigator.share(data);
+          if (includeQr) {
+            // A QR-image action must never silently share the raw password as text.
+            const requestedPayload=buildWifiPayload(details);
+            if (lastPayload !== requestedPayload && !generateQr()) return;
+            const file=await canvasFile();
+            // Canvas serialization is async; never share an outdated or cleared QR.
+            if (lastPayload !== requestedPayload || buildWifiPayload(getDetails()) !== requestedPayload) {
+              AppToast.show(t('qrExportChanged'),'warning'); return;
+            }
+            if (!file || !navigator.canShare?.({files:[file]})) {
+              AppToast.show(t('shareQrUnsupported'),'warning');
+              return;
+            }
+            await navigator.share({title:'Wi-Fi QR',files:[file]});
+          } else {
+            await navigator.share({title:'Wi-Fi',text:shareText(details)});
+          }
         } catch (error) { if (error?.name==='AbortError') return; console.error(error); AppToast.show(t('shareFailed'),'warning'); }
       }
       function updateShareSupport() {
@@ -2743,7 +2829,7 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
         setSupportMessage(el,error);
       }
       function validateNfcDetails(details) {
-        const base=validate(details); if(base) return t(base);
+        const base=validate(details); if(base) return t(base==='ssidTooLong'?'nfcSsidTooLong':base);
         if(details.security==='WEP') return t('nfcWepUnsupported');
         if(details.hidden) return t('nfcHiddenUnsupported');
         const encoder=new TextEncoder();
@@ -2767,18 +2853,32 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
         const supportError=getNfcSupportError(); if(supportError){AppToast.show(supportError,'warning');return;}
         const details=getDetails(); const error=validateNfcDetails(details); if(error){AppToast.show(error,'warning');return;}
         $('#nfcSsid').textContent=details.ssid; $('#nfcSecurity').textContent=details.security==='nopass'?t('securityNone'):t('securityWpa');
-        $('#nfcState').textContent=''; $('#nfcState').dataset.tone='default'; $('#confirmNfcWrite').disabled=false;
+        $('#nfcState').textContent=''; $('#nfcState').dataset.tone='default'; $('#confirmNfcWrite').disabled=Boolean(nfcWriteController);
         $('#nfcDialog').showModal();
       }
+      function abortNfcWrite() {
+        // Dialog dismissal, Escape, and page navigation must cancel tag scanning.
+        nfcWriteController?.abort();
+      }
       async function writeNfcTag() {
+        if (nfcWriteController) return;
         const details=getDetails(); const error=validateNfcDetails(details); if(error){$('#nfcState').textContent=error;$('#nfcState').dataset.tone='warning';return;}
-        const state=$('#nfcState'), button=$('#confirmNfcWrite'); button.disabled=true; state.textContent=t('nfcReady'); state.dataset.tone='default';
+        const state=$('#nfcState'), button=$('#confirmNfcWrite');
+        const controller=new AbortController(); nfcWriteController=controller;
+        button.disabled=true; state.textContent=t('nfcReady'); state.dataset.tone='default';
         try {
           const ndef=new window.NDEFReader(); const payload=buildNfcWscPayload(details);
-          await ndef.write({records:[{recordType:'mime',mediaType:'application/vnd.wfa.wsc',data:payload}]},{overwrite:true});
-          state.textContent=t('nfcWritten'); state.dataset.tone='success'; AppToast.show(t('nfcWritten'),'success');
+          await ndef.write({records:[{recordType:'mime',mediaType:'application/vnd.wfa.wsc',data:payload}]},{overwrite:true,signal:controller.signal});
+          if (!controller.signal.aborted) {
+            state.textContent=t('nfcWritten'); state.dataset.tone='success'; AppToast.show(t('nfcWritten'),'success');
+          }
         } catch(err) {
-          console.error(err); const denied=err?.name==='NotAllowedError' || err?.name==='SecurityError'; state.textContent=t(denied?'nfcWriteDenied':'nfcWriteFailed'); state.dataset.tone='warning'; button.disabled=false;
+          if (controller.signal.aborted || err?.name==='AbortError') return;
+          console.error(err); const denied=err?.name==='NotAllowedError' || err?.name==='SecurityError';
+          if ($('#nfcDialog').open) { state.textContent=t(denied?'nfcWriteDenied':'nfcWriteFailed'); state.dataset.tone='warning'; }
+        } finally {
+          if (nfcWriteController===controller) nfcWriteController=null;
+          if ($('#nfcDialog').open && state.dataset.tone!=='success') button.disabled=false;
         }
       }
       function updatePrintLayout({ prepare=false } = {}) {
@@ -2808,22 +2908,27 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
         $('#largeSsid').textContent=details.ssid; $('#largePassword').textContent=details.security==='nopass'?t('openNetwork'):details.password; $('#largeDisplayDialog').showModal(); acquireWakeLock();
       }
       function downloadQr() {
-        if (!lastPayload && !generateQr()) return;
+        if (lastPayload !== buildWifiPayload(getDetails()) && !generateQr()) return;
+        const requestedPayload=lastPayload;
         const filename=resolveOutputFilename(), canvas=$('#qrDialogCanvas');
         canvas.toBlob(blob=>{
-          if(!blob)return;
+          // Do not export the previous Wi-Fi after a user edit while PNG encoding runs.
+          if (lastPayload !== requestedPayload || buildWifiPayload(getDetails()) !== requestedPayload) {
+            AppToast.show(t('qrExportChanged'),'warning'); return;
+          }
+          if(!blob){AppToast.show(t('qrSaveFailed'),'warning');return;}
           const url=URL.createObjectURL(blob), a=document.createElement('a');
           a.href=url; a.download=filename; a.click();
           setTimeout(()=>URL.revokeObjectURL(url),0); AppToast.show(t('savedQr'),'success');
         },'image/png');
       }
-      function closeDialog(dialog) { if(dialog.open) dialog.close(); if (!$('#qrDialog').open && !$('#largeDisplayDialog').open) releaseWakeLock(); }
+      function closeDialog(dialog) { if (dialog===$('#nfcDialog')) abortNfcWrite(); if(dialog.open) dialog.close(); if (!$('#qrDialog').open && !$('#largeDisplayDialog').open) releaseWakeLock(); }
 
       $('#languageButton').addEventListener('click',()=>{language=language==='ja'?'en':'ja';writeStorage(storageKey,language);applyLanguage();});
       const helpDialog=$('#helpDialog'); $('#helpButton').addEventListener('click',()=>helpDialog.showModal()); $('#closeHelpButton').addEventListener('click',()=>helpDialog.close());
       $('#wifiForm').addEventListener('submit',event=>{event.preventDefault();generateQr({openDialog:true});});
       $('#passwordToggle').addEventListener('click',togglePassword);
-      $('#clearCurrentButton').addEventListener('click',clearCurrentWifi);
+      $('#clearCurrentButton').addEventListener('click',requestClearCurrentWifi);
       $('#securitySelect').addEventListener('change',()=>{updatePasswordState();setValidation('');invalidateNetworkOutputs();});
       $('#hiddenCheckbox').addEventListener('change',()=>{setValidation('');invalidateNetworkOutputs();});
       $('#ssidInput').addEventListener('input',()=>{setValidation('');invalidateNetworkOutputs();}); $('#passwordInput').addEventListener('input',()=>{setValidation('');invalidateNetworkOutputs();});
@@ -2835,6 +2940,8 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
       $('#closeQrDialog').addEventListener('click',()=>closeDialog($('#qrDialog'))); $('#closeLargeDisplay').addEventListener('click',()=>closeDialog($('#largeDisplayDialog')));
       $('#closePrintDialog').addEventListener('click',()=>closeDialog($('#printDialog'))); $('#cancelPrint').addEventListener('click',()=>closeDialog($('#printDialog'))); $('#confirmPrint').addEventListener('click',printLayout); $('#printPasswordCheckbox').addEventListener('change',updatePrintLayout);
       $('#closeNfcDialog').addEventListener('click',()=>closeDialog($('#nfcDialog'))); $('#cancelNfc').addEventListener('click',()=>closeDialog($('#nfcDialog'))); $('#confirmNfcWrite').addEventListener('click',writeNfcTag);
+      $('#nfcDialog').addEventListener('cancel',abortNfcWrite); $('#nfcDialog').addEventListener('close',abortNfcWrite);
+      window.addEventListener('pagehide',abortNfcWrite);
       $('#outputFilename').addEventListener('input',()=>{outputFilenameEdited=true;});
       $('#saveQrButton').addEventListener('click',downloadQr); $('#shareQrButton').addEventListener('click',()=>shareWifi(true));
       [$('#qrDialog'),$('#largeDisplayDialog')].forEach(dialog=>{dialog.addEventListener('close',()=>{if(!$('#qrDialog').open&&!$('#largeDisplayDialog').open)releaseWakeLock();});});

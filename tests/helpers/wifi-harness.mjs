@@ -12,7 +12,7 @@ assert.ok(start > 0 && end > start, 'Application runtime must exist');
 
 // Execute the actual application and event handlers. Only browser boundaries are
 // substituted; native dialogs, layout, PNG decoding and downloads get browser QA.
-export function harness(language = 'en', initialProfiles = null) {
+export function harness(language = 'en', initialProfiles = null, overrides = {}) {
   const elements = [], nodes = new Map(), downloads = [], shares = [], pendingBlobs = [], storage = new Map();
   if (initialProfiles) storage.set('wifi-share-profiles-v1', JSON.stringify(initialProfiles));
   const storageWrites = [], windowListeners = {}, printCalls = [];
@@ -24,11 +24,11 @@ export function harness(language = 'en', initialProfiles = null) {
       this.hidden = 'hidden' in attrs; this.disabled = 'disabled' in attrs; this.checked = false;
       this.width = Number(attrs.width) || 300; this.height = Number(attrs.height) || 150; this.draws = [];
       this.listeners = {}; this.children = []; this.style = {}; this.textContent = ''; this.open = false;
-      this.classList = {add(){},remove(){},toggle(){}};
+      this.classList = {add(){},remove(){},toggle(){}}; this.isConnected=true;
     }
     addEventListener(type, fn) { (this.listeners[type] ||= []).push(fn); }
-    removeEventListener() {}
-    emit(type) { return Promise.all((this.listeners[type] || []).map(fn => fn({target:this,preventDefault(){}}))); }
+    removeEventListener(type,fn) { this.listeners[type]=(this.listeners[type]||[]).filter(listener=>listener!==fn); }
+    emit(type, event={}) { return Promise.all((this.listeners[type] || []).map(fn => fn({target:this,preventDefault(){},...event}))); }
     click() { if (this.tagName === 'a') downloads.push(this.download); else if (!this.disabled) return this.emit('click'); }
     setAttribute(k,v) { this.attrs[k] = String(v); }
     getAttribute(k) { return this.attrs[k] ?? null; }
@@ -37,6 +37,7 @@ export function harness(language = 'en', initialProfiles = null) {
     select() { this.focus(); }
     showModal() { this.previousFocus = document.activeElement; this.open = true; }
     close() { this.open = false; this.previousFocus?.focus(); this.emit('close'); }
+    getBoundingClientRect() { return {left:50,top:50,right:350,bottom:350}; }
     replaceChildren(...children) { this.children = children; }
     append(...children) { this.children.push(...children); }
     querySelector() { return this.child ||= new Element('span'); }
@@ -54,11 +55,11 @@ export function harness(language = 'en', initialProfiles = null) {
   const node = selector => nodes.get(selector) || null;
   document = {documentElement:{},activeElement:null,querySelector:node,querySelectorAll:selector=>elements.filter(n=>selector.slice(1,-1) in n.attrs),createElement:tag=>new Element(tag),addEventListener(){}};
   node('#securitySelect').value = 'WPA';
-  const context = {document,console,TextEncoder,Blob,File,setTimeout:()=>0,clearTimeout(){},APP_CONFIG:{defaultLanguage:language,version:'test',name:'Wi-Fi Share',nameJa:'Wi-Fi共有'},BUILD_MANIFEST:{},localStorage:{getItem:k=>storage.get(k) ?? null,setItem:(k,v)=>{storageWrites.push([k,v]);storage.set(k,v);}},navigator:{share:async data=>shares.push(data),canShare:()=>true},URL:{createObjectURL:()=> 'blob:test',revokeObjectURL(){}},window:{QRCode:class {addData(){} make(){} getModuleCount(){return 21;} isDark(){return false;}},QRErrorCorrectLevel:{M:0},scrollTo(){},addEventListener:(type,fn)=>(windowListeners[type] ||= []).push(fn),print(){printCalls.push(true);for(const fn of windowListeners.beforeprint || []) fn();}}};
+  const context = {document,console,TextEncoder,Blob,File,AbortController,crypto:{randomUUID:()=> 'new-profile-'+(storageWrites.length+1)},setTimeout:()=>0,clearTimeout(){},APP_CONFIG:{defaultLanguage:language,version:'test',name:'Wi-Fi Share',nameJa:'Wi-Fi共有'},BUILD_MANIFEST:{},localStorage:{getItem:k=>storage.get(k) ?? null,setItem:(k,v)=>{storageWrites.push([k,v]);storage.set(k,v);}},navigator:{share:async data=>shares.push(data),canShare:()=>true,...overrides.navigator},URL:{createObjectURL:()=> 'blob:test',revokeObjectURL(){}},window:{QRCode:class {addData(){} make(){} getModuleCount(){return 21;} isDark(){return false;}},QRErrorCorrectLevel:{M:0},scrollTo(){},addEventListener:(type,fn)=>(windowListeners[type] ||= []).push(fn),print(){printCalls.push(true);for(const fn of windowListeners.beforeprint || []) fn();},...overrides.window}};
   vm.createContext(context);
   const qrStart=source.indexOf("(function(global){'use strict';");
   vm.runInContext(source.slice(qrStart,source.indexOf('</script>',qrStart)),context);
-  vm.runInContext(`(() => {${source.slice(start,end)}\nglobalThis.app={validate,validateNfcDetails,buildWifiPayload,generateQr,downloadQr,canvasFile,getDetails,loadProfile,get lastPayload(){return lastPayload;}};})();`,context);
+  vm.runInContext(`(() => {${source.slice(start,end)}\nglobalThis.app={validate,validateNfcDetails,buildWifiPayload,generateQr,downloadQr,canvasFile,getDetails,loadProfile,shareWifi,openNfcDialog,writeNfcTag,openSaveProfileDialog,confirmSaveProfile,get lastPayload(){return lastPayload;},get savedProfiles(){return savedProfiles;}};})();`,context);
   return {app:context.app,node,document,downloads,shares,storage,storageWrites,printCalls,emitWindow(type){for(const fn of windowListeners[type] || []) fn();},input(id,value){const el=node('#'+id);assert.ok(el,id+' exists');el.focus();el.value=value;el.emit('input');return el;},network(ssid='Sample Guest',password='dummy-test-password'){this.input('ssidInput',ssid);this.input('passwordInput',password);},defer(){deferBlobs=true;},flush(){pendingBlobs.splice(0).forEach(done=>done());}};
 }
 
