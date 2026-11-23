@@ -1,12 +1,16 @@
 # APP_SPEC.md
 
-## v1.1.4 — Credential sharing and NFC cancel safety
+## v1.1.4 — Credential sharing, NFC cancel safety, and compact instructions
 
 - Cancel any pending Web NFC write on explicit dialog dismissal, Escape, or pagehide using AbortSignal; keep writes single-flight and never report cancellation as a failure.
 - Share QR images as image files only. If file sharing is unavailable, guide the user to save the PNG rather than silently exposing the password as share text.
 - Reject SSIDs longer than 32 UTF-8 bytes and invalid WPA passphrase lengths; accept 64-character hex PSKs. Keep WEP and open-network behavior unchanged.
 - Keep all explicitly saved Wi-Fi profiles visible on reload instead of silently truncating the list after 50 entries.
 - Add executable regressions for these cases and publish a tagged GitHub Release after the versioned main-branch build succeeds.
+- Show a concise bilingual hero description instead of a visible heading; retain an off-screen semantic h1. Tighten the space before the form.
+- Show the local-processing badge only above the 520px smartphone breakpoint; do not remove its text or desktop visibility.
+- Move all six sharing-method descriptions from the bottom expandable guide into the scrollable “How to use & notes” dialog, preserving every method in Japanese and English. Keep Build information last.
+- Remove the redundant automatic-saving sentence from the saved-profiles empty state without changing consent or actual persistence.
 
 
 ## v1.1.3 — Short-viewport dialog reachability

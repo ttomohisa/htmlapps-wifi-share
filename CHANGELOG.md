@@ -2,6 +2,10 @@
 
 ## 1.1.4 — pending merge
 
+- Replace the prominent hero headline with shorter Japanese/English instructions and reduce the surrounding whitespace.
+- Hide the local-processing badge on smartphones while retaining it on larger screens; move all six sharing-method explanations into Help.
+- Shorten the saved Wi-Fi empty-state copy in Japanese and English without changing storage behavior.
+
 - Cancel pending NFC writes when the NFC dialog closes, Escape is pressed, or the page is left.
 - Never fall back from QR-image sharing to sharing plaintext credentials; guide unsupported devices to save the PNG.
 - Validate SSID UTF-8 byte length and WPA passphrase/hex key length before generating QR or saving.

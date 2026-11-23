@@ -169,15 +169,15 @@
       align-items: flex-start;
       justify-content: space-between;
       gap: 20px;
-      padding: 0 2px 18px;
+      padding: 0 2px 14px;
     }
-    .page-intro h2 {
+    .page-intro p {
       margin: 0;
-      font-size: clamp(21px, 3vw, 26px);
-      line-height: 1.3;
-      letter-spacing: -.025em;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
     }
-    .page-intro p { margin: 5px 0 0; max-width: 760px; color: var(--muted); font-size: 13px; }
     .local-badge {
       display: inline-flex;
       align-items: center;
@@ -240,11 +240,6 @@
     .section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 18px; margin-bottom: 15px; }
     .section-title { font-size: 20px; }
     .section-head p { margin: 0; color: var(--muted); font-size: 13px; }
-    .card-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-    .card { min-height: 150px; padding: 17px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); box-shadow: var(--shadow-sm); }
-    .card-number { color: var(--accent); font-size: 11px; font-weight: 800; letter-spacing: .08em; }
-    .card h3 { margin: 17px 0 6px; font-size: 15px; }
-    .card p { margin: 0; color: var(--muted); font-size: 12px; }
     details { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; box-shadow: var(--shadow-sm); }
     summary { cursor: pointer; padding: 14px 16px; font-weight: 720; }
     .build-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 0 16px 16px; }
@@ -313,6 +308,11 @@
     .dialog-body p { margin: 8px 0 0; }
     .dialog-body ul, .dialog-body ol { margin: 8px 0 0; padding-left: 22px; }
     .dialog-body li + li { margin-top: 7px; }
+    .help-sharing-list { list-style: none; margin-top: 8px !important; padding-left: 0 !important; }
+    .help-sharing-list li { padding: 9px 0; }
+    .help-sharing-list li + li { margin-top: 0; border-top: 1px solid var(--line); }
+    .help-sharing-list strong { display: block; color: var(--text); font-size: 13px; }
+    .help-sharing-list span { display: block; margin-top: 2px; }
     .dialog-note {
       margin-top: 12px;
       padding: 11px 12px;
@@ -404,7 +404,6 @@
       .page-intro { align-items: stretch; flex-direction: column; gap: 10px; }
       .local-badge { align-self: flex-start; }
       .workspace-head, .section-head { align-items: stretch; flex-direction: column; }
-      .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .build-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 520px) {
@@ -417,12 +416,12 @@
       .header-actions { gap: 11px; }
       .language-button { padding-block: 6px; }
       .header-icon-button { padding-block: 6px; }
-      .main { padding-top: 18px; }
-      .page-intro { padding-bottom: 14px; }
+      .main { padding-top: 14px; }
+      .page-intro { padding-bottom: 12px; }
+      .local-badge { display: none; }
       .workspace { padding: 14px; border-radius: 14px; }
       .stats { width: 100%; }
       .stat { flex: 1 1 0; min-width: 0; }
-      .card-grid { grid-template-columns: 1fr; }
       .toolbar, .button-row { width: 100%; }
       .button-row .button { flex: 1 1 auto; }
       .export-row, .export-field { width: 100%; }
@@ -553,15 +552,6 @@
     .support-status { display: inline-flex; align-items: center; gap: 5px; margin-top: 9px; color: var(--muted); font-size: 10px; line-height: 1.45; }
     .support-status[hidden] { display: none !important; }
     .support-status svg { width: 13px; height: 13px; flex: 0 0 auto; }
-    .sharing-guide { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); box-shadow: var(--shadow); }
-    .sharing-guide > summary { display: flex; align-items: center; justify-content: space-between; gap: 18px; min-height: 58px; padding: 14px 18px; cursor: pointer; list-style: none; }
-    .sharing-guide > summary::-webkit-details-marker { display: none; }
-    .sharing-guide-summary { min-width: 0; }
-    .sharing-guide-title { display: block; font-size: 15px; font-weight: 800; }
-    .sharing-guide-body { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; font-weight: 500; }
-    .sharing-guide-chevron { width: 18px; height: 18px; flex: 0 0 auto; color: var(--muted); transition: transform .18s ease; }
-    .sharing-guide[open] .sharing-guide-chevron { transform: rotate(180deg); }
-    .sharing-guide .card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 0 18px 18px; }
     .utility-action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
     .utility-action-grid .button { min-height: 44px; }
     .experimental-button { position: relative; padding-right: 92px; }
@@ -624,9 +614,6 @@
       .save-dialog { width: 100%; max-width: none; margin: auto 0 0; border-width: 1px 0 0; border-radius: 22px 22px 0 0; }
       .save-dialog .dialog-body { padding-bottom: calc(18px + env(safe-area-inset-bottom)); }
       .save-dialog-actions .button { min-height: 48px; }
-      .sharing-guide > summary { min-height: 60px; padding: 14px; }
-      .sharing-guide .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0 14px 14px; }
-      .sharing-guide .card-grid { grid-template-columns: 1fr; }
       .utility-action-grid { grid-template-columns: 1fr; }
       .experimental-button { padding-right: 96px; }
       .print-dialog { width: 100%; max-width: none; height: 100dvh; max-height: 100dvh; margin: 0; border: 0; border-radius: 0; }
@@ -696,8 +683,8 @@
   <main class="main">
     <section class="page-intro" aria-labelledby="heroTitle">
       <div>
-        <h2 id="heroTitle" data-i18n="introTitle">Wi-Fiをかんたんに共有</h2>
-        <p data-i18n="lead">ネットワーク名とパスワードを入力して、QRコード・共有・コピー・大きく表示から選べます。</p>
+        <h1 class="sr-only" id="heroTitle" data-i18n="introTitle">Wi-Fiを共有</h1>
+        <p data-i18n="lead">Wi-Fiの名前とパスワードを入力すると、共有用のQRコードを作れます。相手に見せるほか、画像で送ったり印刷したりできます。</p>
       </div>
       <div class="local-badge">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.6 2.8 8 7 10 4.2-2 7-5.4 7-10V6z"/><path d="m9 12 2 2 4-5"/></svg>
@@ -802,7 +789,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M4 12h16"/><circle cx="12" cy="12" r="9" opacity=".28"/></svg>
               <span data-i18n="saveProfile">このWi-Fiを保存</span>
             </button>
-            <div class="saved-empty" id="savedEmpty" data-i18n="savedEmpty">よく使うWi-Fiをこの端末に保存できます。自動では保存されません。</div>
+            <div class="saved-empty" id="savedEmpty" data-i18n="savedEmpty">よく使うWi-Fiをこの端末に保存できます。</div>
             <div class="saved-list" id="savedList" hidden></div>
           </div>
 
@@ -830,25 +817,6 @@
     </section>
     <!-- APP:END -->
 
-    <section class="shell section">
-      <details class="sharing-guide">
-        <summary>
-          <span class="sharing-guide-summary">
-            <span class="sharing-guide-title" data-i18n="guaranteesTitle">共有方法</span>
-            <span class="sharing-guide-body" data-i18n="guaranteesBody">相手の端末や状況に合わせて選べます。</span>
-          </span>
-          <svg class="sharing-guide-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-        </summary>
-        <div class="card-grid">
-          <article class="card"><div class="card-number">01</div><h3 data-i18n="card1Title">QRコード</h3><p data-i18n="card1Body">相手のスマホのカメラで読み取り、OSの案内からWi-Fiへ接続します。</p></article>
-          <article class="card"><div class="card-number">02</div><h3 data-i18n="card2Title">端末の共有機能</h3><p data-i18n="card2Body">対応ブラウザでは共有シートを開き、AirDropやQuick Shareなどへ渡せます。</p></article>
-          <article class="card"><div class="card-number">03</div><h3 data-i18n="card3Title">コピー</h3><p data-i18n="card3Body">SSIDまたはパスワードを個別にコピーして、設定画面へ貼り付けられます。</p></article>
-          <article class="card"><div class="card-number">04</div><h3 data-i18n="card4Title">大きく表示</h3><p data-i18n="card4Body">PCやQR非対応端末へ手入力するとき、画面いっぱいに表示します。</p></article>
-          <article class="card"><div class="card-number">05</div><h3 data-i18n="card5Title">印刷</h3><p data-i18n="card5Body">A4用のWi-Fi案内を作り、QRコードとSSIDを掲示できます。</p></article>
-          <article class="card"><div class="card-number">06</div><h3 data-i18n="card6Title">NFCタグ</h3><p data-i18n="card6Body">対応AndroidブラウザではWi-Fi情報をNFCタグへ書き込めます（Experimental）。</p></article>
-        </div>
-      </details>
-    </section>
   </main>
 
   <footer><span id="footerName">Wi-Fi共有</span> · MIT License · <span data-i18n="footer">Wi-Fi情報をブラウザで共有</span></footer>
@@ -1014,6 +982,15 @@
         <li data-i18n="helpClearCurrent">「入力中のWi-Fiをクリア」で入力とQR・大きく表示・印刷の内容をリセットできます。保存済みWi-Fi、言語、変更したPNGファイル名は残ります。コピー・共有・保存・印刷済みの内容は取り消せません。</li>
         <li data-i18n="helpStep4">よく使うWi-Fiは「このWi-Fiを保存」を選ぶと、この端末のブラウザ内から呼び出せます。</li>
       </ol>
+      <h3 data-i18n="guaranteesTitle">共有方法</h3>
+      <ul class="help-sharing-list">
+        <li><strong data-i18n="card1Title">QRコード</strong><span data-i18n="card1Body">相手のスマホのカメラで読み取り、OSの案内からWi-Fiへ接続します。</span></li>
+        <li><strong data-i18n="card2Title">端末の共有機能</strong><span data-i18n="card2Body">対応ブラウザでは共有シートを開き、AirDropやQuick Shareなどへ渡せます。</span></li>
+        <li><strong data-i18n="card3Title">コピー</strong><span data-i18n="card3Body">SSIDまたはパスワードを個別にコピーして、設定画面へ貼り付けられます。</span></li>
+        <li><strong data-i18n="card4Title">大きく表示</strong><span data-i18n="card4Body">PCやQR非対応端末へ手入力するとき、画面いっぱいに表示します。</span></li>
+        <li><strong data-i18n="card5Title">印刷</strong><span data-i18n="card5Body">A4用のWi-Fi案内を作り、QRコードとSSIDを掲示できます。</span></li>
+        <li><strong data-i18n="card6Title">NFCタグ</strong><span data-i18n="card6Body">対応AndroidブラウザではWi-Fi情報をNFCタグへ書き込めます（Experimental）。</span></li>
+      </ul>
       <h3 data-i18n="helpPrivacyTitle">プライバシー</h3>
       <p data-i18n="helpPrivacyBody">入力したSSIDとパスワードはブラウザ内だけで処理され、このアプリからサーバーへ送信されません。保存を選んだWi-Fiだけ、この端末のブラウザ内に保存します。</p>
       <h3 data-i18n="helpNotesTitle">注意事項</h3>
@@ -2419,16 +2396,16 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
       const translations = {
         ja: {
           brandMeta: 'Wi-Fi情報をQRコード等で共有', switchLanguage: '英語に切り替え', helpTitle: '使い方と注意事項', close: '閉じる',
-          introTitle: 'Wi-Fiをかんたんに共有', lead: 'ネットワーク名とパスワードを入力して、QRコードを中心に共有・コピー・印刷などへ使えます。', localBadge: '完全ローカル処理',
+          introTitle: 'Wi-Fiを共有', lead: 'Wi-Fiの名前とパスワードを入力すると、共有用のQRコードを作れます。相手に見せるほか、画像で送ったり印刷したりできます。', localBadge: '完全ローカル処理',
           workspaceTitle: 'Wi-Fi情報', workspaceBody: '一度入力すれば、SSIDとパスワードをセットで共有できます。保存するかどうかは自分で選べます。',
           ssidLabel: 'ネットワーク名（SSID）', ssidPlaceholder: 'MyHomeWiFi', passwordLabel: 'パスワード', passwordPlaceholder: 'Wi-Fiパスワード',
           securityLabel: 'セキュリティ', securityWpa: 'WPA / WPA2 / WPA3', securityNone: 'パスワードなし', hiddenLabel: 'SSIDを非公開にしている', hiddenHint: '通常はオフのままで構いません。',
           clearCurrent: '入力中のWi-Fiをクリア', printUnprepared: '印刷する前に「印刷用レイアウト」を開いてください。',
           showPassword: 'パスワードを表示', hidePassword: 'パスワードを隠す', showQr: 'QRコードを表示', otherWays: 'Wi-Fi情報をほかの方法で共有', otherWaysBody: '共有・個別コピー・大きく表示・印刷を利用できます。対応端末ではNFCタグ書き込みも試せます。',
           share: 'Wi-Fi情報を共有', copyPassword: 'パスワードをコピー', copySsid: 'SSIDをコピー', largeDisplay: '大きく表示', printLayout: '印刷用レイアウト', nfcWrite: 'NFCタグに書き込む', privacyShort: 'SSIDとパスワードはサーバーへ送信されません。保存を選んだ場合のみ、この端末のブラウザ内に保存します。',
-          savedTitle: '保存済みWi-Fi', savedEmpty: 'よく使うWi-Fiをこの端末に保存できます。自動では保存されません。', saveProfile: 'このWi-Fiを保存', clearSaved: 'すべて削除', loadSaved: '呼び出す', deleteSaved: '削除', hiddenSaved: '非公開SSID', saveProfileDialogTitle: 'このWi-Fiを保存', profileNameLabel: '表示名', profileNamePlaceholder: '自宅', saveProfileNote: 'SSIDとパスワードをこの端末のブラウザ内に保存します。OSのパスワード管理機能とは異なります。', cancel: 'キャンセル', save: '保存する', update: '更新する',
+          savedTitle: '保存済みWi-Fi', savedEmpty: 'よく使うWi-Fiをこの端末に保存できます。', saveProfile: 'このWi-Fiを保存', clearSaved: 'すべて削除', loadSaved: '呼び出す', deleteSaved: '削除', hiddenSaved: '非公開SSID', saveProfileDialogTitle: 'このWi-Fiを保存', profileNameLabel: '表示名', profileNamePlaceholder: '自宅', saveProfileNote: 'SSIDとパスワードをこの端末のブラウザ内に保存します。OSのパスワード管理機能とは異なります。', cancel: 'キャンセル', save: '保存する', update: '更新する',
           previewTitle: 'QRプレビュー', previewBody: 'QRコードを作るとここにも表示されます。', previewEmpty: 'Wi-Fi情報を入力してQRコードを表示してください。',
-          guaranteesTitle: '共有方法', guaranteesBody: 'QRコードを中心に、相手の端末や状況に合わせて選べます。',
+          guaranteesTitle: '共有方法',
           card1Title: 'QRコード', card1Body: '相手のスマホのカメラで読み取り、OSの案内からWi-Fiへ接続します。',
           card2Title: '端末の共有機能', card2Body: '対応ブラウザでは共有シートを開き、AirDropやQuick Shareなどへ渡せます。',
           card3Title: 'コピー', card3Body: 'SSIDまたはパスワードを個別にコピーして、設定画面へ貼り付けられます。',
@@ -2449,16 +2426,16 @@ global.QRCode=localRequire('./index');global.QRErrorCorrectLevel=localRequire('.
         },
         en: {
           brandMeta: 'Share Wi-Fi by QR code and more', switchLanguage: 'Switch to Japanese', helpTitle: 'How to use & notes', close: 'Close',
-          introTitle: 'Share Wi-Fi easily', lead: 'Enter a network name and password, then use QR code, share, copy, print, and more.', localBadge: 'Fully local processing',
+          introTitle: 'Share Wi-Fi', lead: 'Enter a Wi-Fi network name and password to make a QR code you can show, send as an image, or print.', localBadge: 'Fully local processing',
           workspaceTitle: 'Wi-Fi details', workspaceBody: 'Enter it once and share the SSID and password together. You choose whether to save it on this device.',
           ssidLabel: 'Network name (SSID)', ssidPlaceholder: 'MyHomeWiFi', passwordLabel: 'Password', passwordPlaceholder: 'Wi-Fi password',
           securityLabel: 'Security', securityWpa: 'WPA / WPA2 / WPA3', securityNone: 'No password', hiddenLabel: 'Hidden SSID', hiddenHint: 'Leave this off for most networks.',
           clearCurrent: 'Clear current Wi-Fi', printUnprepared: 'Open Print layout before printing.',
           showPassword: 'Show password', hidePassword: 'Hide password', showQr: 'Show QR code', otherWays: 'Share Wi-Fi details another way', otherWaysBody: 'Use system share, individual copy, large display, or print. NFC tag writing is also available on supported devices.',
           share: 'Share Wi-Fi details', copyPassword: 'Copy password', copySsid: 'Copy SSID', largeDisplay: 'Large display', printLayout: 'Print layout', nfcWrite: 'Write NFC tag', privacyShort: 'SSID and password are not sent to a server. They are stored in this browser only when you choose Save.',
-          savedTitle: 'Saved Wi-Fi', savedEmpty: 'Save frequently used Wi-Fi details on this device. Nothing is saved automatically.', saveProfile: 'Save this Wi-Fi', clearSaved: 'Delete all', loadSaved: 'Load', deleteSaved: 'Delete', hiddenSaved: 'Hidden SSID', saveProfileDialogTitle: 'Save this Wi-Fi', profileNameLabel: 'Display name', profileNamePlaceholder: 'Home', saveProfileNote: 'The SSID and password will be stored in this browser on this device. This is not the same as the OS password manager.', cancel: 'Cancel', save: 'Save', update: 'Update',
+          savedTitle: 'Saved Wi-Fi', savedEmpty: 'Save frequently used Wi-Fi details on this device.', saveProfile: 'Save this Wi-Fi', clearSaved: 'Delete all', loadSaved: 'Load', deleteSaved: 'Delete', hiddenSaved: 'Hidden SSID', saveProfileDialogTitle: 'Save this Wi-Fi', profileNameLabel: 'Display name', profileNamePlaceholder: 'Home', saveProfileNote: 'The SSID and password will be stored in this browser on this device. This is not the same as the OS password manager.', cancel: 'Cancel', save: 'Save', update: 'Update',
           previewTitle: 'QR preview', previewBody: 'Your QR code will also appear here.', previewEmpty: 'Enter Wi-Fi details and show the QR code.',
-          guaranteesTitle: 'Sharing methods', guaranteesBody: 'Use QR code first, then choose what fits the recipient device and situation.',
+          guaranteesTitle: 'Sharing methods',
           card1Title: 'QR code', card1Body: 'Scan with the other phone camera and follow the OS prompt to join Wi-Fi.',
           card2Title: 'System share', card2Body: 'On supported browsers, open the system share sheet for AirDrop, Quick Share, and other apps.',
           card3Title: 'Copy', card3Body: 'Copy the SSID or password individually and paste it into the Wi-Fi settings.',

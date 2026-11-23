@@ -47,7 +47,7 @@ The generated app does not need a local web server for the core QR, copy fallbac
 
 ## Usage
 
-Use **EN / JA** in the header to switch languages. Language, Help, and Close tooltips and accessible labels follow the selected language.
+Use **EN / JA** in the header to switch languages. Language, Help, and Close tooltips and accessible labels follow the selected language. The **How to use & notes** dialog contains a guide to all six sharing methods; the standalone guide below the form has been removed.
 
 1. Enter the network name (SSID).
 2. Enter the password and choose `WPA / WPA2 / WPA3`, `WEP`, or `No password`.
