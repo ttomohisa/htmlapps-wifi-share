@@ -15,7 +15,7 @@ for (const file of ["src/index.template.html", "wifi-share.html"]) {
 }
 
 for (const file of ["src/index.template.html", "wifi-share.html"]) {
-  test(\`\${file}: the hero stays concise and all six sharing methods live in Help\`, () => {
+  test(`${file}: the hero stays concise and all six sharing methods live in Help`, () => {
     const html = fs.readFileSync(path.join(root, file), 'utf8');
     const help = html.split('<!-- APP:HELP:BEGIN -->')[1].split('<!-- APP:HELP:END -->')[0];
     const main = html.split('<main class="main">')[1].split('</main>')[0];
